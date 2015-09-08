@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ********************** 配色 ********************** -->
+    <!-- 通用配色 -->
+    <color name="color_white">#FFFFFFFF</color>
+    <color name="color_black">#FF000000</color>
+    <color name="color_common_white">#DFFFFFFF</color>
+    <color name="color_common_black">#FF222222</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_translucence">#DF222222</color>
+
+</resources>

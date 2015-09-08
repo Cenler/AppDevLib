@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_toast_rectangle"
+    android:gravity="center"
+    android:minWidth="120dp"
+    android:orientation="vertical"
+    android:padding="13.5dp">
+
+    <ImageView
+        android:id="@+id/toast_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="5dip"
+        android:contentDescription="消息图标"
+        android:src="@android:drawable/ic_dialog_alert" />
+
+    <TextView
+        android:id="@+id/toast_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="消息文本"
+        android:text="Message"
+        android:textColor="@color/color_common_white"
+        android:textSize="14sp" />
+
+</LinearLayout>
