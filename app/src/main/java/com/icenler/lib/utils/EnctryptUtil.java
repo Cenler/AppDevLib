@@ -1,5 +1,7 @@
 package com.icenler.lib.utils;
 
+import com.icenler.lib.utils.helper.StringHelper;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -44,7 +46,7 @@ public class EnctryptUtil {
             try {
                 digest = MessageDigest.getInstance(type);
                 digest.update(bytes);
-                target = AppUtil.byte2Hex(digest.digest());
+                target = StringHelper.byte2Hex(digest.digest());
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
