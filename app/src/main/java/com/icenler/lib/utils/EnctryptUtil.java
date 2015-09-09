@@ -44,28 +44,13 @@ public class EnctryptUtil {
             try {
                 digest = MessageDigest.getInstance(type);
                 digest.update(bytes);
-                target = byte2Hex(digest.digest());
+                target = AppUtil.byte2Hex(digest.digest());
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         }
 
         return target;
-    }
-
-    /**
-     * @param bytes
-     * @return 返回字节码的十六进制表示形式
-     */
-    public static String byte2Hex(byte[] bytes) {
-        final String HEX = "0123456789ABCDEF";
-        StringBuffer sb = new StringBuffer();
-        for (byte b : bytes) {
-            sb.append(HEX.charAt((b >> 4) & 0x0F));
-            sb.append(HEX.charAt(b & 0x0F));
-        }
-
-        return sb.toString();
     }
 
 }

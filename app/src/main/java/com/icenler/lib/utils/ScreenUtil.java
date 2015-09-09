@@ -20,7 +20,9 @@ import java.lang.reflect.Field;
  */
 public class ScreenUtil {
 
-    private ScreenUtil() { throw new UnsupportedOperationException("cannot be instantiated"); }
+    private ScreenUtil() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
 
     private static int mWidthPixels = 0;            // 屏幕宽度
     private static int mHeightPixels = 0;           // 屏幕高度
@@ -45,7 +47,7 @@ public class ScreenUtil {
      * @return 根据设备的分辨率从 px(像素) 的单位 转成为 dp
      */
     public static int px2dp(int pxVal) {
-        return (int) (pxVal * metrics.density + 0.5f);
+        return (int) (pxVal / metrics.density + 0.5f);
     }
 
     /**
@@ -53,7 +55,7 @@ public class ScreenUtil {
      * @return 根据设备的分辨率从 ps 的单位 转成为 px(像素)
      */
     public static int sp2px(int spVal) {
-        return (int) (spVal * metrics.density + 0.5f);
+        return (int) (spVal * metrics.scaledDensity + 0.5f);
     }
 
     /**
@@ -61,7 +63,7 @@ public class ScreenUtil {
      * @return 根据设备的分辨率从 px(像素) 的单位 转成为 sp
      */
     public static int px2sp(int pxVal) {
-        return (int) (pxVal * metrics.scaledDensity + 0.5f);
+        return (int) (pxVal / metrics.scaledDensity + 0.5f);
     }
 
     /**

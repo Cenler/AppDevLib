@@ -1,7 +1,9 @@
 package com.icenler.lib.base;
 
 import android.app.Application;
+
 import com.icenler.lib.receiver.ExitAppBroadcast;
+import com.icenler.lib.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -31,7 +33,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mInstance = this;
+        this.mInstance = BaseApplication.this;
+        LogUtil.i(this.getClass().getSimpleName());
+
         initAll();
     }
 
