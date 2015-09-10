@@ -2,7 +2,7 @@ package com.icenler.lib.base;
 
 import android.app.Application;
 
-import com.icenler.lib.receiver.ExitAppBroadcast;
+import com.icenler.lib.receiver.ExitAppReceiver;
 import com.icenler.lib.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -55,7 +55,7 @@ public class BaseApplication extends Application {
      * 退出应用
      */
     public void exitApp() {
-        ExitAppBroadcast.exitApp(this);
+        ExitAppReceiver.exitApp(this);
         Runtime.getRuntime().exit(0);
         // android.os.Process.killProcess(android.os.Process.myPid());
     }

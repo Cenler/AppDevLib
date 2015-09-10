@@ -31,7 +31,7 @@ public class AppUtil {
     /**
      * @return 应用版本号
      */
-    public static int getAppVersion(Context context) {
+    public static int getAppVersionCode(Context context) {
         PackageInfo info = null;
         int versionCode = 1;
         try {
@@ -105,7 +105,7 @@ public class AppUtil {
      * 获取终端唯一标识
      */
     public static String getDeviceID(Context context) {
-        String deviceID = (String) SharedPrefsHelper.get(AppConfig.PREFS_DEVICE_ID, "");
+        String deviceID = SharedPrefsHelper.get(AppConfig.PREFS_DEVICE_ID, "");
         if (StringHelper.isNull(deviceID)) {
             String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
             // Use the Android ID unless it's broken, in which case fallback on deviceId,
@@ -121,6 +121,7 @@ public class AppUtil {
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
+
             // Write the value out to the prefs file
             SharedPrefsHelper.put(AppConfig.PREFS_DEVICE_ID, deviceID);
         }

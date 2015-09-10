@@ -2,8 +2,6 @@ package com.icenler.lib.utils.helper;
 
 import android.text.TextUtils;
 
-import com.icenler.lib.ConstantValue;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +17,7 @@ public class StringHelper {
      * 中文匹配
      */
     public static boolean isChinese(String str) {
-        Pattern pattern = Pattern.compile("^[\u0391-\uffe5]*$");
+        Pattern pattern = Pattern.compile("^[\\u0391-\\uffe5]*$");
         Matcher matcher = pattern.matcher(str);
 
         return matcher.matches();
@@ -29,8 +27,7 @@ public class StringHelper {
      * 邮箱匹配
      */
     public static boolean checkEmail(String str) {
-        // TODO 待完善
-        Pattern pattern = Pattern.compile("");
+        Pattern pattern = Pattern.compile("^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$");
         Matcher matcher = pattern.matcher(str);
 
         return matcher.matches();
@@ -55,19 +52,19 @@ public class StringHelper {
     public static boolean isMobile(String mobiles) {
         // ^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$" or
         // ^[1]([3][0-9]{1}|58|59|88|89)[0-9]{8}$"
-        Pattern CMCC_REG_EX = Pattern.compile("^1(3[4-9]|5[01789]|8[78])[0-9]{8}$");// 移动
-        Pattern CHU_REG_EX = Pattern.compile("^1(3[0-2]|5[256]|8[56])[0-9]{8}$");   // 通通
-        Pattern CHA_REG_EX = Pattern.compile("^1(33|53|8[09])[0-9]{8}$");           // 信信
+        Pattern CMCC_REG_EX = Pattern.compile("^1(3[4-9]|5[01789]|8[78])[0-9]{8}$"); // 移动
+        Pattern CUCC_REG_EX = Pattern.compile("^1(3[0-2]|5[256]|8[56])[0-9]{8}$");   // 联通
+        Pattern CTCC_REG_EX = Pattern.compile("^1(33|53|8[09])[0-9]{8}$");           // 电信
         Pattern pattern = Pattern.compile("^[1]([3][0-9]{1}|58|59|88|89)[0-9]{8}$");
         Matcher matcher = pattern.matcher(mobiles);
 
         if (matcher.matches()) {
             if (CMCC_REG_EX.matcher(mobiles).matches())
-                ConstantValue.MOBILES_TYPE = 0;
-            else if (CHU_REG_EX.matcher(mobiles).matches())
-                ConstantValue.MOBILES_TYPE = 1;
-            else if (CHA_REG_EX.matcher(mobiles).matches())
-                ConstantValue.MOBILES_TYPE = 2;
+                NetworkHelper.MOBILES_TYPE = NetworkHelper.CMCC;
+            else if (CUCC_REG_EX.matcher(mobiles).matches())
+                NetworkHelper.MOBILES_TYPE = NetworkHelper.CUCC;
+            else if (CTCC_REG_EX.matcher(mobiles).matches())
+                NetworkHelper.MOBILES_TYPE = NetworkHelper.CTCC;
 
             return true;
         } else {

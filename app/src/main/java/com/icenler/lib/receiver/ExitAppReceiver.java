@@ -9,7 +9,7 @@ import android.content.Intent;
  * Created by iCenler - 2015/7/14.
  * Description：退出应用广播
  */
-public class ExitAppBroadcast extends BroadcastReceiver {
+public class ExitAppReceiver extends BroadcastReceiver {
 
     public static final String ACTION_EXIT_APP = "icenler.intent.action.EXIT_APP";
 

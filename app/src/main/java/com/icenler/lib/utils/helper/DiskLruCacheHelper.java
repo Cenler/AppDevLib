@@ -72,13 +72,13 @@ public class DiskLruCacheHelper {
             }
         }
 
-        return DiskLruCache.open(dir, AppUtil.getAppVersion(context), DEF_VALUE_COUNT, maxCount);
+        return DiskLruCache.open(dir, AppUtil.getAppVersionCode(context), DEF_VALUE_COUNT, maxCount);
     }
 
     private DiskLruCache generateCache(Context context, String dirName, int maxCount) throws IOException {
         return DiskLruCache.open(
                 getDiskCacheDir(context, dirName),
-                AppUtil.getAppVersion(context),
+                AppUtil.getAppVersionCode(context),
                 DEF_VALUE_COUNT,
                 maxCount);
     }
@@ -412,7 +412,7 @@ public class DiskLruCacheHelper {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(key.getBytes());
-            cacheKey = AppUtil.byte2Hex(digest.digest());
+            cacheKey = StringHelper.byte2Hex(digest.digest());
         } catch (NoSuchAlgorithmException e) {
             cacheKey = String.valueOf(key.hashCode());
         }

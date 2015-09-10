@@ -2,8 +2,6 @@ package com.icenler.lib.view.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by iCenler - 2015/9/10.
- * Description： 微信 TabView
+ * Description： 微信 TabView(使用需实现：OnItemIconTextSelectListener)
  */
 public class TabView extends LinearLayout implements View.OnClickListener {
 
