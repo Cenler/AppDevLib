@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ********************** 字体 ********************** -->
+    <!-- 字体规范 -->
+    <dimen name="text_56">56sp</dimen>
+    <dimen name="text_45">45sp</dimen>
+    <dimen name="text_34">34sp</dimen>
+    <dimen name="text_24">24sp</dimen>
+    <dimen name="text_title">20sp</dimen>
+    <dimen name="text_subhead">16sp</dimen>
+    <dimen name="text_content">14sp</dimen>
+    <dimen name="text_supplement">12sp</dimen>
+    <dimen name="text_label">10sp</dimen>
+
+    <!-- 尺寸属性 -->
+    <dimen name="dimen_separator_line">1dp</dimen>
+    <dimen name="dimen_separator_gap">8dp</dimen>
+
+    <!-- 配色属性 -->
+    <color name="color_separator_line">#FFE1E1E1</color>
+    <color name="color_separator_gap">#FFACACAC</color>
+
+    <!-- 样式属性 -->
+    <style name="Style" /><!-- Root Style 引用 -->
+    <style name="Style.MM">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Style.MW">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Style.WW">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Style.MWLV" parent="Style.MW">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Style.WWLV" parent="Style.WW">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Style.MWLH" parent="Style.MW">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="main_tab_bottom" ><!-- RadioGroup -> RadioButton Style -->
+        <item name="android:textSize">@dimen/text_supplement</item>
+        <item name="android:textColor">@color/color_common_ink</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <style name="SeparatorLine">
+        <item name="android:background">@color/color_separator_line</item>
+    </style>
+
+    <style name="SeparatorLine.Vertical"><!-- 垂直分割线样式 -->
+        <item name="android:layout_width">@dimen/dimen_separator_line</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="SeparatorLine.Horizontal"><!-- 水平分割线样式 -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_separator_line</item>
+    </style>
+
+    <style name="SeparatorGap">
+        <item name="android:background">@color/color_separator_gap</item>
+    </style>
+
+    <style name="SeparatorGap.Horizontal"><!-- 水平分割间距 -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_separator_gap</item>
+    </style>
+
+    <!-- Popup 进入退出动画 -->
+    <style name="tutorial_pop_window_anim">
+        <item name="android:windowEnterAnimation">@anim/anim_tutorial_window_enter</item>
+        <!-- pop显示的动画xml  -->
+        <item name="android:windowExitAnimation">@anim/anim_tutorial_window_exit</item>
+        <!-- pop消失的动画xml  -->
+    </style>
+
+</resources>

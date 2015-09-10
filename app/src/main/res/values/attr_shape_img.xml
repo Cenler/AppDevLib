@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="corner_radius" format="dimension" />
+    <attr name="image_type">
+        <enum name="circle" value="0" />
+        <enum name="round" value="1" />
+    </attr>
+
+    <declare-styleable name="ShapeImageView">
+        <attr name="corner_radius" />
+        <attr name="image_type" />
+    </declare-styleable>
+
+</resources>
