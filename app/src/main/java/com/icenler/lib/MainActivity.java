@@ -17,8 +17,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
-
-        ToastManager.showAlways(this, "Cenler");
     }
 
     @Override
@@ -53,4 +51,5 @@ public class MainActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+    
 }

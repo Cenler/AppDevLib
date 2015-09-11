@@ -21,7 +21,6 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 
 /**
@@ -33,9 +32,9 @@ import java.io.FileOutputStream;
  * 4、阴影图片
  * 5、缩放图片
  */
-public class BitmapUtil {
+public class ImageUtil {
 
-    private BitmapUtil() {
+    private ImageUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -99,6 +98,7 @@ public class BitmapUtil {
      */
     public static void saveBitmap(Context context, Bitmap bmp, String fileName) {
         try {
+            // 默认路径 -> data/data/{packagename}/files/……
             FileOutputStream fileOut = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             bmp.compress(Bitmap.CompressFormat.PNG, 100, fileOut);
             fileOut.flush();
@@ -108,21 +108,13 @@ public class BitmapUtil {
         }
     }
 
-    public static void saveBitmap(Context context, Bitmap bitmap, File file) {
-        saveBitmap(context, bitmap, file.getAbsolutePath());
-    }
-
-    public static void saveBitmap(Context context, Bitmap bitmap, String filePath, String fileName) {
-        saveBitmap(context, bitmap, new File(filePath, fileName).getAbsolutePath());
-    }
-
     /**
-     * @param bitmap
      * @param context
+     * @param bitmap
      * @param radius
      * @return 设置图品高斯模糊效果
      */
-    public static Bitmap blurBitmap(Bitmap bitmap, Context context, float radius) {
+    public static Bitmap blurBitmap(Context context, Bitmap bitmap, float radius) {
         if (Build.VERSION.SDK_INT < 17) {
             return bitmap;
         }

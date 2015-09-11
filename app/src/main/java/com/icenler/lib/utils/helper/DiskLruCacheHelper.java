@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Environment;
 
 import com.icenler.lib.utils.AppUtil;
-import com.icenler.lib.utils.BitmapUtil;
+import com.icenler.lib.utils.ImageUtil;
 import com.icenler.lib.utils.LogUtil;
 
 import org.json.JSONArray;
@@ -286,21 +286,21 @@ public class DiskLruCacheHelper {
     // ============== bitmap 数据 读写 =============
     // =======================================
     public void put(String key, Bitmap bitmap) {
-        put(key, BitmapUtil.bitmap2Bytes(bitmap));
+        put(key, ImageUtil.bitmap2Bytes(bitmap));
     }
 
     public Bitmap getAsBitmap(String key) {
         byte[] bytes = getAsBytes(key);
         if (bytes == null) return null;
 
-        return BitmapUtil.bytes2Bitmap(bytes);
+        return ImageUtil.bytes2Bitmap(bytes);
     }
 
     // =======================================
     // ============= drawable 数据 读写 =============
     // =======================================
     public void put(String key, Drawable value) {
-        put(key, BitmapUtil.drawable2Bitmap(value));
+        put(key, ImageUtil.drawable2Bitmap(value));
     }
 
     public Drawable getAsDrawable(String key) {
@@ -309,7 +309,7 @@ public class DiskLruCacheHelper {
             return null;
         }
 
-        return BitmapUtil.bitmap2Drawable(BitmapUtil.bytes2Bitmap(bytes));
+        return ImageUtil.bitmap2Drawable(ImageUtil.bytes2Bitmap(bytes));
     }
 
     // =======================================

@@ -13,13 +13,15 @@
 
     <!-- 常用配色方案 -->
     <color name="color_main_bg">#EEEEEE</color>
-    <color name="color_common_grey">#ACACAC</color>
-    <color name="color_common_red_assist">#E9554A</color>
-    <color name="color_common_red_assist_action">#E9A190</color>
-    <color name="color_common_green_highlight">#71B44E</color>
-    <color name="color_common_green_highlight_action">#92B47C</color>
-    <color name="color_common_rose">#E4007E</color>
-    <color name="color_common_rose_action">#E47DA1</color>
-    <color name="color_common_orange">#DE9B32</color>
+    <color name="color_grey">#ACACAC</color>
+    <color name="color_red_assist">#E9554A</color>
+    <color name="color_red_assist_action">#E9A190</color>
+    <color name="color_green_highlight">#71B44E</color>
+    <color name="color_green_highlight_action">#92B47C</color>
+    <color name="color_rose">#E4007E</color>
+    <color name="color_rose_action">#E47DA1</color>
+    <color name="color_orange">#DE9B32</color>
+
+    <color name="color_status_bar">#33000000</color>
 
 </resources>

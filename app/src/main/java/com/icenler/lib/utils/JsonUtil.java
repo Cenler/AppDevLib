@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JsonUtils工具类：
- * 采用 Gson and JsonObject 工具实现对 Json 数据的解析封装及互转.
+ * Created by iCenler - 2015/9/9.
+ * Description：JsonUtils工具类
+ * 1、 采用 Gson and JsonObject 工具实现对 Json 数据的解析封装.
  */
 public class JsonUtil {
 
