@@ -5,9 +5,12 @@
     android:layout_gravity="center"
     android:background="@drawable/shape_toast_rectangle"
     android:gravity="center"
-    android:minWidth="120dp"
+    android:minWidth="80dp"
     android:orientation="vertical"
-    android:padding="13.5dp">
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/toast_icon"
@@ -24,7 +27,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="消息文本"
         android:text="Message"
-        android:textColor="@color/color_common_white"
+        android:textColor="@color/color_white"
         android:textSize="14sp" />
 
 </LinearLayout>

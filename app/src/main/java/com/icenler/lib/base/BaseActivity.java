@@ -10,7 +10,7 @@ import com.icenler.lib.receiver.ExitAppReceiver;
  * Created by iCenler - 2015/7/14.
  * Description：Activity 基类
  */
-public abstract class BaseActivity extends Activity {
+public class BaseActivity extends Activity {
 
     private ExitAppReceiver mExitAppReceiver = new ExitAppReceiver();
 

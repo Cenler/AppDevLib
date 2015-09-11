@@ -1,17 +1,24 @@
 package com.icenler.lib;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.icenler.lib.base.BaseActivity;
+import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.utils.manager.ToastManager;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends BaseActivity {
+
+    private long firshTimeOfClickBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        super.setContentView(R.layout.activity_main);
+
+        ToastManager.showAlways(this, "Cenler");
     }
 
     @Override
@@ -34,5 +41,16 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - firshTimeOfClickBackPressed > 2000) {
+            firshTimeOfClickBackPressed = System.currentTimeMillis();
+            ToastManager.show(this, getString(R.string.prompt_exit_app));
+        } else {
+            BaseApplication.getInstance().exitApp();
+            super.onBackPressed();
+        }
     }
 }

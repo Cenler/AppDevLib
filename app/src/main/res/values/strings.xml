@@ -4,5 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="__leak_canary_display_activity_label">开发库Leaks</string>
+    <string name="prompt_exit_app">在按一次退出应用</string>
 
 </resources>
