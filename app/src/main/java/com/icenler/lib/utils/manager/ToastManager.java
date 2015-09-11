@@ -121,9 +121,9 @@ public class ToastManager {
                 e.printStackTrace();
             }
 
-            Method showMethod = mTN.getClass().getDeclaredMethod("show", null);
+            Method showMethod = mTN.getClass().getDeclaredMethod("show", new Class[]{});
             showMethod.setAccessible(true);
-            showMethod.invoke(mTN, null);
+            showMethod.invoke(mTN, new Object[]{});
             isShowing = true;
         } catch (Exception e) {
             e.printStackTrace();

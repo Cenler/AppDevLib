@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.icenler.lib.view.layout;
+package com.icenler.lib.view.support;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MarginLayoutParamsCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -27,50 +28,56 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.icenler.lib.R;
-
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * Helper for layouts that want to support percentage based dimensions.
- * This class collects utility methods that are involved in extracting percentage based dimension
+ * <p/>
+ * <p>This class collects utility methods that are involved in extracting percentage based dimension
  * attributes and applying them to ViewGroup's children. If you would like to implement a layout
  * that supports percentage based dimensions, you need to take several steps:
- * You need a {@link ViewGroup.LayoutParams} subclass in your ViewGroup that implements
- * {@link android.support.percent.PercentLayoutHelper.PercentLayoutParams}.
- * In your {@code LayoutParams(Context c, AttributeSet attrs)} constructor create an instance
+ * <p/>
+ * <ol>
+ * <li> You need a {@link ViewGroup.LayoutParams} subclass in your ViewGroup that implements
+ * {@link com.zhy.android.percent.support.PercentLayoutHelper.PercentLayoutParams}.
+ * <li> In your {@code LayoutParams(Context c, AttributeSet attrs)} constructor create an instance
  * of {@link PercentLayoutInfo} by calling
  * {@link PercentLayoutHelper#getPercentLayoutInfo(Context, AttributeSet)}. Return this
  * object from {@code public PercentLayoutHelper.PercentLayoutInfo getPercentLayoutInfo()}
- * method that you implemented for {@link android.support.percent.PercentLayoutHelper.PercentLayoutParams} interface.
- * Override
+ * method that you implemented for {@link com.zhy.android.percent.support.PercentLayoutHelper.PercentLayoutParams} interface.
+ * <li> Override
  * {@link ViewGroup.LayoutParams#setBaseAttributes(TypedArray, int, int)}
  * with a single line implementation {@code PercentLayoutHelper.fetchWidthAndHeight(this, a,
  * widthAttr, heightAttr);}
- * In your ViewGroup override {@link ViewGroup#generateLayoutParams(AttributeSet)} to return
+ * <li> In your ViewGroup override {@link ViewGroup#generateLayoutParams(AttributeSet)} to return
  * your LayoutParams.
- *
- * In your {@link ViewGroup#onMeasure(int, int)} override, you need to implement following
+ * <li> In your {@link ViewGroup#onMeasure(int, int)} override, you need to implement following
  * pattern:
  * <pre class="prettyprint">
  * protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
- *      mHelper.adjustChildren(widthMeasureSpec, heightMeasureSpec);
- *      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
- *      if (mHelper.handleMeasuredStateTooSmall()) {
- *          super.onMeasure(widthMeasureSpec, heightMeasureSpec);
- *      }
+ * mHelper.adjustChildren(widthMeasureSpec, heightMeasureSpec);
+ * super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+ * if (mHelper.handleMeasuredStateTooSmall()) {
+ * super.onMeasure(widthMeasureSpec, heightMeasureSpec);
  * }
- *
- * In your {@link ViewGroup#onLayout(boolean, int, int, int, int)} override, you need to
+ * }
+ * </pre>
+ * <li>In your {@link ViewGroup#onLayout(boolean, int, int, int, int)} override, you need to
  * implement following pattern:
  * <pre class="prettyprint">
  * protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
- *      super.onLayout(changed, left, top, right, bottom);
- *      mHelper.restoreOriginalParams();
+ * super.onLayout(changed, left, top, right, bottom);
+ * mHelper.restoreOriginalParams();
  * }
+ * </pre>
+ * </ol>
  */
 public class PercentLayoutHelper {
+
     private static final String TAG = "PercentLayout";
 
     private final ViewGroup mHost;
@@ -84,8 +91,7 @@ public class PercentLayoutHelper {
      * that reads layout_width and layout_height attribute values without throwing an exception if
      * they aren't present.
      */
-    public static void fetchWidthAndHeight(ViewGroup.LayoutParams params, TypedArray array,
-                                           int widthAttr, int heightAttr) {
+    public static void fetchWidthAndHeight(ViewGroup.LayoutParams params, TypedArray array, int widthAttr, int heightAttr) {
         params.width = array.getLayoutDimension(widthAttr, 0);
         params.height = array.getLayoutDimension(heightAttr, 0);
     }
@@ -105,168 +111,352 @@ public class PercentLayoutHelper {
         }
         int widthHint = View.MeasureSpec.getSize(widthMeasureSpec);
         int heightHint = View.MeasureSpec.getSize(heightMeasureSpec);
+
+        if (Log.isLoggable(TAG, Log.DEBUG))
+            Log.d(TAG, "widthHint = " + widthHint + " , heightHint = " + heightHint);
+
         for (int i = 0, N = mHost.getChildCount(); i < N; i++) {
             View view = mHost.getChildAt(i);
             ViewGroup.LayoutParams params = view.getLayoutParams();
+
             if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "should adjust " + view + " " + params);
             }
+
             if (params instanceof PercentLayoutParams) {
-                PercentLayoutInfo info =
-                        ((PercentLayoutParams) params).getPercentLayoutInfo();
+                PercentLayoutInfo info = ((PercentLayoutParams) params).getPercentLayoutInfo();
                 if (Log.isLoggable(TAG, Log.DEBUG)) {
                     Log.d(TAG, "using " + info);
                 }
                 if (info != null) {
-                    //textsize percent support
-                    if (view instanceof TextView) {
-                        PercentLayoutInfo.PercentVal textSizePercent = info.textSizePercent;
-                        if (textSizePercent != null) {
-                            int base = textSizePercent.isBaseWidth ? widthHint : heightHint;
-                            float textSize = (int) (base * textSizePercent.percent);
-                            ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-                        }
-                    }
+                    supportTextSize(widthHint, heightHint, view, info);
+                    supportPadding(widthHint, heightHint, view, info);
+                    supportMinOrMaxDimesion(widthHint, heightHint, view, info);
+
                     if (params instanceof ViewGroup.MarginLayoutParams) {
-                        info.fillMarginLayoutParams((ViewGroup.MarginLayoutParams) params,
-                                widthHint, heightHint);
+                        info.fillMarginLayoutParams((ViewGroup.MarginLayoutParams) params, widthHint, heightHint);
                     } else {
                         info.fillLayoutParams(params, widthHint, heightHint);
                     }
                 }
             }
         }
+
+
     }
+
+    private void supportPadding(int widthHint, int heightHint, View view, PercentLayoutInfo info) {
+        int left = view.getPaddingLeft(), right = view.getPaddingRight(), top = view.getPaddingTop(), bottom = view.getPaddingBottom();
+        PercentLayoutInfo.PercentVal percentVal = info.paddingLeftPercent;
+        if (percentVal != null) {
+            int base = percentVal.isBaseWidth ? widthHint : heightHint;
+            left = (int) (base * percentVal.percent);
+        }
+        percentVal = info.paddingRightPercent;
+        if (percentVal != null) {
+            int base = percentVal.isBaseWidth ? widthHint : heightHint;
+            right = (int) (base * percentVal.percent);
+        }
+
+        percentVal = info.paddingTopPercent;
+        if (percentVal != null) {
+            int base = percentVal.isBaseWidth ? widthHint : heightHint;
+            top = (int) (base * percentVal.percent);
+        }
+
+        percentVal = info.paddingBottomPercent;
+        if (percentVal != null) {
+            int base = percentVal.isBaseWidth ? widthHint : heightHint;
+            bottom = (int) (base * percentVal.percent);
+        }
+        view.setPadding(left, top, right, bottom);
+
+
+    }
+
+    private void supportMinOrMaxDimesion(int widthHint, int heightHint, View view, PercentLayoutInfo info) {
+        try {
+            Class clazz = view.getClass();
+            invokeMethod("setMaxWidth", widthHint, heightHint, view, clazz, info.maxWidthPercent);
+            invokeMethod("setMaxHeight", widthHint, heightHint, view, clazz, info.maxHeightPercent);
+            invokeMethod("setMinWidth", widthHint, heightHint, view, clazz, info.minWidthPercent);
+            invokeMethod("setMinHeight", widthHint, heightHint, view, clazz, info.minHeightPercent);
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void invokeMethod(String methodName, int widthHint, int heightHint, View view, Class clazz, PercentLayoutInfo.PercentVal percentVal) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        if (Log.isLoggable(TAG, Log.DEBUG))
+            Log.d(TAG, methodName + " ==> " + percentVal);
+        if (percentVal != null) {
+            Method setMaxWidthMethod = clazz.getMethod(methodName, int.class);
+            setMaxWidthMethod.setAccessible(true);
+            int base = percentVal.isBaseWidth ? widthHint : heightHint;
+            setMaxWidthMethod.invoke(view, (int) (base * percentVal.percent));
+        }
+    }
+
+    private void supportTextSize(int widthHint, int heightHint, View view, PercentLayoutInfo info) {
+        //textsize percent support
+        PercentLayoutInfo.PercentVal textSizePercent = info.textSizePercent;
+        if (textSizePercent == null) return;
+
+        int base = textSizePercent.isBaseWidth ? widthHint : heightHint;
+        float textSize = (int) (base * textSizePercent.percent);
+
+        //Button 和 EditText 是TextView的子类
+        if (view instanceof TextView) {
+            ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        }
+    }
+
 
     /**
      * Constructs a PercentLayoutInfo from attributes associated with a View. Call this method from
      * {@code LayoutParams(Context c, AttributeSet attrs)} constructor.
      */
-    public static PercentLayoutInfo getPercentLayoutInfo(Context context,
-                                                         AttributeSet attrs) {
+    public static PercentLayoutInfo getPercentLayoutInfo(Context context, AttributeSet attrs) {
         PercentLayoutInfo info = null;
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.PercentLayout_Layout);
+        TypedArray array = context.obtainStyledAttributes(attrs, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout);
 
-        //  float value = array.getFraction(R.styleable.PercentLayout_Layout_layout_widthPercent, 1, 1,
-        //        -1f);
-        String sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_widthPercent);
-        PercentLayoutInfo.PercentVal percentVal = getPercentVal(sizeStr, true);
+        info = setWidthAndHeightVal(array, info);
+
+        info = setMarginRelatedVal(array, info);
+
+        info = setTextSizeSupportVal(array, info);
+
+        info = setMinMaxWidthHeightRelatedVal(array, info);
+
+        info = setPaddingRelatedVal(array, info);
+
+        Log.d(TAG, "constructed: " + info);
+
+        array.recycle();
+
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "constructed: " + info);
+        }
+        return info;
+    }
+
+    private static PercentLayoutInfo setWidthAndHeightVal(TypedArray array, PercentLayoutInfo info) {
+        PercentLayoutInfo.PercentVal percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_widthPercent, true);
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent width: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.widthPercent = percentVal;
         }
-        //value = array.getFraction(R.styleable.PercentLayout_Layout_layout_heightPercent, 1, 1, -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_heightPercent);
-        percentVal = getPercentVal(sizeStr, false);
+        percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_heightPercent, false);
 
-        if (sizeStr != null) {
+        if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent height: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.heightPercent = percentVal;
         }
 
-        // value = array.getFraction(R.styleable.PercentLayout_Layout_layout_marginPercent, 1, 1, -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_marginPercent);
-        // just for judge
-        percentVal = getPercentVal(sizeStr, false);
+        return info;
+    }
+
+    private static PercentLayoutInfo setTextSizeSupportVal(TypedArray array, PercentLayoutInfo info) {
+        //textSizePercent 默认以高度作为基准
+        PercentLayoutInfo.PercentVal percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_textSizePercent, false);
+        if (percentVal != null) {
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                Log.v(TAG, "percent text size: " + percentVal.percent);
+            }
+            info = checkForInfoExists(info);
+            info.textSizePercent = percentVal;
+        }
+
+        return info;
+    }
+
+    private static PercentLayoutInfo setMinMaxWidthHeightRelatedVal(TypedArray array, PercentLayoutInfo info) {
+        //maxWidth
+        PercentLayoutInfo.PercentVal percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_maxWidthPercent,
+                true);
+        if (percentVal != null) {
+            checkForInfoExists(info);
+            info.maxWidthPercent = percentVal;
+        }
+        //maxHeight
+        percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_maxHeightPercent,
+                false);
+        if (percentVal != null) {
+            checkForInfoExists(info);
+            info.maxHeightPercent = percentVal;
+        }
+        //minWidth
+        percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_minWidthPercent,
+                true);
+        if (percentVal != null) {
+            checkForInfoExists(info);
+            info.minWidthPercent = percentVal;
+        }
+        //minHeight
+        percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_minHeightPercent,
+                false);
+        if (percentVal != null) {
+            checkForInfoExists(info);
+            info.minHeightPercent = percentVal;
+        }
+
+        return info;
+    }
+
+    private static PercentLayoutInfo setMarginRelatedVal(TypedArray array, PercentLayoutInfo info) {
+        //默认margin参考宽度
+        PercentLayoutInfo.PercentVal percentVal = getPercentVal(array,
+                        com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_marginPercent,
+                        true);
 
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent margin: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
-            info.leftMarginPercent = getPercentVal(sizeStr, true);
-            info.topMarginPercent = getPercentVal(sizeStr, false);
-            info.rightMarginPercent = getPercentVal(sizeStr, true);
-            info.bottomMarginPercent = getPercentVal(sizeStr, false);
+            info = checkForInfoExists(info);
+            info.leftMarginPercent = percentVal;
+            info.topMarginPercent = percentVal;
+            info.rightMarginPercent = percentVal;
+            info.bottomMarginPercent = percentVal;
         }
-        //value = array.getFraction(R.styleable.PercentLayout_Layout_layout_marginLeftPercent, 1, 1,
-        //      -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_marginLeftPercent);
-        percentVal = getPercentVal(sizeStr, true);
+
+        percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_marginLeftPercent, true);
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent left margin: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.leftMarginPercent = percentVal;
         }
 
-        //  value = array.getFraction(R.styleable.PercentLayout_Layout_layout_marginTopPercent, 1, 1,
-        //        -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_marginTopPercent);
-        percentVal = getPercentVal(sizeStr, false);
+        percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_marginTopPercent, false);
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent top margin: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.topMarginPercent = percentVal;
         }
-        // value = array.getFraction(R.styleable.PercentLayout_Layout_layout_marginRightPercent, 1, 1,
-        //       -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_marginRightPercent);
-        percentVal = getPercentVal(sizeStr, true);
+
+        percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_marginRightPercent, true);
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent right margin: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.rightMarginPercent = percentVal;
         }
-        //value = array.getFraction(R.styleable.PercentLayout_Layout_layout_marginBottomPercent, 1, 1,
-        //  -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_marginBottomPercent);
-        percentVal = getPercentVal(sizeStr, false);
+
+        percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_marginBottomPercent, false);
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent bottom margin: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.bottomMarginPercent = percentVal;
         }
-        // value = array.getFraction(R.styleable.PercentLayout_Layout_layout_marginStartPercent, 1, 1,
-        //       -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_marginStartPercent);
-        percentVal = getPercentVal(sizeStr, true);
+        percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_marginStartPercent, true);
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent start margin: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.startMarginPercent = percentVal;
         }
-        //value = array.getFraction(R.styleable.PercentLayout_Layout_layout_marginEndPercent, 1, 1,
-        //      -1f);
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_marginEndPercent);
-        percentVal = getPercentVal(sizeStr, true);
+
+        percentVal = getPercentVal(array, com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_marginEndPercent, true);
         if (percentVal != null) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "percent end margin: " + percentVal.percent);
             }
-            info = info != null ? info : new PercentLayoutInfo();
+            info = checkForInfoExists(info);
             info.endMarginPercent = percentVal;
         }
 
-        //textSizePercent
-        sizeStr = array.getString(R.styleable.PercentLayout_Layout_layout_textSizePercent);
-        percentVal = getPercentVal(sizeStr, false);
+        return info;
+    }
+
+    /**
+     * 设置paddingPercent相关属性
+     *
+     * @param array
+     * @param info
+     */
+    private static PercentLayoutInfo setPaddingRelatedVal(TypedArray array, PercentLayoutInfo info) {
+        //默认padding以宽度为标准
+        PercentLayoutInfo.PercentVal percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_paddingPercent,
+                true);
         if (percentVal != null) {
-            if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                Log.v(TAG, "percent text size: " + percentVal.percent);
-            }
-            info = info != null ? info : new PercentLayoutInfo();
-            info.textSizePercent = percentVal;
+            info = checkForInfoExists(info);
+            info.paddingLeftPercent = percentVal;
+            info.paddingRightPercent = percentVal;
+            info.paddingBottomPercent = percentVal;
+            info.paddingTopPercent = percentVal;
         }
-        array.recycle();
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, "constructed: " + info);
+
+
+        percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_paddingLeftPercent,
+                true);
+        if (percentVal != null) {
+            info = checkForInfoExists(info);
+            info.paddingLeftPercent = percentVal;
         }
+
+        percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_paddingRightPercent,
+                true);
+        if (percentVal != null) {
+            info = checkForInfoExists(info);
+            info.paddingRightPercent = percentVal;
+        }
+
+        percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_paddingTopPercent,
+                true);
+        if (percentVal != null) {
+            info = checkForInfoExists(info);
+            info.paddingTopPercent = percentVal;
+        }
+
+        percentVal = getPercentVal(array,
+                com.zhy.android.percent.support.R.styleable.PercentLayout_Layout_layout_paddingBottomPercent,
+                true);
+        if (percentVal != null) {
+            info = checkForInfoExists(info);
+            info.paddingBottomPercent = percentVal;
+        }
+
+        return info;
+    }
+
+    private static PercentLayoutInfo.PercentVal getPercentVal(TypedArray array, int index, boolean baseWidth) {
+        String sizeStr = array.getString(index);
+        PercentLayoutInfo.PercentVal percentVal = getPercentVal(sizeStr, baseWidth);
+        return percentVal;
+    }
+
+
+    @NonNull
+    private static PercentLayoutInfo checkForInfoExists(PercentLayoutInfo info) {
+        info = info != null ? info : new PercentLayoutInfo();
         return info;
     }
 
@@ -356,8 +546,7 @@ public class PercentLayoutHelper {
                 Log.d(TAG, "should handle measured state too small " + view + " " + params);
             }
             if (params instanceof PercentLayoutParams) {
-                PercentLayoutInfo info =
-                        ((PercentLayoutParams) params).getPercentLayoutInfo();
+                PercentLayoutInfo info = ((PercentLayoutParams) params).getPercentLayoutInfo();
                 if (info != null) {
                     if (shouldHandleMeasuredWidthTooSmall(view, info)) {
                         needsSecondMeasure = true;
@@ -407,25 +596,40 @@ public class PercentLayoutHelper {
                 this.percent = percent;
                 this.isBaseWidth = isBaseWidth;
             }
+
+            @Override
+            public String toString() {
+                return "PercentVal{" +
+                        "percent=" + percent +
+                        ", isBaseWidth=" + isBaseWidth +
+                        '}';
+            }
         }
 
         public PercentVal widthPercent;
-
         public PercentVal heightPercent;
 
         public PercentVal leftMarginPercent;
-
         public PercentVal topMarginPercent;
-
         public PercentVal rightMarginPercent;
-
         public PercentVal bottomMarginPercent;
-
         public PercentVal startMarginPercent;
-
         public PercentVal endMarginPercent;
 
         public PercentVal textSizePercent;
+
+        //1.0.4 those attr for some views' setMax/min Height/Width method
+        public PercentVal maxWidthPercent;
+        public PercentVal maxHeightPercent;
+        public PercentVal minWidthPercent;
+        public PercentVal minHeightPercent;
+
+        //1.0.6 add padding supprot
+        public PercentVal paddingLeftPercent;
+        public PercentVal paddingRightPercent;
+        public PercentVal paddingTopPercent;
+        public PercentVal paddingBottomPercent;
+
 
         /* package */ final ViewGroup.MarginLayoutParams mPreservedParams;
 
@@ -442,13 +646,7 @@ public class PercentLayoutHelper {
             // Preserve the original layout params, so we can restore them after the measure step.
             mPreservedParams.width = params.width;
             mPreservedParams.height = params.height;
-            /*
-            if (widthPercent >= 0) {
-                params.width = (int) (widthHint * widthPercent);
-            }
-            if (heightPercent >= 0) {
-                params.height = (int) (heightHint * heightPercent);
-            }*/
+
             if (widthPercent != null) {
                 int base = widthPercent.isBaseWidth ? widthHint : heightHint;
                 params.width = (int) (base * widthPercent.percent);
@@ -515,11 +713,26 @@ public class PercentLayoutHelper {
 
         @Override
         public String toString() {
-            return String.format("PercentLayoutInformation width: %f height %f, margins (%f, %f, "
-                            + " %f, %f, %f, %f)", widthPercent, heightPercent, leftMarginPercent,
-                    topMarginPercent, rightMarginPercent, bottomMarginPercent, startMarginPercent,
-                    endMarginPercent);
-
+            return "PercentLayoutInfo{" +
+                    "widthPercent=" + widthPercent +
+                    ", heightPercent=" + heightPercent +
+                    ", leftMarginPercent=" + leftMarginPercent +
+                    ", topMarginPercent=" + topMarginPercent +
+                    ", rightMarginPercent=" + rightMarginPercent +
+                    ", bottomMarginPercent=" + bottomMarginPercent +
+                    ", startMarginPercent=" + startMarginPercent +
+                    ", endMarginPercent=" + endMarginPercent +
+                    ", textSizePercent=" + textSizePercent +
+                    ", maxWidthPercent=" + maxWidthPercent +
+                    ", maxHeightPercent=" + maxHeightPercent +
+                    ", minWidthPercent=" + minWidthPercent +
+                    ", minHeightPercent=" + minHeightPercent +
+                    ", paddingLeftPercent=" + paddingLeftPercent +
+                    ", paddingRightPercent=" + paddingRightPercent +
+                    ", paddingTopPercent=" + paddingTopPercent +
+                    ", paddingBottomPercent=" + paddingBottomPercent +
+                    ", mPreservedParams=" + mPreservedParams +
+                    '}';
         }
 
         /**

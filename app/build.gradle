@@ -31,6 +31,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.zhy:percent-support-extends:1.0.6'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
