@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <com.icenler.lib.view.timer.TimerTextView
+        android:id="@+id/count_down_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

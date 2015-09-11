@@ -23,9 +23,4 @@ public class AppConfig {
         // MIUI_CN = Typeface.createFromAsset(BaseApplication.getInstance().getAssets(), "fonts/DroidSansFallback.ttf");
     }
 
-    /**
-     *  默认字符编码
-     */
-    public static final String CHARSET_ENCODING = "UTF-8";
-
 }

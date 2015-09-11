@@ -4,27 +4,33 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
-public class RapidProductText extends ScalableIconText {
+/**
+ * Created by iCenler - 2015/9/11.
+ * Description：计时器
+ */
+public class TimerTextView extends TextView {
+
+    private static final String TICK_FORMAT = "剩余 %d 天";
 
     private ProductTickTimer timer;
     private long lastReadTime;
     private long totalLeavingTime;
 
+    private boolean isShowDays = true; //是否显示天数
     private boolean isShowMill = true; //是否显示毫秒
 
-    public RapidProductText(Context context, AttributeSet attrs) {
+    public TimerTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RapidProductText(Context context, AttributeSet attrs, int defStyle) {
+    public TimerTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     /**
-     * must call before onDisplay()
-     *
-     * @param time original count-down-time
+     * 初始化倒计时时间，并开始计时
      */
     public void init(long time) {
         totalLeavingTime = time;
@@ -32,7 +38,7 @@ public class RapidProductText extends ScalableIconText {
     }
 
     /**
-     * call in onDisplay()
+     * 开始显示
      */
     public void start() {
         if (timer != null) timer.cancel();
@@ -46,17 +52,20 @@ public class RapidProductText extends ScalableIconText {
             timer = new ProductTickTimer(totalLeavingTime, 100L);
             timer.start();
         } else {
-            showNone();
+            finish();
         }
     }
 
+    /**
+     * 取消显示
+     */
     public void stop() {
         if (timer != null) {
             timer.cancel();
             timer = null;
         }
         totalLeavingTime = 0L;
-        showNone();
+        finish();
     }
 
     /**
@@ -71,35 +80,36 @@ public class RapidProductText extends ScalableIconText {
         lastReadTime = SystemClock.elapsedRealtime();
     }
 
-    private static final String TICK_FORMAT = "剩余 %d 天";
-
+    /**
+     * 以1/10秒为单位倒数计时
+     */
     private class ProductTickTimer extends CountDownTimer {
-
-        int day, hour, min, sec, csec;
-        String header = "";
-        long leaving;
+        private int day, hour, min, sec, csec;
+        private long leaving;
+        private String remainingTime = "";
 
         public ProductTickTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
-            long centi_second = millisInFuture / 100L;
-            if (centi_second > 0L) {
-                day = (int) (centi_second / 864000L);
-                hour = (int) (centi_second % 864000L / 36000L);
-                min = (int) (centi_second % 36000L / 600L);
-                sec = (int) (centi_second % 600L / 10L);
-                csec = (int) (centi_second % 10L);
-                header = getDateTimer(day, hour, min, sec);
+            long second = millisInFuture / 100L;
+            if (second > 0L) {
+                day = (int) (second / 864000L);
+                hour = (int) (second % 864000L / 36000L);
+                min = (int) (second % 36000L / 600L);
+                sec = (int) (second % 600L / 10L);
+                csec = (int) (second % 10L);
+                remainingTime = getFormatTimer(day, hour, min, sec);
             }
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
+            // 没0.1s回调一次
             leaving = millisUntilFinished;
             int d = day, h = hour, m = min, s = sec, c = csec;
 
             if (c-- == 0) {
                 c = 9;
-                header = getDateTimer(d, h, m, s);
+                remainingTime = getFormatTimer(d, h, m, s);
                 if (s-- == 0) {
                     s = 59;
                     if (m-- == 0) {
@@ -107,7 +117,7 @@ public class RapidProductText extends ScalableIconText {
                         if (h-- == 0) {
                             h = 23;
                             if (d-- == 0) {
-                                showNone();
+                                finish();
                                 return;
                             }
                         }
@@ -115,8 +125,7 @@ public class RapidProductText extends ScalableIconText {
                 }
             }
 
-            //setText( header + c);
-            setText("还剩" + header);
+            setText(remainingTime);
             day = d;
             hour = h;
             min = m;
@@ -126,19 +135,19 @@ public class RapidProductText extends ScalableIconText {
 
         @Override
         public void onFinish() {
-            showNone();
+            finish();
         }
 
     }
 
-    private String getDayRemain(int d, int h, int m, int s, int c) {
+    private String getFormatDays(int d, int h, int m, int s, int c) {
         if (d > 0)
             return String.format(TICK_FORMAT, d + 1);
         else
             return "最后 1 天";
     }
 
-    private String getDateTimer(int d, int h, int m, int s) {
+    private String getFormatTimer(int d, int h, int m, int s) {
         if (d > 0) {
             if (isShowMill)
                 return String.format("%d天%d时%d分%d秒", d, h, m, s);
@@ -153,7 +162,11 @@ public class RapidProductText extends ScalableIconText {
         }
     }
 
-    void showNone() {
-        setText(getDateTimer(0, 0, 0, 0));
+    /**
+     * 倒计时结束
+     */
+    private void finish() {
+        this.setText(getFormatTimer(0, 0, 0, 0));
     }
+
 }

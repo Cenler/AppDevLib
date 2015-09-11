@@ -64,7 +64,7 @@ public class BaseApplication extends Application {
         config.imageDownloader(new BaseImageDownloader(context, 5 * 1000, 30 * 1000)); // connectTimeout (5 s), readTimeout (30 s)超时时间
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());// 缓存文件名称 key 转换方式
         config.tasksProcessingOrder(QueueProcessingType.LIFO);//设置加载显示图片队列进程
-        // config.writeDebugLogs(); // 日志记录
+        config.writeDebugLogs(); // 日志记录
 
         // Initialize ImageLoader with onfiguration.
         ImageLoader.getInstance().init(config.build());

@@ -1,15 +1,23 @@
 package com.icenler.lib;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.icenler.lib.base.BaseActivity;
 import com.icenler.lib.base.BaseApplication;
 import com.icenler.lib.utils.manager.ToastManager;
+import com.icenler.lib.view.timer.TimerTextView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class MainActivity extends BaseActivity {
+
+    @Bind(R.id.count_down_tv)
+    TimerTextView mTimer;
 
     private long firshTimeOfClickBackPressed;
 
@@ -17,6 +25,19 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        init();
+    }
+
+    private void init() {
+        mTimer.init(6000000);
+        mTimer.start();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mTimer.stop();
+            }
+        }, 20000000);
     }
 
     @Override
@@ -51,5 +72,5 @@ public class MainActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
-    
+
 }

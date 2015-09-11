@@ -40,7 +40,7 @@ public class BaseActivity extends Activity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明导航栏
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.color_status_bar);
+            tintManager.setStatusBarTintResource(R.color.color_status_bar_translucence);
         }
     }
 
