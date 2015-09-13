@@ -1,23 +1,24 @@
 package com.icenler.lib;
 
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.view.PagerAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.icenler.lib.base.BaseActivity;
 import com.icenler.lib.base.BaseApplication;
 import com.icenler.lib.utils.manager.ToastManager;
-import com.icenler.lib.view.timer.TimerTextView;
+import com.icenler.lib.view.AutoScrollViewPager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.count_down_tv)
-    TimerTextView mTimer;
+    @Bind(R.id.auto_pager_view)
+    AutoScrollViewPager mViewPager;
 
     private long firshTimeOfClickBackPressed;
 
@@ -26,18 +27,48 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         init();
     }
 
+    /**
+     * TODO 工作安排：
+     * 2、 导入全球特卖 头部广告布局
+     * 3、 引入 Dialog
+     * 4、 处理带处理项
+     */
     private void init() {
-        mTimer.init(6000000);
-        mTimer.start();
-        new Handler().postDelayed(new Runnable() {
+        final int[] colors = {R.color.color_green_highlight,
+                R.color.color_red_assist,
+                R.color.color_rose};
+        mViewPager.setAdapter(new PagerAdapter() {
             @Override
-            public void run() {
-                mTimer.stop();
+            public int getCount() {
+                return 3;
             }
-        }, 20000000);
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                View view = new View(MainActivity.this);
+                view.setBackgroundResource(colors[position%3]);
+
+                container.addView(view);
+                return view;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((View) object);
+            }
+        });
+        mViewPager.setInterval(2000);
+        mViewPager.startAutoScroll();
+        mViewPager.startAutoScroll(2500);
     }
 
     @Override
