@@ -1,24 +1,17 @@
 package com.icenler.lib;
 
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.icenler.lib.base.BaseActivity;
 import com.icenler.lib.base.BaseApplication;
 import com.icenler.lib.utils.manager.ToastManager;
-import com.icenler.lib.view.AutoScrollViewPager;
+import com.icenler.lib.view.dialog.SimpleProgressDialog;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-
-    @Bind(R.id.auto_pager_view)
-    AutoScrollViewPager mViewPager;
 
     private long firshTimeOfClickBackPressed;
 
@@ -34,41 +27,11 @@ public class MainActivity extends BaseActivity {
     /**
      * TODO 工作安排：
      * 2、 导入全球特卖 头部广告布局
-     * 3、 引入 Dialog
      * 4、 处理带处理项
+     * 5、 pinned-section-listview
      */
     private void init() {
-        final int[] colors = {R.color.color_green_highlight,
-                R.color.color_red_assist,
-                R.color.color_rose};
-        mViewPager.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return 3;
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                View view = new View(MainActivity.this);
-                view.setBackgroundResource(colors[position%3]);
-
-                container.addView(view);
-                return view;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView((View) object);
-            }
-        });
-        mViewPager.setInterval(2000);
-        mViewPager.startAutoScroll();
-        mViewPager.startAutoScroll(2500);
+        SimpleProgressDialog.show(getFragmentManager());
     }
 
     @Override

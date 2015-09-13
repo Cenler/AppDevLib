@@ -11,4 +11,15 @@
         <item name="android:windowTranslucentNavigation">true</item><!-- 沉浸式状态栏属性 -->
     </style>
 
+    <!-- SimpleDialog 加载框样式 -->
+    <style name="SimpleDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/color_transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
 </resources>
