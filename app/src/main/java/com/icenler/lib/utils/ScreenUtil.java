@@ -2,10 +2,12 @@ package com.icenler.lib.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
 
 import java.lang.reflect.Field;
@@ -123,6 +125,18 @@ public class ScreenUtil {
         }
 
         return sbarH;
+    }
+
+    /**
+     * @param context
+     * @return Toolbar 高度
+     */
+    public static int getToolbarHeight(Context context) {
+        final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{R.attr.actionBarSize});
+        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+
+        return toolbarHeight;
     }
 
     /**

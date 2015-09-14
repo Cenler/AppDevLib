@@ -1,4 +1,4 @@
-package com.icenler.lib;
+package com.icenler.lib.ui;
 
 import android.graphics.Typeface;
 

@@ -103,7 +103,7 @@ public class BaseApplication extends Application {
     public void exitApp() {
         ExitAppReceiver.exitApp(this);
         Runtime.getRuntime().exit(0);
-        // android.os.Process.killProcess(android.os.Process.myPid());
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
 }
