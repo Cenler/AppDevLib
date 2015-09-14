@@ -1,17 +1,15 @@
 package com.icenler.lib;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.icenler.lib.base.BaseActivity;
 import com.icenler.lib.base.BaseApplication;
 import com.icenler.lib.utils.manager.ToastManager;
-import com.icenler.lib.view.dialog.SimpleProgressDialog;
+import com.icenler.lib.view.swiplayout.SwipeBackActivity;
+import com.icenler.lib.view.swiplayout.SwipeBackLayout;
 
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends SwipeBackActivity {
 
     private long firshTimeOfClickBackPressed;
 
@@ -26,34 +24,29 @@ public class MainActivity extends BaseActivity {
 
     /**
      * TODO 工作安排：
-     * 2、 导入全球特卖 头部广告布局
      * 4、 处理带处理项
      * 5、 pinned-section-listview
      */
     private void init() {
-        SimpleProgressDialog.show(getFragmentManager());
-    }
+        SwipeBackLayout mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_ALL);
+        // mSwipeBackLayout.setEdgeSize();
+        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
+            @Override
+            public void onScrollStateChange(int state, float scrollPercent) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+            }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            @Override
+            public void onEdgeTouch(int edgeFlag) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+            }
 
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void onScrollOverThreshold() {
+
+            }
+        });
     }
 
     @Override

@@ -9,6 +9,7 @@
         <!-- 全局主题配置 -->
         <item name="android:windowTranslucentStatus">true</item><!-- 沉浸式状态栏属性 -->
         <item name="android:windowTranslucentNavigation">true</item><!-- 沉浸式状态栏属性 -->
+        <item name="android:windowIsTranslucent">true</item><!-- SwipeBack 黑屏处理 -->
     </style>
 
     <!-- SimpleDialog 加载框样式 -->
