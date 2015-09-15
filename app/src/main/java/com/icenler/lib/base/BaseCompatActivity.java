@@ -1,9 +1,9 @@
 package com.icenler.lib.base;
 
-import android.app.Activity;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.icenler.lib.R;
@@ -11,10 +11,10 @@ import com.icenler.lib.receiver.ExitAppReceiver;
 import com.icenler.lib.utils.manager.SystemBarTintManager;
 
 /**
- * Created by iCenler - 2015/7/14.
- * Description：Activity 基类
+ * Created by iCenler - 2015/9/15：
+ * Description：不支持沉浸式状态栏 具体问题待排查
  */
-public class BaseActivity extends Activity {
+public class BaseCompatActivity extends AppCompatActivity {
 
     private ExitAppReceiver mExitAppReceiver = new ExitAppReceiver();
 

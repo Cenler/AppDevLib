@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/news_list_card_view"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
@@ -9,25 +9,23 @@
     card_view:cardElevation="2dp">
 
     <LinearLayout
-        android:id="@+id/ll_card_parent"
+        android:id="@+id/item_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/iv_cover"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
-            android:text="今天是七夕节..."
+            android:text="今天天气不错哦..."
+            android:textColor="@color/color_blue"
             android:textSize="18sp" />
 
     </LinearLayout>

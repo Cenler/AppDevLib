@@ -7,12 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.base.BaseCompatActivity;
 import com.icenler.lib.ui.fragment.TestFragment;
 import com.icenler.lib.utils.manager.ToastManager;
 
@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseCompatActivity {
 
     @Bind(R.id.coordinatorLayout)
     CoordinatorLayout mContainer;
@@ -62,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
         mPager.setOffscreenPageLimit(3);
         mPager.setAdapter(mAdapter);
         mTabs.setupWithViewPager(mPager);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 
     @Override

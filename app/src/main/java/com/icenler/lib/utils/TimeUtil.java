@@ -2,6 +2,9 @@ package com.icenler.lib.utils;
 
 import android.os.SystemClock;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by iCenler - 2015/7/14.
  * Description：时间相关工具类
@@ -17,6 +20,13 @@ public class TimeUtil {
         long timeOffset = serverTime - cur;
 
         return System.currentTimeMillis() / 1000 + timeOffset;
+    }
+
+    /**
+     * @return 当前时间
+     */
+    private String getCurrentTimestamp() {
+        return new SimpleDateFormat("k:m:s:S a").format(new Date());
     }
 
     static long mDelayFixedStart;

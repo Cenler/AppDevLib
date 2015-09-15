@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:checkable="true"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_messages"
+            android:checkable="true"
+            android:title="Tools" />
+        <item
+            android:id="@+id/nav_friends"
+            android:checkable="true"
+            android:title="Help" />
+        <item
+            android:id="@+id/nav_discussion"
+            android:checkable="true"
+            android:title="About" />
+    </group>
+
+    <item android:title="Sub items">
+        <menu>
+            <item
+                android:checkable="true"
+                android:title="Sub item child" />
+
+            <item
+                android:id="@+id/exit_app"
+                android:checkable="true"
+                android:title="Exit" />
+        </menu>
+    </item>
+
+</menu>

@@ -2,6 +2,7 @@ package com.icenler.lib.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.icenler.lib.R;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -31,7 +33,6 @@ public class TestFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
 
     private String mTitle = "";
-    private List mData;
 
     public static Fragment newFragment(Bundle bundle) {
         Fragment fragment = new TestFragment();
@@ -62,7 +63,7 @@ public class TestFragment extends Fragment {
 
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.color_blue);
-        mAdapter = new CardItemAdapter(getActivity(), mData);
+        mAdapter = new CardItemAdapter(getActivity(), Arrays.asList(R.mipmap.img01, R.mipmap.img02, R.mipmap.img03));
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
@@ -71,16 +72,21 @@ public class TestFragment extends Fragment {
     private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }, 2500);
         }
     };
 
     private class CardItemAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
         private Context mContext;
-        private List mData;
+        private List<Integer> mData;
 
-        public CardItemAdapter(Context context, List data) {
+        public CardItemAdapter(Context context, List<Integer> data) {
             mContext = context;
             mData = data;
         }
@@ -92,20 +98,22 @@ public class TestFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(CardViewHolder holder, int position) {
-            mData.get(position);
+            holder.mCardLayout.setBackgroundResource(mData.get(position % 3));
         }
 
         @Override
         public int getItemCount() {
-            return mData.size();
+            return mData.size() * 10;
         }
     }
 
-    private class CardViewHolder extends RecyclerView.ViewHolder {
+    class CardViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.item_ll)
+        ViewGroup mCardLayout;
 
         public CardViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
