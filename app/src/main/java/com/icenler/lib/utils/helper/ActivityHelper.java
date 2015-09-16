@@ -36,12 +36,23 @@ public class ActivityHelper {
             ComponentName cn = new ComponentName("com.qihoo.appstore", "com.qihoo.appstore.activities.SearchDistributionActivity");
             intent.setComponent(cn);
             intent.setData(Uri.parse("market://details?id=" + context.getPackageName()));
-            if (!AppUtil.isActivityContext(context))
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (Exception e) {
             ToastManager.show(context, "您没有安装应用商城");
         }
+    }
+
+    /**
+     * 内容分享
+     */
+    public static void doShare(Context context, String subject, String content) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, content);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
 }

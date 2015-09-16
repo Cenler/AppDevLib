@@ -2,17 +2,23 @@ package com.icenler.lib.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
 import com.icenler.lib.base.BaseCompatActivity;
+import com.icenler.lib.ui.activity.AboutActivity;
 import com.icenler.lib.ui.fragment.TestFragment;
 import com.icenler.lib.utils.manager.ToastManager;
 
@@ -24,6 +30,11 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseCompatActivity {
 
+
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @Bind(R.id.nav_view)
+    NavigationView mNavView;
     @Bind(R.id.coordinatorLayout)
     CoordinatorLayout mContainer;
     @Bind(R.id.tabs_layout)
@@ -50,6 +61,19 @@ public class MainActivity extends BaseCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.action_about:
+                AboutActivity.startMe(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * TODO 待办项：
      * 4、 处理带处理项
@@ -58,6 +82,15 @@ public class MainActivity extends BaseCompatActivity {
      */
     private void init() {
         setSupportActionBar(mToolbar);
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setDisplayUseLogoEnabled(true);
+
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.action_open_menu, R.string.action_close_menu);
+        mDrawerToggle.syncState();
+        mDrawerToggle.setToolbarNavigationClickListener(null);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
         TabPagerAdapter mAdapter = new TabPagerAdapter(getSupportFragmentManager());
         mPager.setOffscreenPageLimit(3);
         mPager.setAdapter(mAdapter);

@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.itangqi.buildingblocks.ui.activity.AboutActivity">
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@mipmap/icon_share"
+        android:orderInCategory="99"
+        android:title="分享"
+        app:showAsAction="always" />
+</menu>

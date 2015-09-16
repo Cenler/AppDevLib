@@ -9,11 +9,18 @@
         <!-- 全局主题配置 -->
         <item name="android:windowTranslucentStatus">true</item><!-- 沉浸式状态栏属性 -->
         <item name="android:windowTranslucentNavigation">true</item><!-- 沉浸式状态栏属性 -->
-        <item name="android:windowIsTranslucent">true</item><!-- SwipeBack 黑屏处理 -->
         <item name="colorPrimaryDark">#0288D1</item><!-- Statebar Color 5.0支持 -->
         <item name="colorPrimary">#03A9F4</item><!-- Toolbar Color -->
         <item name="colorAccent">#FF4081</item><!-- Metral Design -->
         <item name="android:textColorPrimary">#FFFFFF</item>
+    </style>
+
+    <style name="SwipeBackTheme" parent="BaseAppTheme">
+        <item name="android:windowIsTranslucent">true</item><!-- SwipeBack 黑屏处理 -->
+    </style>
+
+    <style name="CollapsingToolbarTitleStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/transparent</item>
     </style>
 
     <!-- BaseDialog 基本样式 -->
