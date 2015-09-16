@@ -1,9 +1,11 @@
 package com.icenler.lib.base;
 
+import android.annotation.TargetApi;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.icenler.lib.R;
@@ -34,14 +36,28 @@ public class BaseFragmentActivity extends FragmentActivity {
     /**
      * 沉浸式状态栏设置
      */
-    private void initSystemBar() {
+    protected void initSystemBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);    //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明导航栏
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.color_status_bar_translucence);
+            setTranslucentStatus(true);
         }
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.color_status_bar_translucence);
+    }
+
+    @TargetApi(19)
+    protected void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     /**

@@ -7,6 +7,7 @@
 
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- 全局主题配置 -->
+        <item name="android:screenOrientation">portrait</item><!-- 横竖屏锁定 -->
         <item name="android:windowTranslucentStatus">true</item><!-- 沉浸式状态栏属性 -->
         <item name="android:windowTranslucentNavigation">true</item><!-- 沉浸式状态栏属性 -->
         <item name="colorPrimaryDark">#0288D1</item><!-- Statebar Color 5.0支持 -->

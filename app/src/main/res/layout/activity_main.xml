@@ -7,13 +7,15 @@
 
     <include layout="@layout/content_container" />
 
+    <!-- android:fitsSystemWindows="true" 无效待排查原因：1、 可尝试外部附加一层布局 -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="260dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:fitsSystemWindows="false"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.AppCompat.Light"
         app:headerLayout="@layout/menu_header_layout"
         app:menu="@menu/menu_drawer" />
 

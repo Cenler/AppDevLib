@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- 带阴影的图形 -->
     <item>
         <shape android:shape="rectangle">
             <solid android:color="#10000000" />
@@ -8,7 +9,9 @@
         </shape>
     </item>
 
-    <item android:bottom="2dp">
+    <item
+        android:bottom="2dp"
+        android:right="2dp">
         <shape android:shape="rectangle">
             <solid android:color="#FFFFFF" />
             <corners android:radius="3dp" />

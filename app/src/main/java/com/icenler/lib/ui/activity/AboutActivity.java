@@ -2,15 +2,19 @@ package com.icenler.lib.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
+import android.widget.TextView;
 
 import com.icenler.lib.R;
+import com.icenler.lib.utils.AppUtil;
 import com.icenler.lib.utils.helper.ActivityHelper;
+import com.icenler.lib.utils.manager.SystemBarTintManager;
 import com.icenler.lib.view.swiplayout.SwipeBackCompatActivity;
 
 import butterknife.Bind;
@@ -22,6 +26,10 @@ public class AboutActivity extends SwipeBackCompatActivity {
     Toolbar mToolbar;
     @Bind(R.id.collapsing_toolbar)
     CollapsingToolbarLayout mToolbarLayout;
+    @Bind(R.id.version_tv)
+    TextView appVersion;
+    @Bind(R.id.coordinator_layout)
+    CoordinatorLayout mCoordinatorLayout;
 
     public static void startMe(Context context) {
         Intent intent = new Intent(context, AboutActivity.class);
@@ -31,15 +39,26 @@ public class AboutActivity extends SwipeBackCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
 
-        mToolbarLayout.setTitle("关于");
+        mToolbarLayout.setTitle(getString(R.string.about_app));
+        appVersion.setText(String.format("Version: %s", AppUtil.getAppVersionName(this)));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    protected void initSystemBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(android.R.color.transparent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
