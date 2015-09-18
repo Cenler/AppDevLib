@@ -40,7 +40,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Description：调色板 mColorPicker.getColor() 获取当前选中色值
+ * Description:璋冭壊鏉垮伐鍏凤紝閫氳繃 mColorPicker.getColor() 鑾峰彇褰撳墠閫変腑甯冨眬
  */
 public class ColorPicker extends View {
 

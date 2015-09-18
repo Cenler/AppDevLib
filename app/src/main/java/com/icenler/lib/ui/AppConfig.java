@@ -2,6 +2,9 @@ package com.icenler.lib.ui;
 
 import android.graphics.Typeface;
 
+import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.utils.AppUtil;
+
 /**
  * Created by iCenler - 2015/7/17.
  * Description：App 全局配置
@@ -10,6 +13,10 @@ public class AppConfig {
 
     /* SharedPrefrens */
     public static String PREFS_DEVICE_ID = "device_id";
+    public static String PREFS_DEVICE_UUID = "device_uuid";
+
+    /* Config Params */
+    public static String APP_NAME = AppUtil.getAppVersionName(BaseApplication.getInstance());
 
     /* Font Typeface */
     public static Typeface FZHHJT;// 方正行黑简体

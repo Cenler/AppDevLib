@@ -14,6 +14,8 @@
         <item name="colorPrimary">#03A9F4</item><!-- Toolbar Color -->
         <item name="colorAccent">#FF4081</item><!-- Metral Design -->
         <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+        <item name="android:windowReenterTransition">@android:transition/slide_bottom</item>
     </style>
 
     <style name="SwipeBackTheme" parent="BaseAppTheme">

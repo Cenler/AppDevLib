@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
@@ -53,6 +54,8 @@ public class MainActivity extends BaseCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 

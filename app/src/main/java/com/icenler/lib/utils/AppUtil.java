@@ -3,6 +3,7 @@ package com.icenler.lib.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -10,8 +11,9 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
-import com.icenler.lib.ui.AppConfig;
+import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.ui.AppConfig;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 import com.icenler.lib.utils.helper.StringHelper;
 
@@ -58,6 +60,24 @@ public class AppUtil {
         }
 
         return versionName;
+    }
+
+    /**
+     * @return 应用名称
+     */
+    public String getAppName(Context context) {
+        String applicationName;
+        PackageManager packageManager;
+        ApplicationInfo applicationInfo;
+        try {
+            packageManager = context.getPackageManager();
+            applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
+            applicationName = (String) packageManager.getApplicationLabel(applicationInfo);
+        } catch (Exception e) {
+            applicationName = context.getString(R.string.app_name);
+        }
+
+        return applicationName;
     }
 
     /**
@@ -122,11 +142,42 @@ public class AppUtil {
                 throw new RuntimeException(e);
             }
 
-            // Write the value out to the prefs file
             SharedPrefsHelper.put(AppConfig.PREFS_DEVICE_ID, deviceID);
         }
 
         return deviceID;
     }
 
+
+    /**
+     * 获取应用唯一标识
+     *
+     * @param context
+     * @param appName
+     * @return
+     */
+    public static String getDeviceUUID(Context context, String appName) {
+        String pullToken = SharedPrefsHelper.get(AppConfig.PREFS_DEVICE_UUID, "");
+        if (pullToken == null) {
+            UUID uuid;
+            final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            // Use the Android ID unless it's broken, in which case fallback on deviceId,
+            // unless it's not available, then fallback on a random number which we store
+            // to a prefs file
+            try {
+                if (!"9774d56d682e549c".equals(androidId)) {
+                    uuid = UUID.nameUUIDFromBytes((androidId + appName).getBytes("utf8"));
+                } else {
+                    final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                    uuid = deviceId != null ? UUID.nameUUIDFromBytes((deviceId + appName).getBytes("utf8")) : UUID.randomUUID();
+                }
+            } catch (Exception e) {
+                uuid = UUID.randomUUID();
+            }
+            pullToken = uuid.toString();
+            SharedPrefsHelper.put(AppConfig.PREFS_DEVICE_UUID, pullToken);
+        }
+
+        return pullToken;
+    }
 }
