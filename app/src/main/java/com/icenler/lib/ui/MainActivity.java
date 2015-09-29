@@ -16,7 +16,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
@@ -54,8 +53,6 @@ public class MainActivity extends BaseCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -91,11 +88,8 @@ public class MainActivity extends BaseCompatActivity {
     }
 
     /**
-     * TODO 待办项：
-     * 4、 处理带处理项
-     * 5、 pinned-section-listview
-     * 6、 SwipeMenuListView
-     * 7、 PREFS_DEVICE_ID AppName
+     * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
+     * - http://www.jianshu.com/collection/5139d555c94d
      */
     private void init() {
         setSupportActionBar(mToolbar);
@@ -133,7 +127,7 @@ public class MainActivity extends BaseCompatActivity {
 
     private class TabPagerAdapter extends FragmentStatePagerAdapter {
 
-        private List<String> tabTitle = Arrays.asList("普天同庆", "日月同辉", "流光普照", "日月星城", "浩瀚星宇");
+        private List<String> tabTitle = Arrays.asList("iBox", "Tools", "View");
 
         public TabPagerAdapter(FragmentManager fm) {
             super(fm);

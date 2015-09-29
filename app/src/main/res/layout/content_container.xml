@@ -25,9 +25,12 @@
             android:id="@+id/tabs_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabMode="scrollable"
-            app:tabTextColor="@android:color/white" />
+            android:background="#03A9F4"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/color_red_assist"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/color_red_assist"
+            app:tabTextColor="@color/color_white" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
