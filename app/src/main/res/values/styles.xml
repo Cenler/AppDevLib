@@ -8,14 +8,10 @@
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- 全局主题配置 -->
         <item name="android:screenOrientation">portrait</item><!-- 横竖屏锁定 -->
-        <item name="android:windowTranslucentStatus">true</item><!-- 沉浸式状态栏属性 -->
-        <item name="android:windowTranslucentNavigation">true</item><!-- 沉浸式状态栏属性 -->
-        <item name="colorPrimaryDark">#0288D1</item><!-- Statebar Color 5.0支持 -->
-        <item name="colorPrimary">#03A9F4</item><!-- Toolbar Color -->
-        <item name="colorAccent">#FF4081</item><!-- Metral Design -->
-        <item name="android:textColorPrimary">#FFFFFF</item>
-        <item name="android:windowExitTransition">@android:transition/explode</item>
-        <item name="android:windowReenterTransition">@android:transition/slide_bottom</item>
+        <item name="colorPrimaryDark">@color/color_ink</item><!-- Statebar Color 5.0支持 -->
+        <item name="colorPrimary">@color/color_ink</item><!-- Toolbar Color -->
+        <item name="colorAccent">@color/color_blue</item><!-- Metral Design -->
+        <item name="android:textColorPrimary">#FFCFCFCF</item>
     </style>
 
     <style name="SwipeBackTheme" parent="BaseAppTheme">

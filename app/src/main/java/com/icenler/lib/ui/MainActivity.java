@@ -16,6 +16,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.Window;
 
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
@@ -25,6 +27,9 @@ import com.icenler.lib.ui.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,6 +59,7 @@ public class MainActivity extends BaseCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
+        setOverFlowShowingAlways();
         ButterKnife.bind(this);
 
         init();
@@ -63,15 +69,49 @@ public class MainActivity extends BaseCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.float_action_btn:
-                SnackbarManager.show(mContainer, "滑动移除");
+                SnackbarManager.show(mContainer, "向右滑动移除");
                 break;
+        }
+    }
+
+    private void setOverFlowShowingAlways() {
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field field = config.getClass().getDeclaredField("sHasPermanentMenuKey");
+            field.setAccessible(true);
+            field.set(config, true);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        // 显示 OverFlow 中 Item 的图标
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    method.setAccessible(true);
+                    method.invoke(menu, true);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
     }
 
     @Override
@@ -96,6 +136,7 @@ public class MainActivity extends BaseCompatActivity {
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayUseLogoEnabled(true);
+        mActionBar.setDisplayShowTitleEnabled(true);
 
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.action_open_menu, R.string.action_close_menu);
         mDrawerToggle.syncState();

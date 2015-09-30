@@ -9,8 +9,8 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:fitsSystemWindows="true"
         android:clipToPadding="false"
+        android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <!-- Title 显示异常，待排查 -->
@@ -25,7 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_blue"
+                android:background="@color/color_ink"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -41,7 +41,7 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="简单 - 快速 - 高效"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/color_common_white"
                     android:textSize="18sp" />
 
                 <TextView
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Version 1.0.1"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/color_common_white"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -58,7 +58,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

@@ -52,7 +52,7 @@
 
     <style name="main_tab_bottom" ><!-- RadioGroup -> RadioButton Style -->
         <item name="android:textSize">@dimen/text_supplement</item>
-        <item name="android:textColor">@color/color_common_ink</item>
+        <item name="android:textColor">@color/color_ink</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:drawablePadding">2dp</item>

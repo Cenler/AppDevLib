@@ -5,11 +5,18 @@
         <item
             android:id="@+id/nav_home"
             android:checkable="true"
+            android:icon="@mipmap/icon_action_home"
             android:title="Home" />
     </group>
 
     <item android:title="">
         <menu>
+            <item
+                android:id="@+id/action_setting"
+                android:checkable="true"
+                android:title="Setting"
+                android:icon="@mipmap/icon_action_setting"/>
+
             <item
                 android:id="@+id/exit_app"
                 android:checkable="true"
