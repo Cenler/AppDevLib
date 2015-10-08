@@ -18,22 +18,27 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabMode="scrollable"
-            app:tabTextColor="@android:color/white" />
+            android:background="@color/color_common_white"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#FF45C01A"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#FF45C01A"
+            app:tabTextColor="#FF666666" />
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <include layout="@layout/widget_floating_action_button" />

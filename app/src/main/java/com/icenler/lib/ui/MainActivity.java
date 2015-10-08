@@ -1,5 +1,6 @@
 package com.icenler.lib.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.Window;
 
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseApplication;
@@ -25,6 +28,9 @@ import com.icenler.lib.ui.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,6 +60,7 @@ public class MainActivity extends BaseCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
+        setOverFlowShowingAlways();
         ButterKnife.bind(this);
 
         init();
@@ -63,15 +70,49 @@ public class MainActivity extends BaseCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.float_action_btn:
-                SnackbarManager.show(mContainer, "滑动移除");
+                SnackbarManager.show(mContainer, "向右滑动移除");
                 break;
+        }
+    }
+
+    private void setOverFlowShowingAlways() {
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field field = config.getClass().getDeclaredField("sHasPermanentMenuKey");
+            field.setAccessible(true);
+            field.set(config, true);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        // 显示 OverFlow 中 Item 的图标
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    method.setAccessible(true);
+                    method.invoke(menu, true);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
     }
 
     @Override
@@ -88,17 +129,15 @@ public class MainActivity extends BaseCompatActivity {
     }
 
     /**
-     * TODO 待办项：
-     * 4、 处理带处理项
-     * 5、 pinned-section-listview
-     * 6、 SwipeMenuListView
-     * 7、 PREFS_DEVICE_ID AppName
+     * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
+     * - http://www.jianshu.com/collection/5139d555c94d
      */
     private void init() {
         setSupportActionBar(mToolbar);
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayUseLogoEnabled(true);
+        mActionBar.setDisplayShowTitleEnabled(true);
 
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.action_open_menu, R.string.action_close_menu);
         mDrawerToggle.syncState();
@@ -130,7 +169,7 @@ public class MainActivity extends BaseCompatActivity {
 
     private class TabPagerAdapter extends FragmentStatePagerAdapter {
 
-        private List<String> tabTitle = Arrays.asList("普天同庆", "日月同辉", "流光普照", "日月星城", "浩瀚星宇");
+        private List<String> tabTitle = Arrays.asList("iBox", "Tools", "View");
 
         public TabPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -153,6 +192,32 @@ public class MainActivity extends BaseCompatActivity {
         public CharSequence getPageTitle(int position) {
             return tabTitle.get(position);
         }
+    }
+
+    /**
+     * 颜色加深处理
+     *
+     * @param RGBValues RGB的值，由alpha（透明度）、red（红）、green（绿）、blue（蓝）构成，
+     *                  Android中我们一般使用它的16进制，
+     *                  例如："#FFAABBCC",最左边到最右每两个字母就是代表alpha（透明度）、
+     *                  red（红）、green（绿）、blue（蓝）。每种颜色值占一个字节(8位)，值域0~255
+     *                  所以下面使用移位的方法可以得到每种颜色的值，然后每种颜色值减小一下，在合成RGB颜色，颜色就会看起来深一些了
+     *                  Palette.Builder from = Palette.from(bitmap);
+     *                  Palette generate = from.generate();
+     *                  generate.getDarkMutedSwatch().getRgb();
+     * @return
+     */
+    private int colorBurn(int RGBValues) {
+        int alpha = RGBValues >> 24;
+        int red = RGBValues >> 16 & 0xFF;
+        int green = RGBValues >> 8 & 0xFF;
+        int blue = RGBValues & 0xFF;
+
+        red = (int) Math.floor(red * (1 - 0.1));
+        green = (int) Math.floor(green * (1 - 0.1));
+        blue = (int) Math.floor(blue * (1 - 0.1));
+
+        return Color.rgb(red, green, blue);
     }
 
 }

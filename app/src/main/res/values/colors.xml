@@ -5,9 +5,9 @@
     <!-- 通用配色 -->
     <color name="color_white">#FFFFFFFF</color>
     <color name="color_black">#FF000000</color>
-    <color name="color_common_white">#DFFFFFFF</color>
+    <color name="color_ink">#FF303537</color>
+    <color name="color_common_white">#FFFBFBFB</color>
     <color name="color_common_black">#FF222222</color>
-    <color name="color_common_ink">#FF626262</color>
     <color name="color_transparent">#00000000</color>
     <color name="color_translucence">#DF222222</color>
 
