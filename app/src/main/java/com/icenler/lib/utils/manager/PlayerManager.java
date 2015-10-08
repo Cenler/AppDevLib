@@ -13,8 +13,8 @@ import com.icenler.lib.base.BaseApplication;
 import java.io.IOException;
 
 /**
- * 音乐播放管理类
- * 需要权限android.permission.MODIFY_AUDIO_SETTINGS
+ * Created by iCenler - 2015/10/8.
+ * Description：音乐播放管理类(需要权限android.permission.MODIFY_AUDIO_SETTINGS)
  */
 public class PlayerManager {
 
@@ -139,19 +139,69 @@ public class PlayerManager {
     }
 
     /**
+     * 提高音量
+     */
+    public void raiseVolume() {
+        /*int mode = audioManager.getMode();
+        if (mode == AudioManager.MODE_IN_CALL || mode == AudioManager.MODE_IN_COMMUNICATION){
+            int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            if (currentVolume < audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL)) {
+                audioManager.adjustStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                        AudioManager.ADJUST_RAISE, AudioManager.FX_FOCUS_NAVIGATION_UP);
+            }
+        } else if (mode == AudioManager.MODE_NORMAL){
+            int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            if (currentVolume < audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE, AudioManager.FX_FOCUS_NAVIGATION_UP);
+            }
+        }*/
+        int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (currentVolume < audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                    AudioManager.ADJUST_RAISE, AudioManager.FX_FOCUS_NAVIGATION_UP);
+        }
+    }
+
+    /**
+     * 降低音量
+     */
+    public void lowerVolume() {
+        /*int mode = audioManager.getMode();
+        if (mode == AudioManager.MODE_IN_CALL || mode == AudioManager.MODE_IN_COMMUNICATION){
+            int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            if (currentVolume < audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL)) {
+                audioManager.adjustStreamVolume(AudioManager.STREAM_VOICE_CALL,
+                        AudioManager.ADJUST_LOWER, AudioManager.FX_FOCUS_NAVIGATION_UP);
+            }
+        } else if (mode == AudioManager.MODE_NORMAL){
+            int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            if (currentVolume < audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER, AudioManager.FX_FOCUS_NAVIGATION_UP);
+            }
+        }*/
+        int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (currentVolume < audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                    AudioManager.ADJUST_LOWER, AudioManager.FX_FOCUS_NAVIGATION_UP);
+        }
+    }
+
+    /**
      * 耳机插入拔出广播接收器
      */
     class HeadsetReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            switch (action){
+            switch (action) {
                 //插入和拔出耳机会触发此广播
                 case Intent.ACTION_HEADSET_PLUG:
                     int state = intent.getIntExtra("state", 0);
-                    if (state == 1){
+                    if (state == 1) {
                         playerManager.changeToHeadset();
-                    } else if (state == 0){
+                    } else if (state == 0) {
                         playerManager.changeToSpeaker();
                     }
                     break;
