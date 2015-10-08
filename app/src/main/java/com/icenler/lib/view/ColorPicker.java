@@ -40,7 +40,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Description£ºµ÷É«°å mColorPicker.getColor() »ñÈ¡µ±Ç°Ñ¡ÖĞÉ«Öµ
+ * Descriptionï¼šè°ƒè‰²æ¿ mColorPicker.getColor() è·å–å½“å‰é€‰ä¸­è‰²å€¼
  */
 public class ColorPicker extends View {
 
