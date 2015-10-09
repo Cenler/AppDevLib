@@ -41,31 +41,27 @@ public class ScreenUtil {
      * @return 根据设备的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dp2px(int dpVal) {
-        return (int) (dpVal * metrics.density + 0.5f);
+        return Math.round(dpVal * metrics.density);
     }
 
     /**
      * @param pxVal
      * @return 根据设备的分辨率从 px(像素) 的单位 转成为 dp
      */
-    public static int px2dp(int pxVal) {
-        return (int) (pxVal / metrics.density + 0.5f);
-    }
+    public static int px2dp(int pxVal) { return Math.round(pxVal / metrics.density); }
 
     /**
      * @param spVal
      * @return 根据设备的分辨率从 ps 的单位 转成为 px(像素)
      */
-    public static int sp2px(int spVal) {
-        return (int) (spVal * metrics.scaledDensity + 0.5f);
-    }
+    public static int sp2px(int spVal) { return Math.round(spVal * metrics.scaledDensity); }
 
     /**
      * @param pxVal
      * @return 根据设备的分辨率从 px(像素) 的单位 转成为 sp
      */
     public static int px2sp(int pxVal) {
-        return (int) (pxVal / metrics.scaledDensity + 0.5f);
+        return Math.round(pxVal / metrics.scaledDensity);
     }
 
     /**

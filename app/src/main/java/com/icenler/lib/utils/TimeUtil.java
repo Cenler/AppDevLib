@@ -11,6 +11,10 @@ import java.util.Date;
  */
 public class TimeUtil {
 
+    private TimeUtil() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /**
      * @param serverTime 服务器时间
      * @return 经过服务器时间修正过的系统时间（单位：秒）

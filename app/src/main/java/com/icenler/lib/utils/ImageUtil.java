@@ -19,6 +19,8 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -225,6 +227,50 @@ public class ImageUtil {
         Bitmap dstbmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
         return dstbmp;
+    }
+
+    private static final Canvas sCanvas = new Canvas();
+
+    public static Bitmap createBitmapFromView(View view) {
+        if (view instanceof ImageView) {
+            Drawable drawable = ((ImageView) view).getDrawable();
+            if (drawable != null && drawable instanceof BitmapDrawable) {
+                return ((BitmapDrawable) drawable).getBitmap();
+            }
+        }
+        view.clearFocus();
+        Bitmap bitmap = createBitmapSafely(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888, 1);
+        if (bitmap != null) {
+            synchronized (sCanvas) {
+                Canvas canvas = sCanvas;
+                canvas.setBitmap(bitmap);
+                view.draw(canvas);
+                canvas.setBitmap(null);
+            }
+        }
+        return bitmap;
+    }
+
+    /**
+     * 安全创建位图
+     *
+     * @param width
+     * @param height
+     * @param config
+     * @param retryCount
+     * @return
+     */
+    public static Bitmap createBitmapSafely(int width, int height, Bitmap.Config config, int retryCount) {
+        try {
+            return Bitmap.createBitmap(width, height, config);
+        } catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            if (retryCount > 0) {
+                System.gc();
+                return createBitmapSafely(width, height, config, retryCount--);
+            }
+            return null;
+        }
     }
 
 }
