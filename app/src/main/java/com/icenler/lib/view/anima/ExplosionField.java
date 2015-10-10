@@ -38,7 +38,7 @@ import java.util.Random;
 
 /**
  * Created by iCenler - 2015/10/9.
- * Description£ºÁ£×Ó±¬Õ¨Ğ§¹û
+ * Descriptionï¼šç²’å­çˆ†ç‚¸æ•ˆæœ
  */
 public class ExplosionField extends View {
 
@@ -91,6 +91,11 @@ public class ExplosionField extends View {
         explosion.start();
     }
 
+    /**
+     * æ‰§è¡ŒåŠ¨ç”»
+     *
+     * @param view
+     */
     public void explode(final View view) {
         Rect r = new Rect();
         view.getGlobalVisibleRect(r);
