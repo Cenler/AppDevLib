@@ -3,17 +3,15 @@ package com.icenler.lib.view.anima;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import com.icenler.lib.R;
-
 import java.lang.ref.WeakReference;
 
 /**
  * Layout Transition 动画演示
  */
 public class Part4TransitionController extends TransitionController {
-    private static final int[] VIEW_IDS = {
-            R.id.input_view, R.id.input_done, R.id.translation
-    };
+
+    // 定义需要变换的控件应用
+    private static final int[] VIEW_IDS = {};
 
     Part4TransitionController(WeakReference<Activity> activityWeakReference, AnimatorBuilder animatorBuilder) {
         super(activityWeakReference, animatorBuilder);
@@ -28,18 +26,18 @@ public class Part4TransitionController extends TransitionController {
     @Override
     protected void enterInputMode(Activity activity) {
         createTransitionAnimator(activity);
-        activity.setContentView(R.layout.activity_part4_input);
+        activity.setContentView(0);
     }
 
     @Override
     protected void exitInputMode(Activity activity) {
         createTransitionAnimator(activity);
-        activity.setContentView(R.layout.activity_part4);
+        activity.setContentView(0);
     }
 
     private void createTransitionAnimator(Activity activity) {
         ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
-
         TransitionAnimator.begin(parent, VIEW_IDS);
     }
+    
 }
