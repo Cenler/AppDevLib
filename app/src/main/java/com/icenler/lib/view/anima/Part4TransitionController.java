@@ -39,5 +39,5 @@ public class Part4TransitionController extends TransitionController {
         ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
         TransitionAnimator.begin(parent, VIEW_IDS);
     }
-    
+
 }
