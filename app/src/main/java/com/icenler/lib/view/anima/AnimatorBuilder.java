@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.View;
 
 public class AnimatorBuilder {
+
     private static final String TRANSLATION_Y = "translationY";
     private static final String ALPHA = "alpha";
 

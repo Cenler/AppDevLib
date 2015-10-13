@@ -12,13 +12,14 @@ import android.view.View;
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseActivity;
 import com.icenler.lib.utils.ScreenUtil;
+import com.icenler.lib.view.SoGouBrowserLoading;
 
 public class TestActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_test);
+        super.setContentView(new SoGouBrowserLoading(this));
     }
 
     private class CanvasView extends View {

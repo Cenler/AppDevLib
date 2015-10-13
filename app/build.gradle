@@ -42,6 +42,7 @@ dependencies {
     // compile 'com.github.chrisbanes.photoview:library:1.2.4' // 照片查看控件
     // compile 'com.baoyz.swipemenulistview:library:1.3.0' // ListView item侧滑菜单
     // compile 'com.crashlytics.android:crashlytics:1.+' // 崩溃统计
+    // compile 'cn.pedant.sweetalert:library:1.3' // dialog
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 }

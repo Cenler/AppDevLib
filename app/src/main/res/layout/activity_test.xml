@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <com.icenler.lib.view.SoGouBrowserLoading
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 </RelativeLayout>
