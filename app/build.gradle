@@ -37,6 +37,8 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'io.reactivex:rxjava:1.0.14'
+    compile 'com.ogaclejapan:rxbinding:1.+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 
     // compile 'com.github.chrisbanes.photoview:library:1.2.4' // 照片查看控件

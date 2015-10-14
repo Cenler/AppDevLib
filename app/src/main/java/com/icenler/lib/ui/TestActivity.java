@@ -1,18 +1,33 @@
 package com.icenler.lib.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.icenler.lib.R;
 import com.icenler.lib.base.BaseActivity;
+import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.ScreenUtil;
+import com.icenler.lib.utils.manager.ToastManager;
 import com.icenler.lib.view.SoGouBrowserLoading;
+
+import java.io.File;
+
+import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class TestActivity extends BaseActivity {
 
@@ -20,7 +35,133 @@ public class TestActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(new SoGouBrowserLoading(this));
+        ButterKnife.bind(this);
+        init();
     }
+
+    private void init() {
+        // AndroidRx 再探
+        File[] folders = new File[5];
+        Observable.from(folders).flatMap(new Func1<File, Observable<File>>() {
+            @Override
+            public Observable<File> call(File file) {
+                return Observable.from(file.listFiles());
+            }
+        }).filter(new Func1<File, Boolean>() {
+            @Override
+            public Boolean call(File file) {
+                return file.getName().endsWith(".png");
+            }
+        }).map(new Func1<File, Bitmap>() {
+            @Override
+            public Bitmap call(File file) {
+                return getBitmapFromFile(file);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Bitmap>() {
+                    @Override
+                    public void call(Bitmap bitmap) {
+                        // 主线程处理
+                    }
+                });
+
+        Observer<String> observer = new Observer<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+
+            }
+        };
+
+        // Observer 扩展类 Subscriber
+        // 区别 onStart()
+        Subscriber<String> subscriber = new Subscriber<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(String s) {
+            }
+        };
+        subscriber.isUnsubscribed();// 是否取消订阅
+        subscriber.unsubscribe();// 取消订阅
+
+        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onStart();
+                subscriber.onNext("Hello");
+                subscriber.onNext("Hi");
+                subscriber.onCompleted();
+            }
+        });
+        observable.subscribe(observer);// 订阅
+        observable.subscribe(subscriber);// 同上，类似监听点击事件
+
+        // 应用一：
+        Observable.just(0, 1, 2, 3)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        LogUtil.d(String.valueOf(integer));
+                    }
+                });
+
+        // 应用二：
+        Observable.just(0).map(new Func1<Integer, Drawable>() {
+            @Override
+            public Drawable call(Integer integer) {
+                return getTheme().getDrawable(integer);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Drawable>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastManager.show(getBaseContext(), e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Drawable drawable) {
+                        // TODO 显示内容
+                    }
+                });
+
+
+        Observable.just(0).compose(null);
+    }
+
+    private Bitmap getBitmapFromFile(File file) {
+        return null;
+    }
+
 
     private class CanvasView extends View {
 
