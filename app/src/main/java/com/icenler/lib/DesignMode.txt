@@ -1,0 +1,71 @@
+23种设计模式详解：
+
+》 模板方法(Template Method)：
+        定义一个操作中的算法的骨架，而将一些步骤延迟到子类中，模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤
+
+        Example 01：
+
+        public abstract class Formatter {
+            private static final String TAG = "Formatter";
+            /**
+             * 项目经理告诉你，今天想在服务器端增加一个新功能，希望写一个方法，
+             * 能对Book对象进行处理，将Book对象的所有字段以XML格式进行包装，
+             * 这样以后可以方便与客户端进行交互。并且在包装开始前和结束后要打印
+             * 日志，这样方便调试和问题定位。
+             * <p/>
+             * 不过两天之后，项目经理又找到了你，他说之前没有考虑到需要交互的客
+             * 户端还包括手机设备，而手机设备都比较吃流量，用XML格式来传输太耗
+             * 流量了，想最好能改成使用JSON格式传输。但是之前的XML格式也要保留
+             * ，最好可以由客户端指定使用哪种格式。
+             *
+             * @param book public int pages;
+             *             public double price;
+             *             public String name;
+             *             public String auth;
+             * @return
+             */
+            public final String formatBook(Book book) {
+                beforeFormat();
+                String result = formating(book);
+                afterFormat();
+
+                return result;
+            }
+
+            protected void beforeFormat() {
+                Log.e(TAG, "begin");
+            }
+
+            protected void afterFormat() {
+                Log.e(TAG, "finish");
+            }
+
+            public abstract String formating(Book book);
+
+        }
+
+》 单例(Singleton)：
+        保证一个类仅有一个实例，并提供一个访问它的全局访问点
+
+        Example：
+
+        public class Singleton {
+            private static Singleton uniqueInstance = null;
+
+            private Singleton() {
+               // Exists only to defeat instantiation.
+            }
+
+            public static Singleton getInstance() {
+               if (uniqueInstance == null) {
+                   synchronized (Singleton.class) {
+                        if(uniqueInstance == null) {
+                            uniqueInstance = new Singleton();
+                        }
+                   }
+               }
+               return uniqueInstance;
+            }
+            // Other methods...
+        }
+

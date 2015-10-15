@@ -16,9 +16,11 @@ import com.icenler.lib.base.BaseActivity;
 import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.ScreenUtil;
 import com.icenler.lib.utils.manager.ToastManager;
-import com.icenler.lib.view.SoGouBrowserLoading;
+import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.view.ViewClickEvent;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
 import rx.Observable;
@@ -34,9 +36,9 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(new SoGouBrowserLoading(this));
+        super.setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
-        init();
+        // init();
     }
 
     private void init() {
@@ -155,7 +157,13 @@ public class TestActivity extends BaseActivity {
                 });
 
 
-        Observable.just(0).compose(null);
+        RxView.clickEvents(null).throttleFirst(500, TimeUnit.MILLISECONDS)// 防抖动
+                .subscribe(new Action1<ViewClickEvent>() {
+                    @Override
+                    public void call(ViewClickEvent viewClickEvent) {
+
+                    }
+                });
     }
 
     private Bitmap getBitmapFromFile(File file) {

@@ -54,9 +54,10 @@ public class ClearableEditText extends AppCompatEditText implements View.OnTouch
         DrawableCompat.setTint(wrappedDrawable, getCurrentHintTextColor());
         mClearTextIcon = wrappedDrawable;
         mClearTextIcon.setBounds(0, 0, mClearTextIcon.getIntrinsicHeight(), mClearTextIcon.getIntrinsicHeight());
+
         setClearIconVisible(false);
-        super.setOnTouchListener(this);
-        super.setOnFocusChangeListener(this);
+        setOnTouchListener(this);
+        setOnFocusChangeListener(this);
         addTextChangedListener(this);
     }
 
@@ -100,7 +101,6 @@ public class ClearableEditText extends AppCompatEditText implements View.OnTouch
     @Override
     public void afterTextChanged(Editable s) {
     }
-
 
     private void setClearIconVisible(final boolean visible) {
         mClearTextIcon.setVisible(visible, false);
