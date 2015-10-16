@@ -21,8 +21,8 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 
 import com.icenler.lib.R;
-import com.icenler.lib.base.BaseApplication;
-import com.icenler.lib.base.BaseCompatActivity;
+import com.icenler.lib.ui.base.BaseApplication;
+import com.icenler.lib.ui.base.BaseCompatActivity;
 import com.icenler.lib.ui.activity.AboutActivity;
 import com.icenler.lib.ui.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;

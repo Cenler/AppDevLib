@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.text.format.Formatter;
 
-import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.ui.base.BaseApplication;
 
 import java.io.File;
 

@@ -12,7 +12,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
 import com.icenler.lib.R;
-import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.ui.AppConfig;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 import com.icenler.lib.utils.helper.StringHelper;

@@ -5,46 +5,76 @@
 
         Example 01：
 
-        public abstract class Formatter {
-            private static final String TAG = "Formatter";
-            /**
-             * 项目经理告诉你，今天想在服务器端增加一个新功能，希望写一个方法，
-             * 能对Book对象进行处理，将Book对象的所有字段以XML格式进行包装，
-             * 这样以后可以方便与客户端进行交互。并且在包装开始前和结束后要打印
-             * 日志，这样方便调试和问题定位。
-             * <p/>
-             * 不过两天之后，项目经理又找到了你，他说之前没有考虑到需要交互的客
-             * 户端还包括手机设备，而手机设备都比较吃流量，用XML格式来传输太耗
-             * 流量了，想最好能改成使用JSON格式传输。但是之前的XML格式也要保留
-             * ，最好可以由客户端指定使用哪种格式。
-             *
-             * @param book public int pages;
-             *             public double price;
-             *             public String name;
-             *             public String auth;
-             * @return
-             */
-            public final String formatBook(Book book) {
-                beforeFormat();
-                String result = formating(book);
-                afterFormat();
+                public abstract class Formatter {
+                    private static final String TAG = "Formatter";
+                    /**
+                     * 项目经理告诉你，今天想在服务器端增加一个新功能，希望写一个方法，
+                     * 能对Book对象进行处理，将Book对象的所有字段以XML格式进行包装，
+                     * 这样以后可以方便与客户端进行交互。并且在包装开始前和结束后要打印
+                     * 日志，这样方便调试和问题定位。
+                     * <p/>
+                     * 不过两天之后，项目经理又找到了你，他说之前没有考虑到需要交互的客
+                     * 户端还包括手机设备，而手机设备都比较吃流量，用XML格式来传输太耗
+                     * 流量了，想最好能改成使用JSON格式传输。但是之前的XML格式也要保留
+                     * ，最好可以由客户端指定使用哪种格式。
+                     *
+                     * @param book public int pages;
+                     *             public double price;
+                     *             public String name;
+                     *             public String auth;
+                     * @return
+                     */
+                    public final String formatBook(Book book) {
+                        beforeFormat();
+                        String result = formating(book);
+                        afterFormat();
 
-                return result;
+                        return result;
+                    }
+
+                    protected void beforeFormat() {
+                        Log.e(TAG, "begin");
+                    }
+
+                    protected void afterFormat() {
+                        Log.e(TAG, "finish");
+                    }
+
+                    public abstract String formating(Book book);
+
+                }
+
+》 策略模式(Strategy)：
+        它定义了算法家庭，分别封装起来。让它们之间可以互相替换，此模式让算法的变化，不会影响到使用算法的客户
+
+        Example：
+            public class JsonFormat extends Formatter {
+                @Override
+                public String formating(Book book) {
+                    // ……
+                    return result;
+                }
+                // Other methods...
             }
 
-            protected void beforeFormat() {
-                Log.e(TAG, "begin");
+            public class XmlFormat extends Formatter {
+                @Override
+                public String formating(Book book) {
+                    // ……
+                    return result;
+                }
+                // Other methods...
             }
 
-            protected void afterFormat() {
-                Log.e(TAG, "finish");
-            }
+            Formatter formatter = new XmlFormat();
+            String xml = formatter.formatBook(new Book(600, 60.01, "android核心编程", "不详"));
+            Log.e("TAG", xml);
 
-            public abstract String formating(Book book);
+            formatter = new JsonFormat();
+            xml = formatter.formatBook(new Book(600, 60.01, "android核心编程", "不详"));
+            Log.e("TAG", xml);
 
-        }
-
-》 单例(Singleton)：
+》 单例模式(Singleton)：
         保证一个类仅有一个实例，并提供一个访问它的全局访问点
 
         Example：
@@ -68,4 +98,62 @@
             }
             // Other methods...
         }
+
+》 组合模式(Composite)：
+        将对象组合成树形结构以表示“部分-整体”的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性
+
+        Example： 树形结构，超类封装
+
+》 适配器模式(Adapter)：将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作
+
+        Example：
+
+            public interface PlayerCount {
+                String getServerName();
+
+                int getPlayerCount();
+            }
+
+            public class ServerOne implements PlayerCount {
+                private ServerFirst mServerFirst;
+                public ServerOne() {
+                    mServerFirst = new ServerFirst();
+                }
+
+            	@Override
+            	public String getServerName() {
+            		return "一服";
+            	}
+
+            	@Override
+            	public int getPlayerCount() {
+            		return mServerFirst.getOnlinePlayerCount();
+            	}
+            }
+
+            public class ServerTwo implements PlayerCount {
+                @Override
+                public String getServerName() {
+                    return "二服";
+                }
+
+                @Override
+                public int getPlayerCount() {
+                    return Utility.getOnlinePlayerCount(2);
+                }
+
+            }
+
+            public class ServerThree implements PlayerCount {
+                @Override
+                public String getServerName() {
+                    return "三服";
+                }
+
+                @Override
+                public int getPlayerCount() {
+                    return Utility.getOnlinePlayerCount(3);
+                }
+
+            }
 

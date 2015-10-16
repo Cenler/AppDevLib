@@ -2,7 +2,7 @@ package com.icenler.lib.ui;
 
 import android.graphics.Typeface;
 
-import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.utils.AppUtil;
 
 /**

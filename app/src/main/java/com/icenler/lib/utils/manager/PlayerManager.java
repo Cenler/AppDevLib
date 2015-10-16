@@ -8,7 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 
-import com.icenler.lib.base.BaseApplication;
+import com.icenler.lib.ui.base.BaseApplication;
 
 import java.io.IOException;
 

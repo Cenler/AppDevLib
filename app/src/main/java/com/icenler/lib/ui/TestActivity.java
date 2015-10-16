@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.icenler.lib.R;
-import com.icenler.lib.base.BaseActivity;
+import com.icenler.lib.ui.base.BaseActivity;
 import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.ScreenUtil;
 import com.icenler.lib.utils.manager.ToastManager;

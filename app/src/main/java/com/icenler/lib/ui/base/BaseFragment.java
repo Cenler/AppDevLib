@@ -1,4 +1,4 @@
-package com.icenler.lib.base;
+package com.icenler.lib.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
