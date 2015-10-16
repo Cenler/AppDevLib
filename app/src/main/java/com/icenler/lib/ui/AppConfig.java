@@ -20,14 +20,17 @@ public class AppConfig {
 
     /* Font Typeface */
     public static Typeface FZHHJT;// 方正行黑简体
-    public static Typeface MIUI_EN;
-    public static Typeface MIUI_CN;
+    public static Typeface MIUI_EN;// MIUI 英文
+    public static Typeface MIUI_CN;// MIUI 中文
+    public static Typeface FA_ICON;// Font-Awesome 图形字体
 
     static {
         // 字体库初始化加载
-        // FZHHJT = Typeface.createFromAsset(BaseApplication.getInstance().getAssets(), "fonts/fangzhengjianti.ttf");
-        // MIUI_EN = Typeface.createFromAsset(BaseApplication.getInstance().getAssets(), "fonts/Roboto-Regular.ttf");
-        // MIUI_CN = Typeface.createFromAsset(BaseApplication.getInstance().getAssets(), "fonts/DroidSansFallback.ttf");
+        // AssetManager assets = BaseApplication.getInstance().getAssets();
+        // FZHHJT = Typeface.createFromAsset(assets, "fonts/fangzhengjianti.ttf");
+        // MIUI_EN = Typeface.createFromAsset(assets, "fonts/Roboto-Regular.ttf");
+        // MIUI_CN = Typeface.createFromAsset(assets, "fonts/DroidSansFallback.ttf");
+        // FA_ICON = Typeface.createFromAsset(assets, "fonts/fontawesome-webfont.ttf");
     }
 
 }
