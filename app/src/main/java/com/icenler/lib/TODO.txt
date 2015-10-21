@@ -8,11 +8,20 @@
         - http://www.bootcss.com/p/font-awesome/#icons-new
         - https://github.com/liltof/font-awsome-for-android
 
-》 待办事项：
-    1、
-
 
 
 
 》 优秀开源库收藏：
     - http://blog.csdn.net/guolin_blog/article/details/9316683
+
+
+》 Zxing
+    - https://github.com/zxing/zxing
+    - http://repo1.maven.org/maven2/com/google/zxing/
+
+》 待办事项： http://blog.csdn.net/lmj623565791/article/details/39943731
+    - http://blog.csdn.net/lmj623565791?viewmode=contents
+    - https://github.com/rharter/android-gesture-detectors
+    - https://github.com/johnnylambada/WorldMap
+
+    - http://blog.csdn.net/lmj623565791/article/details/44098729

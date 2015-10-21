@@ -7,9 +7,10 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+
+import com.icenler.lib.utils.ImageUtil;
 
 import java.lang.reflect.Field;
 import java.util.LinkedList;
@@ -17,7 +18,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+/**
+ * Created by iCenler - 2015/10/21.
+ * Description：本地图品加载帮助类
+ */
 public class PhotoLoadHelper {
+
     /**
      * 图片缓存的核心类
      */
@@ -94,7 +100,6 @@ public class PhotoLoadHelper {
             @Override
             public void run() {
                 Looper.prepare();
-
                 mPoolThreadHander = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
@@ -120,15 +125,12 @@ public class PhotoLoadHelper {
             protected int sizeOf(String key, Bitmap value) {
                 return value.getRowBytes() * value.getHeight();
             }
-
-            ;
         };
 
         mThreadPool = Executors.newFixedThreadPool(threadCount);
         mPoolSemaphore = new Semaphore(threadCount);
         mTasks = new LinkedList<Runnable>();
         mType = type == null ? Type.LIFO : type;
-
     }
 
     /**
@@ -169,28 +171,25 @@ public class PhotoLoadHelper {
             addTask(new Runnable() {
                 @Override
                 public void run() {
-
-                    ImageSize imageSize = getImageViewWidth(imageView);
+                    ImageSize imageSize = getViewSize(imageView);
 
                     int reqWidth = imageSize.width;
                     int reqHeight = imageSize.height;
 
-                    Bitmap bm = decodeSampledBitmapFromResource(path, reqWidth,
-                            reqHeight);
+                    Bitmap bm = decodeSampledBitmapFromResource(path, reqWidth, reqHeight);
                     addBitmapToLruCache(path, bm);
                     ImgBeanHolder holder = new ImgBeanHolder();
                     holder.bitmap = getBitmapFromLruCache(path);
                     holder.imageView = imageView;
                     holder.path = path;
+
                     Message message = Message.obtain();
                     message.obj = holder;
-                    // Log.e("TAG", "mHandler.sendMessage(message);");
                     mHandler.sendMessage(message);
                     mPoolSemaphore.release();
                 }
             });
         }
-
     }
 
     /**
@@ -205,8 +204,8 @@ public class PhotoLoadHelper {
                 mSemaphore.acquire();
         } catch (InterruptedException e) {
         }
-        mTasks.add(runnable);
 
+        mTasks.add(runnable);
         mPoolThreadHander.sendEmptyMessage(0x110);
     }
 
@@ -248,14 +247,12 @@ public class PhotoLoadHelper {
      * @param imageView
      * @return
      */
-    private ImageSize getImageViewWidth(ImageView imageView) {
+    private ImageSize getViewSize(ImageView imageView) {
         ImageSize imageSize = new ImageSize();
-        final DisplayMetrics displayMetrics = imageView.getContext()
-                .getResources().getDisplayMetrics();
+        final DisplayMetrics displayMetrics = imageView.getContext().getResources().getDisplayMetrics();
         final LayoutParams params = imageView.getLayoutParams();
 
-        int width = params.width == LayoutParams.WRAP_CONTENT ? 0 : imageView
-                .getWidth(); // Get actual image width
+        int width = params.width == LayoutParams.WRAP_CONTENT ? 0 : imageView.getWidth(); // Get actual image width
         if (width <= 0)
             width = params.width; // Get layout width parameter
         if (width <= 0)
@@ -276,8 +273,8 @@ public class PhotoLoadHelper {
             height = displayMetrics.heightPixels;
         imageSize.width = width;
         imageSize.height = height;
-        return imageSize;
 
+        return imageSize;
     }
 
     /**
@@ -301,30 +298,6 @@ public class PhotoLoadHelper {
     }
 
     /**
-     * 计算inSampleSize，用于压缩图片
-     *
-     * @param options
-     * @param reqWidth
-     * @param reqHeight
-     * @return
-     */
-    private int calculateInSampleSize(BitmapFactory.Options options,
-                                      int reqWidth, int reqHeight) {
-        // 源图片的宽度
-        int width = options.outWidth;
-        int height = options.outHeight;
-        int inSampleSize = 1;
-
-        if (width > reqWidth && height > reqHeight) {
-            // 计算出实际宽度和目标宽度的比率
-            int widthRatio = Math.round((float) width / (float) reqWidth);
-            int heightRatio = Math.round((float) width / (float) reqWidth);
-            inSampleSize = Math.max(widthRatio, heightRatio);
-        }
-        return inSampleSize;
-    }
-
-    /**
      * 根据计算的inSampleSize，得到压缩后图片
      *
      * @param pathName
@@ -332,31 +305,15 @@ public class PhotoLoadHelper {
      * @param reqHeight
      * @return
      */
-    private Bitmap decodeSampledBitmapFromResource(String pathName,
-                                                   int reqWidth, int reqHeight) {
-        // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+    private Bitmap decodeSampledBitmapFromResource(String pathName, int reqWidth, int reqHeight) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(pathName, options);
-        // 调用上面定义的方法计算inSampleSize值
-        options.inSampleSize = calculateInSampleSize(options, reqWidth,
-                reqHeight);
-        // 使用获取到的inSampleSize值再次解析图片
+        options.inSampleSize = ImageUtil.calculateInSampleSize(options, reqWidth, reqHeight);
         options.inJustDecodeBounds = false;
         Bitmap bitmap = BitmapFactory.decodeFile(pathName, options);
 
         return bitmap;
-    }
-
-    private class ImgBeanHolder {
-        Bitmap bitmap;
-        ImageView imageView;
-        String path;
-    }
-
-    private class ImageSize {
-        int width;
-        int height;
     }
 
     /**
@@ -374,12 +331,23 @@ public class PhotoLoadHelper {
             int fieldValue = (Integer) field.get(object);
             if (fieldValue > 0 && fieldValue < Integer.MAX_VALUE) {
                 value = fieldValue;
-
-                Log.e("TAG", value + "");
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return value;
+    }
+
+    private class ImgBeanHolder {
+        Bitmap bitmap;
+        ImageView imageView;
+        String path;
+    }
+
+    private class ImageSize {
+        int width;
+        int height;
     }
 
 }
