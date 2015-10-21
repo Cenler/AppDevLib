@@ -33,8 +33,8 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ListAdapter;
 
-import com.huewu.pla.R;
-import com.huewu.pla.lib.DebugUtil;
+import com.icenler.lib.R;
+import com.icenler.lib.utils.LogUtil;
 
 import java.util.ArrayList;
 
@@ -672,8 +672,6 @@ public class PLA_ListView extends PLA_AbsListView {
      *         range that we draw.
      */
     private View fillDown(int pos, int nextTop) {
-        DebugUtil.i("fill down: " + pos);
-
         int end = getBottom() - getTop() - mListPadding.bottom;
         while (nextTop < end && pos < mItemCount) {
             // is this the selected item?
@@ -695,9 +693,6 @@ public class PLA_ListView extends PLA_AbsListView {
      * @return The view that is currently selected
      */
     private View fillUp(int pos, int nextBottom) {
-
-        DebugUtil.i("fill up: " + pos);
-
         int end = mListPadding.top;
         while (nextBottom > end && pos >= 0) {
             // is this the selected item?
@@ -858,7 +853,6 @@ public class PLA_ListView extends PLA_AbsListView {
         final boolean[] isScrap = mIsScrap;
 
         for (i = startPosition; i <= endPosition; ++i) {
-            DebugUtil.i("measureHeightOfChildren:" + i);
             child = obtainView(i, isScrap);
 
             measureScrapChild(child, i, widthMeasureSpec);
@@ -871,7 +865,6 @@ public class PLA_ListView extends PLA_AbsListView {
             // Recycle the view before we possibly return from the method
             if (recyle && recycleBin.shouldRecycleViewType(
                     ((LayoutParams) child.getLayoutParams()).viewType)) {
-                DebugUtil.i("measureHeightOfChildren");
                 recycleBin.addScrapView(child);
             }
 
@@ -935,7 +928,7 @@ public class PLA_ListView extends PLA_AbsListView {
     private View fillSpecific(int position, int top) {
 
         if(mDataChanged)
-            DebugUtil.i("fill specific: " + position + ":" + top);
+            LogUtil.i("fill specific: " + position + ":" + top);
 
         View temp = makeAndAddView(position, top, true, false);
         // Possibly changed again in fillUp if we add rows above this one.
@@ -1277,7 +1270,6 @@ public class PLA_ListView extends PLA_AbsListView {
         childrenLeft = getItemLeft( position );
 
         // Make a new view for this position, or convert an unused view if possible
-        DebugUtil.i("makeAndAddView:" + position);
         child = obtainView(position, mIsScrap);
 
         // This needs to be positioned and measured
@@ -1649,7 +1641,6 @@ public class PLA_ListView extends PLA_AbsListView {
 
     private View addViewAbove(View theView, int position) {
         int abovePosition = position - 1;
-        DebugUtil.i("addViewAbove:" + position);
         View view = obtainView(abovePosition, mIsScrap);
         int edgeOfNewChild = theView.getTop() - mDividerHeight;
         setupChild(view, abovePosition, edgeOfNewChild, false, mListPadding.left,
@@ -1659,7 +1650,6 @@ public class PLA_ListView extends PLA_AbsListView {
 
     private View addViewBelow(View theView, int position) {
         int belowPosition = position + 1;
-        DebugUtil.i("addViewBelow:" + position);
         View view = obtainView(belowPosition, mIsScrap);
         int edgeOfNewChild = theView.getBottom() + mDividerHeight;
         setupChild(view, belowPosition, edgeOfNewChild, true, mListPadding.left,

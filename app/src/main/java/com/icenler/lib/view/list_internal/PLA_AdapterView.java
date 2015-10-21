@@ -31,9 +31,6 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Adapter;
 
-import com.huewu.pla.lib.DebugUtil;
-
-
 /**
  * An AdapterView is a view whose children are determined by an {@link android.widget.Adapter}.
  *
@@ -714,9 +711,6 @@ public abstract class PLA_AdapterView<T extends Adapter> extends ViewGroup {
         
 		@Override
 		public void onChanged() {
-		    
-		    DebugUtil.LogDebug("data changed by onChanged()");
-		    
 			mDataChanged = true;
 			mOldItemCount = mItemCount;
 			mItemCount = getAdapter().getCount();
@@ -735,9 +729,6 @@ public abstract class PLA_AdapterView<T extends Adapter> extends ViewGroup {
         
 		@Override
 		public void onInvalidated() {
-		    
-	        DebugUtil.LogDebug("data changed by onInvalidated()");
-		    
 			mDataChanged = true;
             
 			if (PLA_AdapterView.this.getAdapter().hasStableIds()) {
