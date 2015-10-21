@@ -10,31 +10,44 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.icenler.lib.view.gesture.MoveGestureDetector;
+
 import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by iCenler - 2015/9/11.
- * Description£ºRecyclerView »¬¿é¹ö¶¯µ¼º½£¨ÊÊÅäÆ÷ĞèÒªÊµÏÖBubbleTextGetter£©
+ * Created by iCenler - 2015/10/21.
+ * Descriptionï¼šå¤§å›¾æ˜¾ç¤ºæ§ä»¶ï¼Œå¯è‡ªç”±æ‹–åŠ¨æ˜¾ç¤º
  */
 public class LargeImageView extends View {
-    private BitmapRegionDecoder mDecoder;
+
     /**
-     * Í¼Æ¬µÄ¿í¶ÈºÍ¸ß¶È
+     * å›¾ç‰‡çš„å®½åº¦å’Œé«˜åº¦
      */
     private int mImageWidth, mImageHeight;
     /**
-     * »æÖÆµÄÇøÓò
+     * ç»˜åˆ¶çš„åŒºåŸŸ
      */
-    private volatile Rect mRect = new Rect();
-
+    private Rect mRect = new Rect();
+    private BitmapRegionDecoder mDecoder;
     private MoveGestureDetector mDetector;
-
-
     private static final BitmapFactory.Options options = new BitmapFactory.Options();
 
     static {
         options.inPreferredConfig = Bitmap.Config.RGB_565;
+    }
+
+    public LargeImageView(Context context) {
+        this(context, null);
+    }
+
+    public LargeImageView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public LargeImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
     }
 
     public void setInputStream(InputStream is) {
@@ -61,11 +74,11 @@ public class LargeImageView extends View {
 
 
     public void init() {
-        mDetector = new MoveGestureDetector(getContext(), new MoveGestureDetector.SimpleMoveGestureDetector() {
+        mDetector = new MoveGestureDetector(getContext(), new MoveGestureDetector.SimpleOnMoveGestureListener() {
             @Override
             public boolean onMove(MoveGestureDetector detector) {
-                int moveX = (int) detector.getMoveX();
-                int moveY = (int) detector.getMoveY();
+                int moveX = (int) detector.getFocusX();
+                int moveY = (int) detector.getFocusY();
 
                 if (mImageWidth > getWidth()) {
                     mRect.offset(-moveX, 0);
@@ -83,7 +96,6 @@ public class LargeImageView extends View {
         });
     }
 
-
     private void checkWidth() {
         Rect rect = mRect;
         int imageWidth = mImageWidth;
@@ -100,9 +112,7 @@ public class LargeImageView extends View {
         }
     }
 
-
     private void checkHeight() {
-
         Rect rect = mRect;
         int imageWidth = mImageWidth;
         int imageHeight = mImageHeight;
@@ -118,24 +128,6 @@ public class LargeImageView extends View {
         }
     }
 
-
-    public LargeImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mDetector.onToucEvent(event);
-        return true;
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        Bitmap bm = mDecoder.decodeRegion(mRect, options);
-        canvas.drawBitmap(bm, 0, 0, null);
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -146,12 +138,22 @@ public class LargeImageView extends View {
         int imageWidth = mImageWidth;
         int imageHeight = mImageHeight;
 
+        // é»˜è®¤ç›´æ¥æ˜¾ç¤ºå›¾ç‰‡çš„ä¸­å¿ƒåŒºåŸŸï¼Œå¯ä»¥è‡ªå·±å»è°ƒèŠ‚
         mRect.left = imageWidth / 2 - width / 2;
         mRect.top = imageHeight / 2 - height / 2;
         mRect.right = mRect.left + width;
         mRect.bottom = mRect.top + height;
-
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return mDetector.onTouchEvent(event);
+    }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Bitmap bm = mDecoder.decodeRegion(mRect, options);
+        canvas.drawBitmap(bm, 0, 0, null);
+    }
+    
 }
