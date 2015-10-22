@@ -19,8 +19,12 @@
     - https://github.com/zxing/zxing
     - http://repo1.maven.org/maven2/com/google/zxing/
 
+》 视频教程：
+    推送平台：
+        - http://www.imooc.com/view/223
+
 》 待办事项
-    - https://github.com/johnnylambada/WorldMap
+    - http://blog.csdn.net/sinyu890807/article/list/1
 
     http://www.jianshu.com/p/1489fcbd2401
     http://www.jianshu.com/p/e2b3118d8ca4
