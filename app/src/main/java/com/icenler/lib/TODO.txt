@@ -23,11 +23,15 @@
     推送平台：
         - http://www.imooc.com/view/223
 
+》 Intent 整理：
+    - http://blog.csdn.net/playboyanta123/article/details/7913679
+
 》 待办事项
     - http://blog.csdn.net/sinyu890807/article/list/1
+    - http://www.apkbus.com/forum.php?mod=viewthread&tid=247787
+    - http://www.apkbus.com/forum.php?mod=viewthread&tid=247783
 
-    http://www.jianshu.com/p/1489fcbd2401
-    http://www.jianshu.com/p/e2b3118d8ca4
     http://www.jianshu.com/p/e711e22e053e
-    http://www.jianshu.com/p/6af0a7a59756
     http://www.jianshu.com/p/03fdcfd3ae9c
+
+    http://blog.csdn.net/guolin_blog?viewmode=contents

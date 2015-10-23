@@ -8,6 +8,8 @@ import android.net.Uri;
 import com.icenler.lib.utils.AppUtil;
 import com.icenler.lib.utils.manager.ToastManager;
 
+import java.io.File;
+
 /**
  * Created by iCenler - 2015/9/10.
  * Description：常用系统界面跳转：
@@ -47,12 +49,34 @@ public class ActivityHelper {
      * 内容分享
      */
     public static void doShare(Context context, String subject, String content) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, content);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT, content);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            ToastManager.show(context, "无法分享内容");
+        }
+    }
+
+    /**
+     * 安装APK文件
+     */
+    private static void installApk(Context context, String path) {
+        File apkfile = new File(path);
+        if (!apkfile.exists()) return;
+
+        try {
+            // 通过Intent安装APK文件
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(Uri.parse("file://" + apkfile.toString()), "application/vnd.android.package-archive");
+            context.startActivity(intent);
+        } catch (Exception e) {
+            ToastManager.show(context, "安装文件不存在");
+        }
     }
 
 }
