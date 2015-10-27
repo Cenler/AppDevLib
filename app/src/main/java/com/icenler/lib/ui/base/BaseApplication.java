@@ -3,6 +3,8 @@ package com.icenler.lib.ui.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.icenler.lib.receiver.ExitAppReceiver;
 import com.icenler.lib.utils.LogUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -21,13 +23,12 @@ public class BaseApplication extends Application {
 
     private static BaseApplication mInstance;
     private static RefWatcher mRefWatcher;
+    private static RequestQueue mHttpQueues;
 
     /**
      * @return App 全局上下文
      */
-    public static BaseApplication getInstance() {
-        return mInstance;
-    }
+    public static BaseApplication getInstance() { return mInstance; }
 
     /**
      * @return 内存泄露检测工具
@@ -35,6 +36,11 @@ public class BaseApplication extends Application {
     public static RefWatcher getRefWatcher() {
         return mRefWatcher;
     }
+
+    /**
+     * @return Volley 全局请求队列
+     */
+    public static RequestQueue getHttpQueues() { return mHttpQueues; }
 
     @Override
     public void onCreate() {
@@ -48,6 +54,11 @@ public class BaseApplication extends Application {
     private void initAll() {
         installLeakCanary();
         initImageLoaderConfig(getApplicationContext());
+        initRequestQueues(getApplicationContext());
+    }
+
+    private void initRequestQueues(Context context) {
+        mHttpQueues = Volley.newRequestQueue(context);
     }
 
     /**
