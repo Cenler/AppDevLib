@@ -11,25 +11,18 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.icenler.lib.R;
+import com.icenler.lib.common.RequestCallback;
+import com.icenler.lib.common.VolleyRequest;
 import com.icenler.lib.ui.base.BaseActivity;
-import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.ScreenUtil;
 import com.icenler.lib.utils.manager.ToastManager;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.view.ViewClickEvent;
 
-import org.json.JSONObject;
-
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -184,73 +177,29 @@ public class TestActivity extends BaseActivity {
 
     private void volleyGet() {
         String url = "www.baidu.com";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        VolleyRequest.reqGet(url, "getTest", new RequestCallback(getBaseContext()) {
             @Override
-            public void onResponse(String response) {
-                ToastManager.show(getBaseContext(), response);
+            public void onSuccess(String result) {
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastManager.show(getBaseContext(), error.getMessage());
-            }
-        });
-        stringRequest.setTag("getString_Tag");
-        BaseApplication.getHttpQueues().add(stringRequest);
 
-        JSONObject params = null;// 携带请求参数
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, params, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
-                ToastManager.show(getBaseContext(), response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastManager.show(getBaseContext(), error.getMessage());
+            public void onError(VolleyError error) {
             }
         });
-        jsonRequest.setTag("getJson_Tag");
-        BaseApplication.getHttpQueues().add(jsonRequest);
     }
 
     private void volleyPost() {
         String url = "www.baidu.com";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        Map<String, String> params = null;
+        VolleyRequest.reqPost(url, "postTest", params, new RequestCallback(getBaseContext()) {
             @Override
-            public void onResponse(String response) {
-                ToastManager.show(getBaseContext(), response.toString());
+            public void onSuccess(String result) {
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastManager.show(getBaseContext(), error.getMessage());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap map = new HashMap();
-                return map;
-            }
-        };
-        stringRequest.setTag("postString_Tag");
-        BaseApplication.getHttpQueues().add(stringRequest);
 
-        Map map = new HashMap();
-        JSONObject params = new JSONObject(map);
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
-                ToastManager.show(getBaseContext(), response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                ToastManager.show(getBaseContext(), error.getMessage());
+            public void onError(VolleyError error) {
             }
         });
-        jsonRequest.setTag("postString_Tag");
-        BaseApplication.getHttpQueues().add(jsonRequest);
     }
 
     private class CanvasView extends View {
