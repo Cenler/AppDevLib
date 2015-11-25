@@ -10,8 +10,19 @@ import java.lang.reflect.Method;
  */
 public class RefInvokerHelper {
 
-    private RefInvokerHelper() { throw new UnsupportedOperationException("cannot be instantiated"); }
+    private RefInvokerHelper() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
 
+    /**
+     * 反射调用静态方法
+     *
+     * @param className
+     * @param methodName
+     * @param paramTypes
+     * @param paramValues
+     * @return
+     */
     public static Object invokeStaticMethod(String className, String methodName, Class[] paramTypes, Object[] paramValues) {
         return invokeMethod(null, className, methodName, paramTypes, paramValues);
     }
@@ -20,6 +31,16 @@ public class RefInvokerHelper {
         return invokeMethod(null, clazz, methodName, paramTypes, paramValues);
     }
 
+    /**
+     * 放射调用指定对象内方法
+     *
+     * @param target
+     * @param clazz
+     * @param methodName
+     * @param paramTypes
+     * @param paramValues
+     * @return
+     */
     public static Object invokeMethod(Object target, Class clazz, String methodName, Class[] paramTypes, Object[] paramValues) {
         try {
             Method method = clazz.getDeclaredMethod(methodName, paramTypes);
@@ -51,10 +72,25 @@ public class RefInvokerHelper {
         return null;
     }
 
+    /**
+     * 获取指定类静态字段
+     *
+     * @param className
+     * @param fieldName
+     * @return
+     */
     public static Object getStaticFieldObject(String className, String fieldName) {
         return getFieldObject(null, className, fieldName);
     }
 
+    /**
+     * 获取指定指定类字段
+     *
+     * @param target
+     * @param clazz
+     * @param fieldName
+     * @return
+     */
     public static Object getFieldObject(Object target, Class clazz, String fieldName) {
         try {
             Field field = clazz.getDeclaredField(fieldName);
@@ -93,10 +129,25 @@ public class RefInvokerHelper {
         return null;
     }
 
+    /**
+     * 为指定静态字段赋值
+     *
+     * @param className
+     * @param fieldName
+     * @param fieldValue
+     */
     public static void setStaticOjbect(String className, String fieldName, Object fieldValue) {
         setFieldObject(null, className, fieldName, fieldValue);
     }
 
+    /**
+     * 为指定对象内字段赋值
+     *
+     * @param target
+     * @param clazz
+     * @param fieldName
+     * @param fieldValue
+     */
     public static void setFieldObject(Object target, Class clazz, String fieldName, Object fieldValue) {
         try {
             Field field = clazz.getDeclaredField(fieldName);

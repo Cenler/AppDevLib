@@ -21,10 +21,11 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 
 import com.icenler.lib.R;
+import com.icenler.lib.ui.activity.AboutActivity;
 import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.ui.base.BaseCompatActivity;
-import com.icenler.lib.ui.activity.AboutActivity;
 import com.icenler.lib.ui.fragment.TestFragment;
+import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
 
@@ -64,6 +65,9 @@ public class MainActivity extends BaseCompatActivity {
         ButterKnife.bind(this);
 
         init();
+
+        LogUtil.e("初始化完毕！");
+        LogUtil.json("{\"menu\":[\"泰式柠檬肉片\",\"鸡柳汉堡\",\"蒸桂鱼卷 \"],\"tag\":\"其他\"}");
     }
 
     @OnClick({R.id.float_action_btn})

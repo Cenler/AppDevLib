@@ -8,8 +8,11 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.SwipeDismissBehavior;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.icenler.lib.R;
@@ -42,6 +45,26 @@ public class TestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
+
+
+        SwipeDismissBehavior<View> swipe = new SwipeDismissBehavior<>();
+        swipe.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
+        swipe.setListener(new SwipeDismissBehavior.OnDismissListener() {
+            @Override
+            public void onDismiss(View view) {
+                // TODO　移出回调
+            }
+
+            @Override
+            public void onDragStateChanged(int i) {
+                // TODO 状态改变回调
+            }
+        });
+
+        TextView view = (TextView) findViewById(R.id.tv_slide_dismiss);
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) view.getLayoutParams();
+        params.setBehavior(swipe);
+
         // init();
     }
 

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <Button
-        android:id="@+id/btn_action"
+    <TextView
+        android:id="@+id/tv_slide_dismiss"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="200dp"
+        android:background="@color/color_blue"
+        android:gravity="center"
+        android:text="Hello"
+        android:textSize="32sp" />
 
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

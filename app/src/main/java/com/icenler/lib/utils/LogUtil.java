@@ -3,6 +3,10 @@ package com.icenler.lib.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by iCenler - 2015/7/15.
  * Description：Log 工具
@@ -12,11 +16,14 @@ import android.util.Log;
  */
 public class LogUtil {
 
+
     private LogUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    public static String customTagPrefix = "";
+    public static String customTagPrefix = "iCenler";
+
+    public static boolean CONTROLSWITCH = true;
 
     // 日志等级控制是否输出
     public static boolean allowD = true;// Debug
@@ -26,12 +33,28 @@ public class LogUtil {
     public static boolean allowW = true;// Warn
     public static boolean allowWtf = true;// what a terrible failure
 
+    private static final int JSON_INDENT = 4;
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
+    static {
+        if (!CONTROLSWITCH) {
+            allowD = allowE = allowI = allowV = allowW = allowWtf = false;
+        }
+    }
+
     private static String generateTag(StackTraceElement caller) {
         String tag = "%s.%s(L:%d)";
         String callerClazzName = caller.getClassName();
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
         tag = String.format(tag, callerClazzName, caller.getMethodName(), caller.getLineNumber());
         tag = TextUtils.isEmpty(customTagPrefix) ? tag : customTagPrefix + ":" + tag;
+
+//        可跳转日志输出格式
+//        String className = caller.getFileName();
+//        String methodName = caller.getMethodName();
+//        int lineNumber = caller.getLineNumber();
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("(").append(className).append(":").append(lineNumber).append(")#").append(methodName).append("");
 
         return tag;
     }
@@ -41,7 +64,9 @@ public class LogUtil {
      */
     public static CustomLogger customLogger;
 
-    public static void setCustomLogger(CustomLogger logger) { customLogger = logger; }
+    public static void setCustomLogger(CustomLogger logger) {
+        customLogger = logger;
+    }
 
     public interface CustomLogger {
         void d(String tag, String content);
@@ -239,6 +264,42 @@ public class LogUtil {
         } else {
             Log.wtf(tag, tr);
         }
+    }
+
+    /**
+     * 格式化 Json 输出
+     *
+     * @param content
+     */
+    public static void json(String content) {
+        if (TextUtils.isEmpty(content)) {
+            d("Empty or Null json content");
+            return;
+        }
+
+        String message = null;
+        try {
+            if (content.startsWith("{")) {
+                JSONObject jsonObject = new JSONObject(content);
+                message = jsonObject.toString(JSON_INDENT);
+            } else if (content.startsWith("[")) {
+                JSONArray jsonArray = new JSONArray(content);
+                message = jsonArray.toString(JSON_INDENT);
+            }
+        } catch (JSONException e) {
+            e(e.getCause().getMessage() + "\n" + content);
+            return;
+        }
+
+        String tag = generateTag(getCallerStackTraceElement());
+        Log.d(tag, "╔═══════════════════════════════════════════════════════════════════════════════════════");
+        String[] lines = message.split(LINE_SEPARATOR);
+        StringBuilder jsonContent = new StringBuilder();
+        for (String line : lines) {
+            jsonContent.append("║ ").append(line).append(LINE_SEPARATOR);
+        }
+        Log.d(tag, jsonContent.toString());
+        Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════");
     }
 
     /**

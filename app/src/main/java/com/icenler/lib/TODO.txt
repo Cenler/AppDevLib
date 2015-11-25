@@ -8,7 +8,8 @@
         - http://www.bootcss.com/p/font-awesome/#icons-new
         - https://github.com/liltof/font-awsome-for-android
 
-
+》 延生阅读：
+    - http://blog.csdn.net/singwhatiwanna/article/details/49560409
 
 
 》 优秀开源库收藏：

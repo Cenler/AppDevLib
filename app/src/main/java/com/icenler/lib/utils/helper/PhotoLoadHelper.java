@@ -80,10 +80,14 @@ public class PhotoLoadHelper {
      * @return 单例获得该实例对象
      */
     public static PhotoLoadHelper getInstance() {
+        return getInstance(1, Type.LIFO);
+    }
+
+    public static PhotoLoadHelper getInstance(int threadCount, Type type) {
         if (mInstance == null) {
             synchronized (PhotoLoadHelper.class) {
                 if (mInstance == null) {
-                    mInstance = new PhotoLoadHelper(1, Type.LIFO);
+                    mInstance = new PhotoLoadHelper(threadCount, type);
                 }
             }
         }
@@ -222,24 +226,6 @@ public class PhotoLoadHelper {
         }
         return null;
     }
-
-    /**
-     * 单例获得该实例对象
-     *
-     * @return
-     */
-    public static PhotoLoadHelper getInstance(int threadCount, Type type) {
-
-        if (mInstance == null) {
-            synchronized (PhotoLoadHelper.class) {
-                if (mInstance == null) {
-                    mInstance = new PhotoLoadHelper(threadCount, type);
-                }
-            }
-        }
-        return mInstance;
-    }
-
 
     /**
      * 根据ImageView获得适当的压缩的宽和高
