@@ -37,6 +37,11 @@
 
     http://blog.csdn.net/guolin_blog?viewmode=contents
 
+    - 热补丁框架
+    - https://github.com/alibaba/dexposed
+    - https://github.com/alibaba/AndFix
+    - http://bugly.qq.com/blog/?p=781
+
 
      CardView android:foreground="?attr/selectableItemBackground" Ripple
 

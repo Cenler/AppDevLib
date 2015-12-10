@@ -23,7 +23,6 @@ public class LogUtil {
 
     public static String customTagPrefix = "iCenler";
 
-    public static boolean CONTROLSWITCH = true;
 
     // 日志等级控制是否输出
     public static boolean allowD = true;// Debug
@@ -33,6 +32,7 @@ public class LogUtil {
     public static boolean allowW = true;// Warn
     public static boolean allowWtf = true;// what a terrible failure
 
+    private static boolean CONTROLSWITCH = true;
     private static final int JSON_INDENT = 4;
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
