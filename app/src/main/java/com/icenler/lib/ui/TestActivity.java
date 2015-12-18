@@ -1,18 +1,21 @@
 package com.icenler.lib.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.SwipeDismissBehavior;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.Transformation;
 
 import com.android.volley.VolleyError;
 import com.icenler.lib.R;
@@ -43,27 +46,8 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_test);
+        super.setContentView(new LoadingView(this));
         ButterKnife.bind(this);
-
-
-        SwipeDismissBehavior<View> swipe = new SwipeDismissBehavior<>();
-        swipe.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
-        swipe.setListener(new SwipeDismissBehavior.OnDismissListener() {
-            @Override
-            public void onDismiss(View view) {
-                // TODO　移出回调
-            }
-
-            @Override
-            public void onDragStateChanged(int i) {
-                // TODO 状态改变回调
-            }
-        });
-
-        TextView view = (TextView) findViewById(R.id.tv_slide_dismiss);
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) view.getLayoutParams();
-        params.setBehavior(swipe);
 
         // init();
     }
@@ -160,6 +144,7 @@ public class TestActivity extends BaseActivity {
 
         // 应用二：
         Observable.just(0).map(new Func1<Integer, Drawable>() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public Drawable call(Integer integer) {
                 return getTheme().getDrawable(integer);
@@ -225,64 +210,187 @@ public class TestActivity extends BaseActivity {
         });
     }
 
-    private class CanvasView extends View {
+    @TargetApi(Build.VERSION_CODES.M)
+    private class LoadingView extends View {
 
-        private Paint mPaint = new Paint();
+        private static final int DEF_DURATION = 1000;
 
-        public CanvasView(Context context) {
-            super(context);
+        //paint
+        private Paint mCirclePaint;
+        private Paint mAccBallPaint;
+        private RectF rectF;
+
+        private int mBigCircleColor = getResources().getColor(R.color.color_green_highlight);
+        private int mAccBallColor = getResources().getColor(R.color.color_orange);
+
+        private int mBigCircleStroke = ScreenUtil.dp2px(1);
+        private int mDuration = DEF_DURATION;
+
+        private float mBitRadius = ScreenUtil.dp2px(50);
+        private float mSmallRadius = ScreenUtil.dp2px(10);
+        private float startAngle = 0.0f;
+
+        public LoadingView(Context context) {
+            this(context, null);
         }
 
-        public CanvasView(Context context, AttributeSet attrs) {
-            super(context, attrs);
+        public LoadingView(Context context, AttributeSet attrs) {
+            this(context, attrs, 0);
         }
 
-        public CanvasView(Context context, AttributeSet attrs, int defStyleAttr) {
+        public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
+            initView();
+        }
+
+        private void initView() {
+            // 圆环
+            mCirclePaint = new Paint();
+            mCirclePaint.setAntiAlias(true);
+            mCirclePaint.setColor(mBigCircleColor);
+            mCirclePaint.setStrokeWidth(mBigCircleStroke);
+            mCirclePaint.setStyle(Paint.Style.STROKE);
+
+            // 小球
+            mAccBallPaint = new Paint();
+            mAccBallPaint.setAntiAlias(true);
+            mAccBallPaint.setColor(mAccBallColor);
+            mAccBallPaint.setStyle(Paint.Style.FILL);
+
+            rectF = new RectF(0, 0, ScreenUtil.getDisplayWidth() >> 1, ScreenUtil.getDisplayWidth() >> 1);
+            startRotate(2000);
+        }
+
+        private void startRotate(long duration){
+            LinearAnimation animation = new LinearAnimation();
+            animation.setDuration(duration);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setLinearAnimationListener(new LinearAnimation.LinearAnimationListener() {
+                @Override
+                public void applyTans(float interpolatedTime) {
+                    startAngle = 360 * interpolatedTime;
+                    invalidate();
+                }
+            });
+            startAnimation(animation);
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
-            mPaint.setAntiAlias(true);
-            mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setColor(getResources().getColor(R.color.color_green_highlight));
-            mPaint.setStrokeWidth(ScreenUtil.dp2px(3));
-            canvas.translate(canvas.getWidth() / 2, 960);// 设置坐标
-            canvas.drawCircle(0, 0, 300, mPaint);
+//            drawSeekbar(canvas, 100);
+            drawSlowIndicator(startAngle, canvas);
+        }
 
-            canvas.save();
-            canvas.translate(-250, -250);
+        private void drawSlowIndicator(float startAngle, Canvas canvas){
+            Paint circlePaint = new Paint();
+            circlePaint.setAntiAlias(true);
+            circlePaint.setColor(Color.parseColor("#A8D7A7"));
+            circlePaint.setStrokeWidth(7);
+            circlePaint.setStyle(Paint.Style.STROKE);
+            canvas.drawPath(getArcPath(), circlePaint);
+
+            int restoreCount = canvas.save();
+            canvas.translate(rectF.centerX(), rectF.centerY());
+            circlePaint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(getBallPath(startAngle + 90), circlePaint);
+            canvas.drawPath(getBallPath(startAngle + 90 + 30 + 90), circlePaint);
+            canvas.drawPath(getBallPath(startAngle + 90 + 30 + 90 + 30 + 90), circlePaint);
+            canvas.restoreToCount(restoreCount);
+        }
+
+        private Path getArcPath() {
             Path path = new Path();
-            path.addArc(new RectF(0, 0, 500, 500), -180, 180);
-            Paint citePaint = new Paint(mPaint);
-            citePaint.setTextSize(ScreenUtil.dp2px(16));
-            citePaint.setStrokeWidth(1);
-            citePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-            canvas.drawTextOnPath("http://www.google.com", path, 150, 0, citePaint);
-            canvas.restore();
+            path.addArc(rectF, startAngle, 90);
+            path.addArc(rectF, startAngle + 90 + 30, 90);
+            path.addArc(rectF, startAngle + 90 + 90 + 30 + 30, 90);
+            return path;
+        }
 
-            Paint tmpPaint = new Paint(citePaint); //小刻度画笔对象
-            float y = 300f;
-            int count = 60;
-            for (int i = 0; i < count; i++) {
-                if (i % 5 == 0) {
-                    canvas.drawLine(0, y, 3, y + 24f, mPaint);
-                    canvas.drawText(String.valueOf(i / 5 + 1), -12f, y + 66f, tmpPaint);
-                } else {
-                    canvas.drawLine(0, y, 0, y + 15f, tmpPaint);
-                }
 
-                canvas.rotate(360 / count, 0, 0);
+        private void drawSeekbar(Canvas canvas, float startAngle) {
+            Paint circlePaint = new Paint();
+            circlePaint.setAntiAlias(true);
+            circlePaint.setColor(Color.parseColor("#FF4444"));
+            circlePaint.setStrokeWidth(7);
+            circlePaint.setStyle(Paint.Style.STROKE);
+
+            Path path = new Path();
+            path.addArc(rectF, 0, startAngle);
+            canvas.drawPath(path, circlePaint);
+
+            int restoreCount = canvas.save();
+
+            canvas.translate(rectF.centerX(), rectF.centerY());
+            circlePaint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(getBallPath(startAngle), circlePaint);
+
+            canvas.restoreToCount(restoreCount);
+        }
+
+        private Path getBallPath(float startAngle) {
+            double sweepAngle = Math.PI / 180 * startAngle;
+            Path path = new Path();
+            float x = (float) Math.cos(sweepAngle) * (rectF.width() / 2);
+            float y = (float) Math.sin(sweepAngle) * (rectF.width() / 2);
+            path.moveTo(x, y);
+            path.addCircle(x, y, 10, Path.Direction.CCW);
+            return path;
+        }
+    }
+
+    private static class LinearAnimation extends Animation {
+        private LinearAnimationListener mListener = null;
+
+        interface LinearAnimationListener {
+            void applyTans(float interpolatedTime);
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            if (mListener != null) {
+                mListener.applyTans(interpolatedTime);
             }
+        }
 
-            tmpPaint.setColor(getResources().getColor(R.color.color_grey));
-            tmpPaint.setStrokeWidth(4);
-            canvas.drawCircle(0, 0, 21, tmpPaint);
-            tmpPaint.setStyle(Paint.Style.FILL);
-            tmpPaint.setColor(getResources().getColor(R.color.color_green_highlight));
-            canvas.drawCircle(0, 0, 12, tmpPaint);
-            canvas.drawLine(0, 30, 0, -200, mPaint);
+        public void setLinearAnimationListener(LinearAnimationListener listener){
+            mListener = listener;
         }
     }
 
 }
+
+/**
+ * >>> Shader 之图形渲染
+ *     - BitmapShader:      图像渲染
+ *     - LinearGradient:    线性渐变
+ *     - RadialGradient:    环形渐变
+ *     - SweepGradient:     扇形渐变
+ *     - ComposeShader:     混合渲染，适用于组合操作
+ *     使用： mPaint.setShader(XXXShader)
+ *
+ *     Example：配合 Matrix 实现扇形动态渐变
+ *
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            paint.setStrokeWidth(8);
+            paint.setStyle(Paint.Style.STROKE);
+
+            int[] f = {Color.parseColor("#00A8D7A7"), Color.parseColor("#ffA8D7A7")};
+            float[] p = {.0f, 1.0f};
+
+            SweepGradient sweepGradient = new SweepGradient(rectF.centerX(), rectF.centerX(), f, p);
+            Matrix matrix = new Matrix();
+            sweepGradient.getLocalMatrix(matrix);
+            matrix.postRotate(startAngle, rectF.centerX(), rectF.centerY());
+            sweepGradient.setLocalMatrix(matrix);
+            paint.setShader(sweepGradient);
+
+            canvas.drawArc(rectF,0, 360, true, paint);
+ * */
