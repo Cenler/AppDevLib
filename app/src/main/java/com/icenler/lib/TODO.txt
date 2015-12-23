@@ -8,7 +8,8 @@
         - http://www.bootcss.com/p/font-awesome/#icons-new
         - https://github.com/liltof/font-awsome-for-android
 
-
+》 延生阅读：
+    - http://blog.csdn.net/singwhatiwanna/article/details/49560409
 
 
 》 优秀开源库收藏：
@@ -35,6 +36,11 @@
     http://www.jianshu.com/p/03fdcfd3ae9c
 
     http://blog.csdn.net/guolin_blog?viewmode=contents
+
+    - 热补丁框架
+    - https://github.com/alibaba/dexposed
+    - https://github.com/alibaba/AndFix
+    - http://bugly.qq.com/blog/?p=781
 
 
      CardView android:foreground="?attr/selectableItemBackground" Ripple

@@ -1,16 +1,21 @@
 package com.icenler.lib.ui;
 
-import android.animation.TypeEvaluator;
-import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.Transformation;
 
 import com.android.volley.VolleyError;
 import com.icenler.lib.R;
@@ -43,6 +48,7 @@ public class TestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(new LoadingView(this));
         ButterKnife.bind(this);
+
         // init();
     }
 
@@ -138,6 +144,7 @@ public class TestActivity extends BaseActivity {
 
         // 应用二：
         Observable.just(0).map(new Func1<Integer, Drawable>() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public Drawable call(Integer integer) {
                 return getTheme().getDrawable(integer);
@@ -175,6 +182,7 @@ public class TestActivity extends BaseActivity {
         return null;
     }
 
+
     private void volleyGet() {
         String url = "www.baidu.com";
         VolleyRequest.reqGet(url, "getTest", new RequestCallback(getBaseContext()) {
@@ -202,14 +210,25 @@ public class TestActivity extends BaseActivity {
         });
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private class LoadingView extends View {
 
-        int bigRadius, smallRadius;
-        int centerX, centerY;
-        float angle = 0;
+        private static final int DEF_DURATION = 1000;
 
-        Paint mCirclePaint;
-        Paint mBallPaint;
+        //paint
+        private Paint mCirclePaint;
+        private Paint mAccBallPaint;
+        private RectF rectF;
+
+        private int mBigCircleColor = getResources().getColor(R.color.color_green_highlight);
+        private int mAccBallColor = getResources().getColor(R.color.color_orange);
+
+        private int mBigCircleStroke = ScreenUtil.dp2px(1);
+        private int mDuration = DEF_DURATION;
+
+        private float mBitRadius = ScreenUtil.dp2px(50);
+        private float mSmallRadius = ScreenUtil.dp2px(10);
+        private float startAngle = 0.0f;
 
         public LoadingView(Context context) {
             this(context, null);
@@ -221,65 +240,157 @@ public class TestActivity extends BaseActivity {
 
         public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
-
             initView();
         }
 
         private void initView() {
-            centerX = ScreenUtil.getDisplayWidth() >> 1;
-            centerY = ScreenUtil.getDisplayHeight() >> 1;
-            bigRadius = centerX / 5;
-            smallRadius = bigRadius / 5;
-
+            // 圆环
             mCirclePaint = new Paint();
             mCirclePaint.setAntiAlias(true);
-            mCirclePaint.setDither(true);
-            mCirclePaint.setStrokeWidth(3f);
+            mCirclePaint.setColor(mBigCircleColor);
+            mCirclePaint.setStrokeWidth(mBigCircleStroke);
             mCirclePaint.setStyle(Paint.Style.STROKE);
-            mCirclePaint.setColor(getResources().getColor(R.color.color_red_assist));
 
-            mBallPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            mBallPaint.setStyle(Paint.Style.FILL);
-            mBallPaint.setColor(getResources().getColor(R.color.color_green_highlight));
+            // 小球
+            mAccBallPaint = new Paint();
+            mAccBallPaint.setAntiAlias(true);
+            mAccBallPaint.setColor(mAccBallColor);
+            mAccBallPaint.setStyle(Paint.Style.FILL);
 
-            AngleTypeEvaluator evaluator = new AngleTypeEvaluator();
-            ValueAnimator animator = ValueAnimator.ofObject(evaluator, 0f, 360f);
-            animator.setInterpolator(new LinearInterpolator());
-            animator.setDuration(2000);
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            rectF = new RectF(0, 0, ScreenUtil.getDisplayWidth() >> 1, ScreenUtil.getDisplayWidth() >> 1);
+            startRotate(2000);
+        }
+
+        private void startRotate(long duration){
+            LinearAnimation animation = new LinearAnimation();
+            animation.setDuration(duration);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setLinearAnimationListener(new LinearAnimation.LinearAnimationListener() {
                 @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    angle = Float.valueOf((Float) animation.getAnimatedValue());
+                public void applyTans(float interpolatedTime) {
+                    startAngle = 360 * interpolatedTime;
                     invalidate();
                 }
             });
-            animator.setRepeatMode(ValueAnimator.RESTART);
-            animator.setRepeatCount(ValueAnimator.INFINITE);
-            animator.start();
+            startAnimation(animation);
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
-            canvas.drawCircle(centerX, centerY, bigRadius, mCirclePaint);
+//            drawSeekbar(canvas, 100);
+            drawSlowIndicator(startAngle, canvas);
+        }
 
-            final double sweepAngle = Math.PI / 180 * angle;
-            float x = (float) (Math.sin(sweepAngle) * bigRadius);
-            float y = (float) (Math.cos(sweepAngle) * bigRadius);
+        private void drawSlowIndicator(float startAngle, Canvas canvas){
+            Paint circlePaint = new Paint();
+            circlePaint.setAntiAlias(true);
+            circlePaint.setColor(Color.parseColor("#A8D7A7"));
+            circlePaint.setStrokeWidth(7);
+            circlePaint.setStyle(Paint.Style.STROKE);
+            canvas.drawPath(getArcPath(), circlePaint);
 
-            int restoreToCount = canvas.save();
+            int restoreCount = canvas.save();
+            canvas.translate(rectF.centerX(), rectF.centerY());
+            circlePaint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(getBallPath(startAngle + 90), circlePaint);
+            canvas.drawPath(getBallPath(startAngle + 90 + 30 + 90), circlePaint);
+            canvas.drawPath(getBallPath(startAngle + 90 + 30 + 90 + 30 + 90), circlePaint);
+            canvas.restoreToCount(restoreCount);
+        }
 
-            canvas.translate(centerX, centerY);
-            canvas.drawCircle(x, y, smallRadius, mBallPaint);
+        private Path getArcPath() {
+            Path path = new Path();
+            path.addArc(rectF, startAngle, 90);
+            path.addArc(rectF, startAngle + 90 + 30, 90);
+            path.addArc(rectF, startAngle + 90 + 90 + 30 + 30, 90);
+            return path;
+        }
 
-            canvas.restoreToCount(restoreToCount);
+
+        private void drawSeekbar(Canvas canvas, float startAngle) {
+            Paint circlePaint = new Paint();
+            circlePaint.setAntiAlias(true);
+            circlePaint.setColor(Color.parseColor("#FF4444"));
+            circlePaint.setStrokeWidth(7);
+            circlePaint.setStyle(Paint.Style.STROKE);
+
+            Path path = new Path();
+            path.addArc(rectF, 0, startAngle);
+            canvas.drawPath(path, circlePaint);
+
+            int restoreCount = canvas.save();
+
+            canvas.translate(rectF.centerX(), rectF.centerY());
+            circlePaint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(getBallPath(startAngle), circlePaint);
+
+            canvas.restoreToCount(restoreCount);
+        }
+
+        private Path getBallPath(float startAngle) {
+            double sweepAngle = Math.PI / 180 * startAngle;
+            Path path = new Path();
+            float x = (float) Math.cos(sweepAngle) * (rectF.width() / 2);
+            float y = (float) Math.sin(sweepAngle) * (rectF.width() / 2);
+            path.moveTo(x, y);
+            path.addCircle(x, y, 10, Path.Direction.CCW);
+            return path;
         }
     }
 
-    private class AngleTypeEvaluator implements TypeEvaluator<Float> {
+    private static class LinearAnimation extends Animation {
+        private LinearAnimationListener mListener = null;
+
+        interface LinearAnimationListener {
+            void applyTans(float interpolatedTime);
+        }
+
         @Override
-        public Float evaluate(float fraction, Float startValue, Float endValue) {
-            return fraction * (endValue - startValue);
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            if (mListener != null) {
+                mListener.applyTans(interpolatedTime);
+            }
+        }
+
+        public void setLinearAnimationListener(LinearAnimationListener listener){
+            mListener = listener;
         }
     }
 
 }
+
+/**
+ * >>> Shader 之图形渲染
+ *     - BitmapShader:      图像渲染
+ *     - LinearGradient:    线性渐变
+ *     - RadialGradient:    环形渐变
+ *     - SweepGradient:     扇形渐变
+ *     - ComposeShader:     混合渲染，适用于组合操作
+ *     使用： mPaint.setShader(XXXShader)
+ *
+ *     Example：配合 Matrix 实现扇形动态渐变
+ *
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            paint.setStrokeWidth(8);
+            paint.setStyle(Paint.Style.STROKE);
+
+            int[] f = {Color.parseColor("#00A8D7A7"), Color.parseColor("#ffA8D7A7")};
+            float[] p = {.0f, 1.0f};
+
+            SweepGradient sweepGradient = new SweepGradient(rectF.centerX(), rectF.centerX(), f, p);
+            Matrix matrix = new Matrix();
+            sweepGradient.getLocalMatrix(matrix);
+            matrix.postRotate(startAngle, rectF.centerX(), rectF.centerY());
+            sweepGradient.setLocalMatrix(matrix);
+            paint.setShader(sweepGradient);
+
+            canvas.drawArc(rectF,0, 360, true, paint);
+ * */
