@@ -1,15 +1,16 @@
 package com.icenler.lib.ui;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.android.volley.VolleyError;
 import com.icenler.lib.R;
@@ -40,7 +41,7 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_test);
+        super.setContentView(new LoadingView(this));
         ButterKnife.bind(this);
         // init();
     }
@@ -174,7 +175,6 @@ public class TestActivity extends BaseActivity {
         return null;
     }
 
-
     private void volleyGet() {
         String url = "www.baidu.com";
         VolleyRequest.reqGet(url, "getTest", new RequestCallback(getBaseContext()) {
@@ -202,63 +202,83 @@ public class TestActivity extends BaseActivity {
         });
     }
 
-    private class CanvasView extends View {
+    private class LoadingView extends View {
 
-        private Paint mPaint = new Paint();
+        int bigRadius, smallRadius;
+        int centerX, centerY;
+        float angle = 0;
 
-        public CanvasView(Context context) {
-            super(context);
+        Paint mCirclePaint;
+        Paint mBallPaint;
+
+        public LoadingView(Context context) {
+            this(context, null);
         }
 
-        public CanvasView(Context context, AttributeSet attrs) {
-            super(context, attrs);
+        public LoadingView(Context context, AttributeSet attrs) {
+            this(context, attrs, 0);
         }
 
-        public CanvasView(Context context, AttributeSet attrs, int defStyleAttr) {
+        public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
+
+            initView();
+        }
+
+        private void initView() {
+            centerX = ScreenUtil.getDisplayWidth() >> 1;
+            centerY = ScreenUtil.getDisplayHeight() >> 1;
+            bigRadius = centerX / 5;
+            smallRadius = bigRadius / 5;
+
+            mCirclePaint = new Paint();
+            mCirclePaint.setAntiAlias(true);
+            mCirclePaint.setDither(true);
+            mCirclePaint.setStrokeWidth(3f);
+            mCirclePaint.setStyle(Paint.Style.STROKE);
+            mCirclePaint.setColor(getResources().getColor(R.color.color_red_assist));
+
+            mBallPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mBallPaint.setStyle(Paint.Style.FILL);
+            mBallPaint.setColor(getResources().getColor(R.color.color_green_highlight));
+
+            AngleTypeEvaluator evaluator = new AngleTypeEvaluator();
+            ValueAnimator animator = ValueAnimator.ofObject(evaluator, 0f, 360f);
+            animator.setInterpolator(new LinearInterpolator());
+            animator.setDuration(2000);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    angle = Float.valueOf((Float) animation.getAnimatedValue());
+                    invalidate();
+                }
+            });
+            animator.setRepeatMode(ValueAnimator.RESTART);
+            animator.setRepeatCount(ValueAnimator.INFINITE);
+            animator.start();
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
-            mPaint.setAntiAlias(true);
-            mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setColor(getResources().getColor(R.color.color_green_highlight));
-            mPaint.setStrokeWidth(ScreenUtil.dp2px(3));
-            canvas.translate(canvas.getWidth() / 2, 960);// 设置坐标
-            canvas.drawCircle(0, 0, 300, mPaint);
+            canvas.drawCircle(centerX, centerY, bigRadius, mCirclePaint);
 
-            canvas.save();
-            canvas.translate(-250, -250);
-            Path path = new Path();
-            path.addArc(new RectF(0, 0, 500, 500), -180, 180);
-            Paint citePaint = new Paint(mPaint);
-            citePaint.setTextSize(ScreenUtil.dp2px(16));
-            citePaint.setStrokeWidth(1);
-            citePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-            canvas.drawTextOnPath("http://www.google.com", path, 150, 0, citePaint);
-            canvas.restore();
+            final double sweepAngle = Math.PI / 180 * angle;
+            float x = (float) (Math.sin(sweepAngle) * bigRadius);
+            float y = (float) (Math.cos(sweepAngle) * bigRadius);
 
-            Paint tmpPaint = new Paint(citePaint); //小刻度画笔对象
-            float y = 300f;
-            int count = 60;
-            for (int i = 0; i < count; i++) {
-                if (i % 5 == 0) {
-                    canvas.drawLine(0, y, 3, y + 24f, mPaint);
-                    canvas.drawText(String.valueOf(i / 5 + 1), -12f, y + 66f, tmpPaint);
-                } else {
-                    canvas.drawLine(0, y, 0, y + 15f, tmpPaint);
-                }
+            int restoreToCount = canvas.save();
 
-                canvas.rotate(360 / count, 0, 0);
-            }
+            canvas.translate(centerX, centerY);
+            canvas.drawCircle(x, y, smallRadius, mBallPaint);
 
-            tmpPaint.setColor(getResources().getColor(R.color.color_grey));
-            tmpPaint.setStrokeWidth(4);
-            canvas.drawCircle(0, 0, 21, tmpPaint);
-            tmpPaint.setStyle(Paint.Style.FILL);
-            tmpPaint.setColor(getResources().getColor(R.color.color_green_highlight));
-            canvas.drawCircle(0, 0, 12, tmpPaint);
-            canvas.drawLine(0, 30, 0, -200, mPaint);
+            canvas.restoreToCount(restoreToCount);
+        }
+    }
+
+    private class AngleTypeEvaluator implements TypeEvaluator<Float> {
+        @Override
+        public Float evaluate(float fraction, Float startValue, Float endValue) {
+            return fraction * (endValue - startValue);
         }
     }
 

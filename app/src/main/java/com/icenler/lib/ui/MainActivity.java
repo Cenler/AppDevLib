@@ -1,6 +1,9 @@
 package com.icenler.lib.ui;
 
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -21,9 +24,9 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 
 import com.icenler.lib.R;
+import com.icenler.lib.ui.activity.AboutActivity;
 import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.ui.base.BaseCompatActivity;
-import com.icenler.lib.ui.activity.AboutActivity;
 import com.icenler.lib.ui.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
@@ -66,11 +69,26 @@ public class MainActivity extends BaseCompatActivity {
         init();
     }
 
+    boolean isGrey = false;
+
     @OnClick({R.id.float_action_btn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.float_action_btn:
                 SnackbarManager.show(mContainer, "向右滑动移除");
+                View root = findViewById(R.id.drawer_layout);
+                if (!isGrey) {
+                    isGrey = !isGrey;
+                    ColorMatrix matrix = new ColorMatrix();
+                    matrix.setSaturation(0);
+                    Paint paint = new Paint();
+                    paint.setColorFilter(new ColorMatrixColorFilter(matrix));
+
+                    root.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+                } else {
+                    isGrey = !isGrey;
+                    root.setLayerType(View.LAYER_TYPE_NONE, null);
+                }
                 break;
         }
     }

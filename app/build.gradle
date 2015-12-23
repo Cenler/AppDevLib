@@ -40,7 +40,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 
-    // 基于RxJava 时间绑定
+    // 基于RxJava 事件绑定
     compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.2.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.2.0'
