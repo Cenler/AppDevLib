@@ -48,8 +48,6 @@ public class TestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(new LoadingView(this));
         ButterKnife.bind(this);
-
-        // init();
     }
 
     private void init() {
