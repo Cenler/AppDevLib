@@ -1,6 +1,9 @@
 package com.icenler.lib.ui;
 
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -70,11 +73,26 @@ public class MainActivity extends BaseCompatActivity {
         LogUtil.json("{\"menu\":[\"泰式柠檬肉片\",\"鸡柳汉堡\",\"蒸桂鱼卷 \"],\"tag\":\"其他\"}");
     }
 
+    boolean isGrey = false;
+
     @OnClick({R.id.float_action_btn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.float_action_btn:
                 SnackbarManager.show(mContainer, "向右滑动移除");
+                View root = findViewById(R.id.drawer_layout);
+                if (!isGrey) {
+                    isGrey = !isGrey;
+                    ColorMatrix matrix = new ColorMatrix();
+                    matrix.setSaturation(0);
+                    Paint paint = new Paint();
+                    paint.setColorFilter(new ColorMatrixColorFilter(matrix));
+
+                    root.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+                } else {
+                    isGrey = !isGrey;
+                    root.setLayerType(View.LAYER_TYPE_NONE, null);
+                }
                 break;
         }
     }

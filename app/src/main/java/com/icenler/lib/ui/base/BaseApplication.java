@@ -12,7 +12,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 /**
@@ -104,7 +103,7 @@ public class BaseApplication extends Application {
      */
     private void installLeakCanary() {
         // TODO 待引入环境自动检测控制
-        mRefWatcher = LeakCanary.install(this);
+//        mRefWatcher = LeakCanary.install(this);
         mRefWatcher = RefWatcher.DISABLED;
     }
 
