@@ -39,6 +39,28 @@
  * >>> Scroller 之模拟滑动
  *      - 使用：配合 computeScroll() + scrollTo(x, y) 实现控件滑动效果
  *          Scroller.startScroll(startX, startY, dx, dy, duration)
+ *
+ * >>> Matrix 之矩阵变换
+ *      - 使用：配合 Canvas 使用
+ *          Canvas.drawBitmap(bitmap, matrix, null)
+ *      {MSCALE_X, MSKEW_X,    MTRANS_X,
+ *       MSKEW_Y,  MSCALE_Y,   MTRANS_Y,
+ *       MPERSP_0, MPERSP_1,   MPERSP_2}
+ *          MSCALE： 用于处理缩放变换
+ *          MSKEW：  用于处理错切变换
+ *          MTRANS： 用于处理平移变换
+ *          MPERSP： 用于处理透视变换
+ *
+ * >>> ColorMatrix 之颜色变换
+ *      - 使用：配合 Paint 使用实现灰度
+ *      Example：
+ *
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            Paint paint = new Paint();
+            paint.setColorFilter(new ColorMatrixColorFilter(matrix));
+            View.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+ *
  * */
 
 
