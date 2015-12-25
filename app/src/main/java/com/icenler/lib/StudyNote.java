@@ -120,4 +120,46 @@
      fresco:roundingBorderWidth="2dp"
      fresco:roundingBorderColor="@color/border_color"
  * */
+
+/**
+ * >>> ColorMatrixColorFilter\LightingColorFilter\PorterDuffColorFilter 之颜色过滤器
+ *      - ColorMatrixColorFilter：   色彩矩阵颜色过滤器
+ *      - LightingColorFilter：
+ *          @色彩倍增: 可用于颜色过滤
+ *          @色彩添加: 光照染色
+ *      - PorterDuffColorFilter：
+ *          @混合色值:
+ *          @混合模式:
+ *      使用：配合 Paint 实现滤镜效果
+ *
+ * >>> Xfermode AvoidXfermode\PixelXorXfermode\PorterDuffXfermode 之图像混合模式
+ *      - AvoidXfermode:
+ *          @颜色通道:
+ *          @容差值:
+ *          @混合模式:
+ *              # AvoidXfermode.Mode.TARGET:颜色通道渲染
+ *              # AvoidXfermode.Mode.AVOID:非颜色通道渲染
+ *      - PorterDuffXfermode
+ *          用法：
+ *          @混合模式: 参考 mipmap-hdpi/img_proter_duff_xfermode.jpg
+ *              # ProterDuff.Mode.CLEAR     : 清除
+ *              # ProterDuff.Mode.DARKEN    ：变暗，深色（Android）覆盖
+ *              # ProterDuff.Mode.LIGHTEN   ：变亮，浅色（Android）覆盖
+ *              # ProterDuff.Mode.DST       ：只绘制目标
+ *              # ProterDuff.Mode.DST_ATOP  ：不相交绘制源图，相交绘制目标
+ *              # ProterDuff.Mode.DST_IN    ：相交处绘制目标
+ *              # ProterDuff.Mode.DST_OUT   ：不相交处绘制目标
+ *              # ProterDuff.Mode.DST_OVER  ：源图上绘制目标
+ *              # ProterDuff.Mode.SRC       ：只绘制源图
+ *              # ProterDuff.Mode.SRC_ATOP  ：不相交绘制目标，相交绘制源图
+ *              # ProterDuff.Mode.SRC_IN    ：相交处绘制源图
+ *              # ProterDuff.Mode.SRC_OUT   ：不相交处绘制源图
+ *              # ProterDuff.Mode.SRC_OVER  ：目标图上绘制源图
+ *              # ProterDuff.Mode.MULTIPLY  ：正片叠底
+ *              # ProterDuff.Mode.XOR       ：相交打孔
+ *              # ProterDuff.Mode.ADD       ：饱和相加
+ *              # ProterDuff.Mode.SCREEN    ：滤色，柔化作用
+ *              # ProterDuff.Mode.OVERLAY   ：叠加中和
+ *      - PixelXorXfermode: deprecated
+ * */
 /**************************************************************************************************/
