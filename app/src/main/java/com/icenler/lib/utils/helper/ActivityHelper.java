@@ -1,8 +1,10 @@
 package com.icenler.lib.utils.helper;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import com.icenler.lib.utils.AppUtil;

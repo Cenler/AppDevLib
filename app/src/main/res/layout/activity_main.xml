@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/content_container" />
 
@@ -12,9 +13,7 @@
         android:id="@+id/nav_view"
         android:layout_width="260dp"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:clipToPadding="false"
-        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
         android:theme="@style/Theme.AppCompat.Light"
         app:headerLayout="@layout/menu_header_layout"
         app:menu="@menu/menu_drawer" />

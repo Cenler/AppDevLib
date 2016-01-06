@@ -70,6 +70,43 @@
  *      - AT_MOST：      对应 wrap_content
  *      - EXACTLY：      对应 match_parent
  *      - UNSPECIFIED：  具体数值
+ *
+ *    Example:
+
+          protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+              // 声明一个临时变量来存储计算出的测量值
+              int resultWidth = 0;
+
+              // 获取宽度测量规格中的mode
+              int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
+
+              // 获取宽度测量规格中的size
+              int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+
+              if (modeWidth == MeasureSpec.EXACTLY) {
+                  resultWidth = sizeWidth;
+              } else {
+                  resultWidth = mBitmap.getWidth();
+                  if (modeWidth == MeasureSpec.AT_MOST)
+                      resultWidth = Math.min(resultWidth, sizeWidth);
+              }
+
+              int resultHeight = 0;
+              int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
+              int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+
+              if (modeHeight == MeasureSpec.EXACTLY) {
+                  resultHeight = sizeHeight;
+              } else {
+                  resultHeight = mBitmap.getHeight();
+                      if (modeHeight == MeasureSpec.AT_MOST) {
+                          resultHeight = Math.min(resultHeight, sizeHeight);
+                  }
+              }
+
+              // 设置测量尺寸
+              setMeasuredDimension(resultWidth, resultHeight);
+          }
  * */
 
 /**

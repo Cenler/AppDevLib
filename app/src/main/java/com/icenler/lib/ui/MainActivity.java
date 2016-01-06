@@ -28,7 +28,6 @@ import com.icenler.lib.ui.activity.AboutActivity;
 import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.ui.base.BaseCompatActivity;
 import com.icenler.lib.ui.fragment.TestFragment;
-import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
 
@@ -68,9 +67,6 @@ public class MainActivity extends BaseCompatActivity {
         ButterKnife.bind(this);
 
         init();
-
-        LogUtil.e("初始化完毕！");
-        LogUtil.json("{\"menu\":[\"泰式柠檬肉片\",\"鸡柳汉堡\",\"蒸桂鱼卷 \"],\"tag\":\"其他\"}");
     }
 
     boolean isGrey = false;
@@ -153,7 +149,6 @@ public class MainActivity extends BaseCompatActivity {
     /**
      * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
      * - http://www.jianshu.com/collection/5139d555c94d
-     * - http://blog.csdn.net/aigestudio/article/details/41447349
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
      */
     private void init() {

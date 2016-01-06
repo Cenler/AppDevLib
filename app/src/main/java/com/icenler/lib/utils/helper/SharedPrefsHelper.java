@@ -2,6 +2,7 @@ package com.icenler.lib.utils.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.icenler.lib.ui.base.BaseApplication;
 
@@ -10,7 +11,7 @@ import java.util.Set;
 
 /**
  * Created by iCenler - 2015/7/17.
- * Description：SharedPreferences 工具类
+ * Description：SharedPreferences 帮助类
  * 1、 封装常用 保存、获取、删除、清空、匹配等方法
  * 2、 可初始化全局默认文件存储 or 指定文件进行存储
  */
@@ -31,7 +32,7 @@ public class SharedPrefsHelper {
      * @param configName
      */
     public static void initPrefsConfig(String configName) {
-        if (StringHelper.notNull(configName))
+        if (!TextUtils.isEmpty(configName))
             DEFAULT_CONFIG = configName;
     }
 
@@ -198,7 +199,7 @@ public class SharedPrefsHelper {
      */
     private static SharedPreferences getSharedPrefs(String configName) {
         SharedPreferences prefs;
-        if (StringHelper.notNull(configName))
+        if (!TextUtils.isEmpty(configName))
             prefs = BaseApplication.getInstance().getSharedPreferences(configName, Context.MODE_PRIVATE);
         else
             prefs = BaseApplication.getInstance().getSharedPreferences(DEFAULT_CONFIG, Context.MODE_PRIVATE);

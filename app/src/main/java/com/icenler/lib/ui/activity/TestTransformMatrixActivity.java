@@ -1,4 +1,4 @@
-package com.icenler.lib.ui;
+package com.icenler.lib.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
