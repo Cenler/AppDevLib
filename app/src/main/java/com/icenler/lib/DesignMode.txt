@@ -18,8 +18,54 @@
 
     * 伪码 > 测试码 > 真实码
 
+》 设计原则：复用、扩展、维护
+    1、 把可能需要变化的和不变的分离开来（物理隔离）
 
-》 模板方法(Template Method)：
+    2、 针对接口，不针对实现
+
+    3、 多用组合，少用继承
+
+    4、 低耦合，高内聚
+
+    5、 对扩展开放，对修改关闭
+
+》 策略模式(Strategy Pattern)：它定义了算法家庭，分别封装起来。让它们之间可以互相替换，此模式让算法的变化，不会影响到使用算法的客户
+        Example：
+            public class JsonFormat extends Formatter {
+                @Override
+                public String formating(Book book) {
+                    // ……
+                    return result;
+                }
+                // Other methods...
+            }
+
+            public class XmlFormat extends Formatter {
+                @Override
+                public String formating(Book book) {
+                    // ……
+                    return result;
+                }
+                // Other methods...
+            }
+
+            Formatter formatter = new XmlFormat();
+            String xml = formatter.formatBook(new Book(600, 60.01, "android核心编程", "不详"));
+            Log.e("TAG", xml);
+
+            formatter = new JsonFormat();
+            xml = formatter.formatBook(new Book(600, 60.01, "android核心编程", "不详"));
+            Log.e("TAG", xml);
+
+》 观察者模式（Observer Pattern）：定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新
+
+》 装饰者模式（）：动态地将责任附加到对象上，若要扩展功能，装饰者将提供比继承更有弹性的替代方案
+
+》 工厂方法模式（Factory Methed Pattern）：定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个，即让类把实例化推迟到子类中
+
+》 静态工厂模式（）：
+
+》 模板方法(Template Pattern)：
         定义一个操作中的算法的骨架，而将一些步骤延迟到子类中，模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤
 
         Example 01：
@@ -62,36 +108,6 @@
                     public abstract String formating(Book book);
 
                 }
-
-》 策略模式(Strategy)：
-        它定义了算法家庭，分别封装起来。让它们之间可以互相替换，此模式让算法的变化，不会影响到使用算法的客户
-
-        Example：
-            public class JsonFormat extends Formatter {
-                @Override
-                public String formating(Book book) {
-                    // ……
-                    return result;
-                }
-                // Other methods...
-            }
-
-            public class XmlFormat extends Formatter {
-                @Override
-                public String formating(Book book) {
-                    // ……
-                    return result;
-                }
-                // Other methods...
-            }
-
-            Formatter formatter = new XmlFormat();
-            String xml = formatter.formatBook(new Book(600, 60.01, "android核心编程", "不详"));
-            Log.e("TAG", xml);
-
-            formatter = new JsonFormat();
-            xml = formatter.formatBook(new Book(600, 60.01, "android核心编程", "不详"));
-            Log.e("TAG", xml);
 
 》 单例模式(Singleton)：
         保证一个类仅有一个实例，并提供一个访问它的全局访问点
