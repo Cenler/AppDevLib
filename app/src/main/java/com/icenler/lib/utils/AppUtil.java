@@ -10,12 +10,12 @@ import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import com.icenler.lib.R;
-import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.ui.AppConfig;
+import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
-import com.icenler.lib.utils.helper.StringHelper;
 
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
@@ -126,7 +126,7 @@ public class AppUtil {
      */
     public static String getDeviceID(Context context) {
         String deviceID = SharedPrefsHelper.get(AppConfig.PREFS_DEVICE_ID, "");
-        if (StringHelper.isNull(deviceID)) {
+        if (!TextUtils.isEmpty(deviceID)) {
             String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
             // Use the Android ID unless it's broken, in which case fallback on deviceId,
             // unless it's not available, then fallback on a random number which we store

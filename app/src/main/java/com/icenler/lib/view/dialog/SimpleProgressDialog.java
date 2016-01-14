@@ -3,8 +3,6 @@ package com.icenler.lib.view.dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 
-import com.icenler.lib.utils.helper.StringHelper;
-
 /**
  * Created by iCenler - 2015/9/13：
  * Description：简单加载 DialogFragment
@@ -22,7 +20,7 @@ public class SimpleProgressDialog {
      */
     public static void show(FragmentManager fm) {
         try {
-            if (StringHelper.isNull(mDialog) || !mDialog.isVisible()) {
+            if (mDialog == null || !mDialog.isVisible()) {
                 mDialog = CustomLoadingView.createDialog();
                 mDialog.show(fm, "Simple_Loading_Dialog");
             }

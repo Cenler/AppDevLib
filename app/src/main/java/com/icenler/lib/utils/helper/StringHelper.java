@@ -1,7 +1,5 @@
 package com.icenler.lib.utils.helper;
 
-import android.text.TextUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,27 +70,6 @@ public class StringHelper {
         }
     }
 
-    /**
-     * @param obj
-     * @return 对象是否为 null
-     */
-    public static boolean isNull(Object obj) {
-        if (null == obj) {
-            return true;
-        } else if (obj instanceof String) {
-            return TextUtils.isEmpty((String) obj);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @param object
-     * @return 对象是否非 null
-     */
-    public static boolean notNull(Object object) {
-        return !isNull(object);
-    }
 
     /**
      * @param bytes

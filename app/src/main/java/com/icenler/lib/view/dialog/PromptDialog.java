@@ -3,8 +3,6 @@ package com.icenler.lib.view.dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 
-import com.icenler.lib.utils.helper.StringHelper;
-
 /**
  * Created by iCenler - 2015/4/14.
  * Description：温馨提示窗口
@@ -22,7 +20,7 @@ public class PromptDialog {
      */
     public static void show(FragmentManager fm) {
         try {
-            if (StringHelper.isNull(mPromptDialog) || !mPromptDialog.isVisible()) {
+            if (mPromptDialog == null || !mPromptDialog.isVisible()) {
                 mPromptDialog = CustonPromptView.createDialog();
                 mPromptDialog.show(fm, "Prompt_Dialog");
             }
