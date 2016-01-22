@@ -25,6 +25,7 @@ import com.icenler.lib.ui.base.BaseActivity;
 import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.ScreenUtil;
 import com.icenler.lib.utils.manager.ToastManager;
+import com.icenler.lib.view.RadarView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.view.ViewClickEvent;
 
@@ -46,7 +47,7 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(new LoadingView(this));
+        super.setContentView(new RadarView(this));
         ButterKnife.bind(this);
     }
 

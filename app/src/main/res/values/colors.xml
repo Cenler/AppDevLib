@@ -23,6 +23,10 @@
     <color name="color_orange">#DE9B32</color>
     <color name="color_blue">#03A9F4</color>
 
+    <color name="color_999999">#FF999999</color>
+    <color name="color_666666">#FF666666</color>
+    <color name="color_333333">#FF333333</color>
+
     <color name="color_status_bar_translucence">#33000000</color>
 
 </resources>
