@@ -25,7 +25,7 @@ import com.icenler.lib.ui.base.BaseActivity;
 import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.ScreenUtil;
 import com.icenler.lib.utils.manager.ToastManager;
-import com.icenler.lib.view.RadarView;
+import com.icenler.lib.view.demo.RadarView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.view.ViewClickEvent;
 

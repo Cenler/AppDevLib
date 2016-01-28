@@ -1,4 +1,4 @@
-package com.icenler.lib.view;
+package com.icenler.lib.view.demo;
 
 import android.content.Context;
 import android.graphics.Canvas;

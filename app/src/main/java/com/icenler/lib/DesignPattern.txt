@@ -36,8 +36,6 @@
 
     9、 单一职责原则
 
-    *** http://geek.csdn.net/news/detail/51201 Android Studio 使用技巧
-
 》 策略模式(Strategy Pattern)：
     - 它定义了算法家庭，分别封装起来。让它们之间可以互相替换，此模式让算法的变化，不会影响到使用算法的客户
 
