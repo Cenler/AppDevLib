@@ -149,6 +149,7 @@ public class MainActivity extends BaseCompatActivity {
     /**
      * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
+     * - http://segmentfault.com/a/1190000002873657
      */
     private void init() {
         setSupportActionBar(mToolbar);

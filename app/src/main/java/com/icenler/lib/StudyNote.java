@@ -199,4 +199,16 @@
  *              # ProterDuff.Mode.OVERLAY   ：叠加中和
  *      - PixelXorXfermode: deprecated
  * */
+
+/**
+ * >>> 贝塞尔曲线插值器生成器
+ *     Path path = new Path();
+ *          path.lineTo();// 一阶
+ *          path.quadTo();// 二阶阶
+ *          path.cubicTo();// 三阶
+ *          PathInterpolatorCompat.create(new Path().quadTo());
+ *
+ * >>> compile(name:'camerascan-1.0', ext:'aar') aar包引入
+ *
+ * */
 /**************************************************************************************************/
