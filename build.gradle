@@ -1,9 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+// 设置脚本的运行环境
 buildscript {
+
+    // 依赖库远程检索
     repositories {
         jcenter()
+//        mavenCentral()
     }
+
+    // 工程依赖
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
 

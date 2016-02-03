@@ -6,7 +6,7 @@ import android.content.Intent;
 
 /**
  * Created by iCenler - 2015/9/10.
- * Description：网络状态改变广播
+ * Description：开机广播
  */
 public class BootCompleteReceiver extends BroadcastReceiver {
 

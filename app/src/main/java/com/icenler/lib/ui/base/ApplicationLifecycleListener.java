@@ -88,6 +88,7 @@ public class ApplicationLifecycleListener implements Application.ActivityLifecyc
      * 切换后台调用
      */
     private void background(Activity activity) {
+        LogUtil.i("The background to switch");
         LocalBroadcastManager.getInstance(activity).sendBroadcast(new Intent(ACTION_BACKGROUND_CHANGED));
     }
 
@@ -95,6 +96,7 @@ public class ApplicationLifecycleListener implements Application.ActivityLifecyc
      * 切换前台调用
      */
     private void foreground(Activity activity) {
+        LogUtil.i("The foreground to switch");
         LocalBroadcastManager.getInstance(activity).sendBroadcast(new Intent(ACTION_FOREGROUND_CHANGED));
     }
 

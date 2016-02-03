@@ -1,9 +1,14 @@
+// Android 程序申明
 apply plugin: 'com.android.application'
 
+// Android 相关配置
 android {
+    // 编译SDK版本
     compileSdkVersion 23
+    // 构建工具版本
     buildToolsVersion '23.0.1'
 
+    // App 标识及相关版本信息
     defaultConfig {
         applicationId "com.icenler.lib"
         minSdkVersion 19
@@ -11,14 +16,48 @@ android {
         versionCode 1
         versionName "1.0.0"
     }
-    buildTypes {
+
+    // Java 版本
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    signingConfigs {
+        debug { /* No debug config*/ }
+
         release {
-            minifyEnabled false
+//            storeFile file("../key/*.keystore")
+//            storePassword ""
+//            keyAlias ""
+//            keyPassword ""
+        }
+    }
+
+    // 编译类型配置（如：混淆）
+    buildTypes {
+        debug {}
+        release {
+//            // 不显示Log
+//            buildConfigField "boolean", "LOG_DEBUG", "false"
+//
+//            minifyEnabled true              // 是否混淆
+//            zipAlignEnabled true
+//            shrinkResources true            // 移除无用的resource文件
+//            signingConfig signingConfigs.release
+
+            // 混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // 忽略 Lint 检查的 error
+//    lintOptions {
+//        abortOnError false
+//    }
 }
 
+// 模块依赖
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:23.0.1'
@@ -44,7 +83,7 @@ dependencies {
     // 自动布局
     compile 'com.zhy:autolayout:1.3.4'
 
-    // 基于RxJava 事件绑定
+    // 基于RxJava 事件绑定及相关卓展
     compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.2.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.2.0'

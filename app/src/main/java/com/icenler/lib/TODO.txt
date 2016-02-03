@@ -27,6 +27,9 @@
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
 
+》 蓝牙开发:
+    - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0128/3918.html
+
 》 待办事项
     - http://blog.csdn.net/sinyu890807/article/list/1
     - http://www.apkbus.com/forum.php?mod=viewthread&tid=247787
