@@ -9,10 +9,9 @@
         android:id="@+id/tv_slide_dismiss"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/color_blue"
+        android:background="@color/color_blue_assist"
         android:gravity="center"
         android:text="Hello"
         android:textSize="32sp" />
-
 
 </android.support.design.widget.CoordinatorLayout>

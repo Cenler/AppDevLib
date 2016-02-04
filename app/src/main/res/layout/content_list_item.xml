@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
     card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="2dp">
+    card_view:cardElevation="6dp">
 
     <LinearLayout
         android:id="@+id/item_ll"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
             android:text="今天天气不错哦..."
-            android:textColor="@color/color_blue"
+            android:textColor="@color/color_blue_assist"
             android:textSize="18sp" />
 
     </LinearLayout>

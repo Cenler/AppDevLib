@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -75,14 +76,14 @@ public class BaseCompatActivity extends AppCompatActivity {
      * 注册广播
      */
     protected void registerReceivers() {
-        registerReceiver(mExitAppReceiver, new IntentFilter(ExitAppReceiver.ACTION_EXIT_APP));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mExitAppReceiver, new IntentFilter(ExitAppReceiver.ACTION_EXIT_APP));
     }
 
     /**
      * 注销广播
      */
     protected void unregisterReceivers() {
-        unregisterReceiver(mExitAppReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mExitAppReceiver);
     }
 
 }

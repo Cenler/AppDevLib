@@ -25,7 +25,6 @@ import com.icenler.lib.ui.base.BaseActivity;
 import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.ScreenUtil;
 import com.icenler.lib.utils.manager.ToastManager;
-import com.icenler.lib.view.demo.RadarView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.view.ViewClickEvent;
 
@@ -47,7 +46,7 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(new RadarView(this));
+        super.setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
     }
 
@@ -220,7 +219,7 @@ public class TestActivity extends BaseActivity {
         private RectF rectF;
 
         private int mBigCircleColor = getResources().getColor(R.color.color_green_highlight);
-        private int mAccBallColor = getResources().getColor(R.color.color_orange);
+        private int mAccBallColor = getResources().getColor(R.color.color_orange_assist);
 
         private int mBigCircleStroke = ScreenUtil.dp2px(1);
         private int mDuration = DEF_DURATION;

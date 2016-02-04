@@ -10,7 +10,7 @@
         <item name="android:screenOrientation">portrait</item><!-- 横竖屏锁定 -->
         <item name="colorPrimaryDark">@color/color_ink</item><!-- Statebar Color 5.0支持 -->
         <item name="colorPrimary">@color/color_ink</item><!-- Toolbar Color -->
-        <item name="colorAccent">@color/color_blue</item><!-- Metral Design -->
+        <item name="colorAccent">@color/color_blue_assist</item><!-- Metral Design -->
         <item name="android:textColorPrimary">#FFCFCFCF</item>
     </style>
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * Created by iCenler - 2015/7/14.
@@ -19,7 +20,7 @@ public class ExitAppReceiver extends BroadcastReceiver {
      * @param context
      */
     public static void exitApp(Context context) {
-        context.sendBroadcast(new Intent().setAction(ACTION_EXIT_APP));
+        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent().setAction(ACTION_EXIT_APP));
     }
 
     @Override

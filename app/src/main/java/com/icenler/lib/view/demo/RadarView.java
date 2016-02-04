@@ -49,7 +49,7 @@ public class RadarView extends View {
     private void init() {
         mShapePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mShapePaint.setStrokeWidth(1);
-        mShapePaint.setColor(getResources().getColor(R.color.color_grey));
+        mShapePaint.setColor(getResources().getColor(R.color.color_grey_assist));
         mShapePaint.setStyle(Paint.Style.STROKE);
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -57,7 +57,7 @@ public class RadarView extends View {
         mTextPaint.setColor(getResources().getColor(R.color.color_ink));
 
         mRegionPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mRegionPaint.setColor(getResources().getColor(R.color.color_blue));
+        mRegionPaint.setColor(getResources().getColor(R.color.color_blue_assist));
         mRegionPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mRegionPaint.setAlpha(180);
 

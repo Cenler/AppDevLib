@@ -62,7 +62,7 @@ public class TestFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_blue);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_blue_assist);
         mAdapter = new CardItemAdapter(getActivity(), Arrays.asList(R.mipmap.img01, R.mipmap.img02, R.mipmap.img03));
         mRecyclerView.setAdapter(mAdapter);
 
