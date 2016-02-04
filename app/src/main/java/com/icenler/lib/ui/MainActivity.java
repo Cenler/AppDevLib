@@ -59,6 +59,14 @@ public class MainActivity extends BaseCompatActivity {
 
     private long exitTimeMillis;
 
+    /**
+     * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
+     * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
+     * - http://segmentfault.com/a/1190000002873657
+     *
+     * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0130/3927.html 滚动播放
+     * - http://jcodecraeer.com/plus/list.php?tid=31
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,13 +154,6 @@ public class MainActivity extends BaseCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
-     * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
-     * - http://segmentfault.com/a/1190000002873657
-     *
-     * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0130/3927.html 滚动播放
-     */
     private void init() {
         setSupportActionBar(mToolbar);
         ActionBar mActionBar = getSupportActionBar();
