@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by iCenler .
- * 2015/5/27：
+ * Created by iCenler - 2015/5/27.
  * Description：RecylerView 线性布局扩展 - 处理 ScrollView 嵌套冲突
  */
 public class FullyLinearLayoutManager extends LinearLayoutManager {

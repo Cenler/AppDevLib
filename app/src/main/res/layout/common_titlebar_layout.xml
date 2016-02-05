@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CommonTitleBar.Container">
+
+    <TextView
+        android:id="@+id/titlebar_title_tv"
+        style="@style/CommonTitleBar.Title"
+        android:contentDescription="标题" />
+
+    <TextView
+        android:id="@+id/titlebar_left_tv"
+        style="@style/CommonTitleBar.SubTitle.Left"
+        android:contentDescription="左侧按钮" />
+
+    <TextView
+        android:id="@+id/titlebar_right_tv"
+        style="@style/CommonTitleBar.SubTitle.Right"
+        android:contentDescription="右侧按钮" />
+
+</RelativeLayout>

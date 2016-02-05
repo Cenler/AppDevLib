@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by iCenler .
- * 2015/5/27：
+ * Created by iCenler - 2015/5/27.
  * Description：RecylerView 网格布局扩展 - 处理 ScrollView 嵌套冲突
  */
 public class FullyGridLayoutManager extends GridLayoutManager {

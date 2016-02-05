@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="volum_reached_color" format="color" />
+    <attr name="volum_unreached_color" format="color" />
+    <attr name="volum_src" format="reference" />
+    <attr name="volum_dot_count" format="integer" />
+    <attr name="volum_dot_margin" format="integer" /><!-- 间距：360 为基准 -->
+    <attr name="volum_dot_stroke" format="dimension" />
+
+    <declare-styleable name="VolumControlBar">
+        <attr name="volum_reached_color"/>
+        <attr name="volum_unreached_color"/>
+        <attr name="volum_src"/>
+        <attr name="volum_dot_count"/>
+        <attr name="volum_dot_margin"/>
+        <attr name="volum_dot_stroke"/>
+    </declare-styleable>
+
+</resources>

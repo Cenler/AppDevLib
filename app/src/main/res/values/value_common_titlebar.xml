@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="titlebar_subtitle_texticon_padding">5dp</dimen>
+    <dimen name="titlebar_subtitle_text_margin">12dp</dimen>
+
+    <!-- 自定义属性 -->
+    <declare-styleable name="CommonTitleBar">
+        <attr name="titleLabel" format="string" />
+        <attr name="leftLabel" format="string" />
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftIconSize" format="dimension" />
+        <attr name="leftIconAlign" >
+            <!-- 左右对齐 默认：left-->
+            <flag name="left" value="0"/>
+            <flag name="right" value="1"/>
+        </attr>
+        <attr name="rightLabel" format="string" />
+        <attr name="rightIcon" format="reference"/>
+        <attr name="rightIconSize" format="dimension" />
+        <attr name="rightIconAlign">
+            <!-- 左右对齐 默认：left-->
+            <flag name="left" value="0"/>
+            <flag name="right" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <!-- 通用标题导航样式 -->
+    <style name="CommonTitleBar" />
+    <style name="CommonTitleBar.Container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="CommonTitleBar.View">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">none</item>
+    </style>
+
+    <style name="CommonTitleBar.Title" parent="CommonTitleBar.View">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="android:textSize">@dimen/text_title</item>
+    </style>
+
+    <style name="CommonTitleBar.SubTitle" parent="CommonTitleBar.View">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/text_subhead</item>
+        <item name="android:textColor">@color/black_text_selector</item>
+        <item name="android:drawablePadding">@dimen/titlebar_subtitle_texticon_padding</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="CommonTitleBar.SubTitle.Right">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">@dimen/titlebar_subtitle_text_margin</item>
+    </style>
+
+    <style name="CommonTitleBar.SubTitle.Left">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginLeft">@dimen/titlebar_subtitle_text_margin</item>
+    </style>
+
+</resources>
