@@ -81,7 +81,8 @@ dependencies {
 
     compile 'com.facebook.fresco:fresco:0.8.1+'
     // 自动布局
-    compile 'com.zhy:autolayout:1.3.4'
+//    compile 'com.zhy:autolayout:1.3.4'
+
 
     // 基于RxJava 事件绑定及相关卓展
     compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
@@ -90,16 +91,28 @@ dependencies {
 //    compile 'com.jakewharton.rxbinding:rxbinding-design:0.2.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.2.0'
 
-    // compile 'com.github.chrisbanes.photoview:library:1.2.4' // 照片查看控件
-    // compile 'com.baoyz.swipemenulistview:library:1.3.0' // ListView item侧滑菜单
-    // compile 'com.crashlytics.android:crashlytics:1.+' // 崩溃统计
-    // compile 'cn.pedant.sweetalert:library:1.3' // dialog
-    // compile 'com.almeros.android-gesture-detectors:library:1.0' // 手势检测
+//     compile 'com.github.chrisbanes.photoview:library:1.2.4'      // 照片查看控件
+//     compile 'com.baoyz.swipemenulistview:library:1.3.0'          // ListView item侧滑菜单
+//     compile 'com.crashlytics.android:crashlytics:1.+'            // 崩溃统计
+//     compile 'cn.pedant.sweetalert:library:1.3' // dialog
+//     compile 'com.almeros.android-gesture-detectors:library:1.0'  // 手势检测
 
-//    compile 'me.imid.swipebacklayout.lib:library:1.0.0'// IOS 滑动返回
+//    compile 'me.imid.swipebacklayout.lib:library:1.0.0'   // IOS 滑动返回
+//    compile 'com.moxun:tagcloudlib:1.0.3'                 // 3D 滚动标签视图
+//    compile 'io.github.yavski:fab-speed-dial:1.0.2'       // FabActionButton 扩展
+//    compile 'com.github.edanel:GBSlideBar:0.5'            // 滑杆选择器
+//    compile 'me.codeboy.android:align-text-view:2.3.0'    // 文本排版
+
+
+    // 视频相关
+//    compile 'com.asha:vrlib:0.1'                          // 全景视频 黑科技
+//    compile 'com.github.danylovolokh:video-player-manager:0.2.0'  // 滚动获取焦点播放
+//    compile 'com.github.danylovolokh:list-visibility-utils:0.2.0' // 滚动获取焦点播放
+
 
     // Material Design 设计规范
-//    compile 'com.redbooth:SlidingDeck:1.0.0'// 卡片层叠
+//    compile 'com.redbooth:SlidingDeck:1.0.0'              // 卡片层叠
+//    compile 'com.github.DxTT:coolMenu:v1.2'               // 卡片视图切换
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'

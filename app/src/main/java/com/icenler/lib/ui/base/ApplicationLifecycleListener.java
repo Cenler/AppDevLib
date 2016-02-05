@@ -26,14 +26,21 @@ public class ApplicationLifecycleListener implements Application.ActivityLifecyc
 
 
     /**
-     * 可见 Activity 数量，用于识别台切换
+     * 可见 Activity 数量，用于识别前后台切换
      */
-    private int backgroundCount = 0;
+    private int activeCount = 0;
 
     /**
      * 应用是否处于后台
      */
     private boolean isBackground = false;
+
+    /**
+     * @return 应用前后台状态
+     */
+    public boolean isBackground() {
+        return isBackground;
+    }
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -44,7 +51,7 @@ public class ApplicationLifecycleListener implements Application.ActivityLifecyc
     public void onActivityStarted(Activity activity) {
         LogUtil.i("onActivityStarted: " + activity.getClass().getSimpleName());
 
-        backgroundCount++;
+        activeCount++;
     }
 
     @Override
@@ -67,8 +74,8 @@ public class ApplicationLifecycleListener implements Application.ActivityLifecyc
     public void onActivityStopped(Activity activity) {
         LogUtil.i("onActivityStopped: " + activity.getClass().getSimpleName());
 
-        backgroundCount--;
-        if (backgroundCount == 0) {
+        activeCount--;
+        if (activeCount == 0) {
             isBackground = true;
             background(activity);
         }
