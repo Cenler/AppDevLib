@@ -8,9 +8,11 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import com.icenler.lib.utils.AppUtil;
+import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.manager.ToastManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Created by iCenler - 2015/9/10.
@@ -68,17 +70,30 @@ public class ActivityHelper {
      */
     private static void installApk(Context context, String path) {
         File apkfile = new File(path);
-        if (!apkfile.exists()) return;
+        if (!apkfile.exists()) {
+            LogUtil.e(path);
+            throw new RuntimeException("File not found");
+        }
 
         try {
             // 通过Intent安装APK文件
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(Uri.parse("file://" + apkfile.toString()), "application/vnd.android.package-archive");
+            intent.setDataAndType(Uri.fromFile(apkfile), "application/vnd.android.package-archive");
             context.startActivity(intent);
         } catch (Exception e) {
             ToastManager.show(context, "安装文件不存在");
         }
+    }
+
+    /**
+     * 卸载 APK 文件
+     */
+    public static void uninstallApk(Context context, String packageName) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        Uri packageURI = Uri.parse("package:" + packageName);
+        intent.setData(packageURI);
+        context.startActivity(intent);
     }
 
 }

@@ -11,6 +11,10 @@ import java.util.regex.Pattern;
  */
 public class StringHelper {
 
+    private StringHelper() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     /**
      * 中文匹配
      */
@@ -37,6 +41,15 @@ public class StringHelper {
     public static boolean checkAccount(String str) {
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{6,20}$");
         Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+
+    /**
+     * 身份证验证
+     */
+    public static boolean checkIDCard(String idCard) {
+        Pattern pattern = Pattern.compile("^(([0-9]{14}[x0-9]{1})|([0-9]{17}[x0-9]{1}))$");
+        Matcher matcher = pattern.matcher(idCard);
 
         return matcher.matches();
     }
@@ -84,16 +97,6 @@ public class StringHelper {
         }
 
         return sb.toString();
-    }
-
-    /**
-     * boolean 类型判断
-     */
-    public static boolean isTrue(String str) {
-        if ("true".equalsIgnoreCase(str))
-            return true;
-
-        return false;
     }
 
 }

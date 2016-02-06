@@ -29,7 +29,7 @@
             <enum name="visible" value="0" />
             <enum name="invisible" value="1" />
         </attr>-->
-        <attr name="radius" format="dimension" />
+        <attr name="progress_radius" format="dimension" />
     </declare-styleable>
 
 </resources>

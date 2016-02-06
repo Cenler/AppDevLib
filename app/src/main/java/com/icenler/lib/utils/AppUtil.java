@@ -2,6 +2,7 @@ package com.icenler.lib.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -18,6 +19,7 @@ import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -109,6 +111,21 @@ public class AppUtil {
      */
     public static boolean isActivityContext(Context context) {
         return context instanceof Activity;
+    }
+
+    /**
+     * 检测服务是否运行
+     */
+    public static boolean isServiceRunning(Context context, String className) {
+        boolean isRunning = false;
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> servicesList = activityManager.getRunningServices(Integer.MAX_VALUE);
+        for (ActivityManager.RunningServiceInfo si : servicesList) {
+            if (className.equals(si.service.getClassName())) {
+                isRunning = true;
+            }
+        }
+        return isRunning;
     }
 
     /**

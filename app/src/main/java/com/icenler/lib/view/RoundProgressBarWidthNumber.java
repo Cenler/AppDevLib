@@ -111,7 +111,7 @@ public class RoundProgressBarWidthNumber extends ProgressBar {
     private void getObtainStyleAttributes(AttributeSet attrs) {
         TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.RoundProgressBarWidthNumber);
 
-        mRadius = (int) attributes.getDimension(R.styleable.RoundProgressBarWidthNumber_radius, mRadius);
+        mRadius = (int) attributes.getDimension(R.styleable.RoundProgressBarWidthNumber_progress_radius, mRadius);
         mTextColor = attributes.getColor(R.styleable.HorizontalProgressBarWithNumber_progress_text_color, mTextColor);
         mTextSize = (int) attributes.getDimension(R.styleable.HorizontalProgressBarWithNumber_progress_text_size, mTextSize);
         mReachedBarColor = attributes.getColor(R.styleable.HorizontalProgressBarWithNumber_progress_reached_color, mReachedBarColor);
