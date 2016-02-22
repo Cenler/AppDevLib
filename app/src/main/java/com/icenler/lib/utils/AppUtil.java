@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
@@ -19,6 +21,10 @@ import com.icenler.lib.ui.base.BaseApplication;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.UUID;
 
@@ -197,4 +203,66 @@ public class AppUtil {
 
         return pullToken;
     }
+
+    /**
+     * @param context
+     * @return 无线网卡 MAC 地址
+     */
+    public String getMacAddress(Context context) {
+        String macAddress = SharedPrefsHelper.get(AppConfig.PREFS_MAC_ADDRESS, "");
+
+        if (TextUtils.isEmpty(macAddress)) {
+            WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiInfo info = (null == wifiMgr ? null : wifiMgr.getConnectionInfo());
+            macAddress = (info == null ? null : info.getMacAddress());
+
+            SharedPrefsHelper.put(AppConfig.PREFS_MAC_ADDRESS, macAddress);
+        }
+
+        return macAddress;
+    }
+
+    /**
+     * @return IPV6 地址形式
+     */
+    public static String getLocalIpv6Address() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            LogUtil.e("WifiPreference IpAddress" + ex.toString());
+        }
+
+        return null;
+    }
+
+    /**
+     * @return IPV4 地址形式
+     */
+    public static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface
+                    .getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            LogUtil.e("WifiPreference IpAddress" + ex.toString());
+        }
+
+        return null;
+    }
+
 }
