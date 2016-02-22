@@ -19,29 +19,33 @@ import java.util.zip.ZipFile;
  */
 public class ChannelUtil {
 
-    private static final String CHANNEL_KEY = "channel_key";
-    private static final String CHANNEL_VERSION_KEY = "channel_version_key";
+    private static final String CHANNEL_KEY = "cztchannel";
+    private static final String CHANNEL_VERSION_KEY = "cztchannel_version";
     private static String mChannel;
 
-    /**
-     * @param context 上下文
-     * @return 返回市场号
-     */
-    public static String getChannel(Context context) {
-        return getChannel(context, "Channel_Default");
+    private ChannelUtil() {
+        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
-     * @param context        上下文
-     * @param defaultChannel 数值
-     * @return 返回市场。  如果获取失败返回defaultChannel
+     * @param context
+     * @return 返回渠道名称，如败返回 ""
+     */
+    public static String getChannel(Context context) {
+        return getChannel(context, "");
+    }
+
+    /**
+     * @param context
+     * @param defaultChannel 默认渠道
+     * @return 渠道名称
      */
     public static String getChannel(Context context, String defaultChannel) {
-        //内存中获取
-        if (!TextUtils.isEmpty(mChannel)) {
+        // 内存中获取
+        if (!TextUtils.isEmpty(mChannel))
             return mChannel;
-        }
-        //sp中获取
+
+        // sp中获取
         mChannel = getChannelBySharedPreferences(context);
         if (!TextUtils.isEmpty(mChannel)) {
             return mChannel;
@@ -94,7 +98,7 @@ public class ChannelUtil {
                 }
             }
         }
-        String[] split = ret.split("\\*");
+        String[] split = ret.split("_");
         String channel = "";
         if (split != null && split.length >= 2) {
             channel = ret.substring(split[0].length() + 1);
@@ -126,18 +130,19 @@ public class ChannelUtil {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         int currentVersionCode = getVersionCode(context);
         if (currentVersionCode == -1) {
-            //获取错误
-            return "";
+            return "";//获取错误
         }
+
         int versionCodeSaved = sp.getInt(CHANNEL_VERSION_KEY, -1);
         if (versionCodeSaved == -1) {
-            //本地没有存储的channel对应的版本号
-            //第一次使用  或者 原先存储版本号异常
+            //本地没有存储的channel对应的版本号 or 第一次使用或者原先存储版本号异常
             return "";
         }
+
         if (currentVersionCode != versionCodeSaved) {
             return "";
         }
+
         return sp.getString(CHANNEL_KEY, "");
     }
 
@@ -155,4 +160,5 @@ public class ChannelUtil {
         }
         return -1;
     }
+
 }
