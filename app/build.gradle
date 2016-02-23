@@ -116,4 +116,8 @@ dependencies {
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+
+    // Jar
+    compile files('lib/mpermissions.jar')
+    compile files('lib/android-directionalviewpager-1.2.1fixed.jar')
 }
