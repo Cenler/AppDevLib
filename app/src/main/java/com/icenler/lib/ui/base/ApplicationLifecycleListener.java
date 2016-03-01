@@ -33,7 +33,7 @@ public class ApplicationLifecycleListener implements Application.ActivityLifecyc
     /**
      * 应用是否处于后台
      */
-    private boolean isBackground = false;
+    private boolean isBackground = true;
 
     /**
      * @return 应用前后台状态
