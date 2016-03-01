@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SimpleRatingBar">
+        <attr name="srb_max_count" format="integer"/>
+        <attr name="srb_count" format="integer"/>
+        <attr name="srb_fill" format="reference"/>
+        <attr name="srb_empty" format="reference"/>
+        <attr name="srb_space" format="dimension"/>
+        <attr name="srb_click_rating" format="boolean"/>
+        <attr name="srb_touch_rating" format="boolean"/>
+    </declare-styleable>
+
+</resources>

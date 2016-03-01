@@ -8,6 +8,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -46,7 +47,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseCompatActivity {
-    
+
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @Bind(R.id.nav_view)
@@ -66,7 +67,7 @@ public class MainActivity extends BaseCompatActivity {
      * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
      * - http://segmentfault.com/a/1190000002873657
-     *
+     * <p/>
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0130/3927.html 滚动播放
      * - http://jcodecraeer.com/plus/list.php?tid=31
      */
@@ -260,6 +261,33 @@ public class MainActivity extends BaseCompatActivity {
         blue = (int) Math.floor(blue * (1 - 0.1));
 
         return Color.rgb(red, green, blue);
+    }
+
+    /**
+     * To hide fab, you need to remove its anchor
+     * FloatingActionButton Toolbar 收缩展开按钮动态展示与隐藏
+     */
+    private void hideFab(FloatingActionButton actionBtn) {
+        // Ugly bug makes the view go to bottom|center of screen before hiding, seems like you need to implement your own fab behavior...
+        final CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) actionBtn.getLayoutParams();
+        layoutParams.setAnchorId(View.NO_ID);
+
+        actionBtn.setVisibility(View.GONE);
+        actionBtn.requestLayout();
+        actionBtn.hide();
+    }
+
+    /**
+     * To hide fab, you need to remove its anchor
+     * FloatingActionButton Toolbar 收缩展开按钮动态展示与隐藏
+     */
+    private void showFab(FloatingActionButton actionBtn, int layoutAppBarId) {
+        final CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) actionBtn.getLayoutParams();
+        layoutParams.setAnchorId(layoutAppBarId);
+        layoutParams.anchorGravity = Gravity.RIGHT | Gravity.END | Gravity.BOTTOM;
+
+        actionBtn.requestLayout();
+        actionBtn.show();
     }
 
 }

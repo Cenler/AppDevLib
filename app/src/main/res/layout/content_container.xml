@@ -16,7 +16,13 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed" />
+        <!--
+        app:layout_scrollFlags="scroll
+        |enterAlways
+        |enterAlwaysCollapsed
+        |exitUntilCollapsed"
+         -->
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs_layout"

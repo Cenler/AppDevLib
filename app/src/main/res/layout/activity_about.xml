@@ -60,6 +60,11 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin" />
 
+            <!--
+            app:layout_collapseParallaxMultiplier="0.7" 设置视差因子
+            app:layout_collapseMode="none|pin|parallax"
+            -->
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>

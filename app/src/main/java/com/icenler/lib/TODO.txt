@@ -1,28 +1,23 @@
-/************************ 资源汇总 ***********************/
-》 Github 开源汇总：
-    - https://github.com/Trinea/android-open-project
-
+/****************************************************************/
+》 阅读：
+    - http://blog.csdn.net/singwhatiwanna/article/details/49560409
 
 》 图形字体库：
     Font Awesome：
         - http://www.bootcss.com/p/font-awesome/#icons-new
         - https://github.com/liltof/font-awsome-for-android
 
-》 延生阅读：
-    - http://blog.csdn.net/singwhatiwanna/article/details/49560409
+》 优秀开源资源学习借鉴：
+    - https://github.com/Trinea/android-open-project            // 开源库整理
 
-
-》 优秀开源库收藏：
-    - http://blog.csdn.net/guolin_blog/article/details/9316683
-
-
-》 Zxing
-    - https://github.com/zxing/zxing
+    - https://github.com/zxing/zxing                            // 二维码扫描
     - http://repo1.maven.org/maven2/com/google/zxing/
 
-》 视频教程：
-    推送平台：
-        - http://www.imooc.com/view/223
+    - https://github.com/sungerk/CircularMenu                   // 圆形菜单
+
+    - http://www.imooc.com/view/223                             // 推送服务
+
+    - https://github.com/alorma/TimelineView                    // 时间轴
 
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679

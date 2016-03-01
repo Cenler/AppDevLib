@@ -83,7 +83,6 @@ dependencies {
     // 自动布局
 //    compile 'com.zhy:autolayout:1.3.4'
 
-
     // 基于RxJava 事件绑定及相关卓展
     compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.2.0'
@@ -102,22 +101,25 @@ dependencies {
 //    compile 'io.github.yavski:fab-speed-dial:1.0.2'       // FabActionButton 扩展
 //    compile 'com.github.edanel:GBSlideBar:0.5'            // 滑杆选择器
 //    compile 'me.codeboy.android:align-text-view:2.3.0'    // 文本排版
-
+//    compile 'de.hdodenhof:circleimageview:2.0.0'          // 圆形图片
+//    compile 'com.github.badoualy:morphy-toolbar:1.0.3'    // Toolbar 隐藏
+//    compile 'com.github.alorma:timelineview:2.2.1'        // 时间轴
 
     // 视频相关
 //    compile 'com.asha:vrlib:0.1'                          // 全景视频 黑科技
 //    compile 'com.github.danylovolokh:video-player-manager:0.2.0'  // 滚动获取焦点播放
 //    compile 'com.github.danylovolokh:list-visibility-utils:0.2.0' // 滚动获取焦点播放
-
+//    compile 'com.github.eneim:Toro:1.1.0'                         // 滚动获取焦点播放
 
     // Material Design 设计规范
 //    compile 'com.redbooth:SlidingDeck:1.0.0'              // 卡片层叠
 //    compile 'com.github.DxTT:coolMenu:v1.2'               // 卡片视图切换
+//    compile 'com.jaredrummler:material-spinner:1.0.4'     // Spinner
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 
     // Jar
-    compile files('lib/mpermissions.jar')
+//    compile files('lib/mpermissions.jar') // http://www.cnblogs.com/avenwu/p/4173899.html 使用
     compile files('lib/android-directionalviewpager-1.2.1fixed.jar')
 }
