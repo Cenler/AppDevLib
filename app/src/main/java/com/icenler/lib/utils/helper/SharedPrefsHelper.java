@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.icenler.lib.ui.base.BaseApplication;
+import com.icenler.lib.feature.base.BaseApplication;
 
 import java.util.Map;
 import java.util.Set;

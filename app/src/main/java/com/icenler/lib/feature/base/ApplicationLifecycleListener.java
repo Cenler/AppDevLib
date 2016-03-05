@@ -1,4 +1,4 @@
-package com.icenler.lib.ui.base;
+package com.icenler.lib.feature.base;
 
 import android.app.Activity;
 import android.app.Application;

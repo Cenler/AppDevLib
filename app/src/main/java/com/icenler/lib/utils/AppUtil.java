@@ -16,8 +16,8 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.icenler.lib.R;
-import com.icenler.lib.ui.AppConfig;
-import com.icenler.lib.ui.base.BaseApplication;
+import com.icenler.lib.feature.AppConfig;
+import com.icenler.lib.feature.base.BaseApplication;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 
 import java.io.UnsupportedEncodingException;

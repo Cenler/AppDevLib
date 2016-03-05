@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/tv_slide_dismiss"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/color_blue_assist"
-        android:gravity="center"
-        android:text="Hello"
-        android:textSize="32sp" />
+        android:layout_height="match_parent"
+        android:background="?android:colorPrimary"
+        android:onClick="animate"
+        tools:context=".MainActivity"
+        tools:targetApi="lollipop">
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="150dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:onClick="animate"
+            android:src="@drawable/svg_search_bar" />
+
+        <EditText
+            android:id="@+id/text"
+            android:layout_width="150dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:alpha="0"
+            android:background="@null"
+            android:paddingStart="4dp"
+            android:textColor="?android:colorAccent"
+            android:textSize="12sp" />
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

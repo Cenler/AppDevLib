@@ -1,4 +1,4 @@
-package com.icenler.lib.ui;
+package com.icenler.lib.feature;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -29,10 +29,10 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 
 import com.icenler.lib.R;
-import com.icenler.lib.ui.activity.AboutActivity;
-import com.icenler.lib.ui.base.BaseApplication;
-import com.icenler.lib.ui.base.BaseCompatActivity;
-import com.icenler.lib.ui.fragment.TestFragment;
+import com.icenler.lib.feature.activity.AboutActivity;
+import com.icenler.lib.feature.base.BaseApplication;
+import com.icenler.lib.feature.base.BaseCompatActivity;
+import com.icenler.lib.feature.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
 
@@ -70,6 +70,10 @@ public class MainActivity extends BaseCompatActivity {
      * <p/>
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0130/3927.html 滚动播放
      * - http://jcodecraeer.com/plus/list.php?tid=31
+     * <p/>
+     * 切换主题
+     * getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+     * recreate();
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +91,6 @@ public class MainActivity extends BaseCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 200);
             }
         }
-
 
         init();
     }

@@ -1,4 +1,4 @@
-package com.icenler.lib.ui.fragment;
+package com.icenler.lib.feature.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

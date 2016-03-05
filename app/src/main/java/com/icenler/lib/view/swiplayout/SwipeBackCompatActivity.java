@@ -3,7 +3,7 @@ package com.icenler.lib.view.swiplayout;
 import android.os.Bundle;
 import android.view.View;
 
-import com.icenler.lib.ui.base.BaseCompatActivity;
+import com.icenler.lib.feature.base.BaseCompatActivity;
 import com.icenler.lib.utils.OtherUtil;
 
 public class SwipeBackCompatActivity extends BaseCompatActivity implements SwipeBackActivityBase {

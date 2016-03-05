@@ -1,8 +1,9 @@
-package com.icenler.lib.ui;
+package com.icenler.lib.feature;
 
 import android.graphics.Typeface;
 
-import com.icenler.lib.ui.base.BaseApplication;
+import com.icenler.lib.BuildConfig;
+import com.icenler.lib.feature.base.BaseApplication;
 import com.icenler.lib.utils.AppUtil;
 
 /**
@@ -10,6 +11,8 @@ import com.icenler.lib.utils.AppUtil;
  * Description：App 全局配置
  */
 public class AppConfig {
+
+    public static boolean DEBUG = BuildConfig.DEBUG;
 
     /* SharedPrefrens */
     public static String PREFS_DEVICE_ID = "device_id";

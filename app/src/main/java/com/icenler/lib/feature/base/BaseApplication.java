@@ -1,17 +1,20 @@
-package com.icenler.lib.ui.base;
+package com.icenler.lib.feature.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.icenler.lib.receiver.ExitAppReceiver;
+import com.icenler.lib.feature.AppConfig;
 import com.icenler.lib.utils.LogUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 /**
@@ -27,7 +30,9 @@ public class BaseApplication extends Application {
     /**
      * @return App 全局上下文
      */
-    public static BaseApplication getInstance() { return mInstance; }
+    public static BaseApplication getInstance() {
+        return mInstance;
+    }
 
     /**
      * @return 内存泄露检测工具
@@ -39,7 +44,9 @@ public class BaseApplication extends Application {
     /**
      * @return Volley 全局请求队列
      */
-    public static RequestQueue getHttpQueues() { return mHttpQueues; }
+    public static RequestQueue getHttpQueues() {
+        return mHttpQueues;
+    }
 
     @Override
     public void onCreate() {
@@ -51,9 +58,17 @@ public class BaseApplication extends Application {
     }
 
     private void initAll() {
-        installLeakCanary();
+        installLeakCanary(this);
+        initStrictMode();
         initImageLoaderConfig(getApplicationContext());
         initRequestQueues(getApplicationContext());
+    }
+
+    private void initStrictMode() {
+        if (AppConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());// 磁盘读写及网络
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());// 内存相关检测
+        }
     }
 
     private void initRequestQueues(Context context) {
@@ -101,10 +116,13 @@ public class BaseApplication extends Application {
     /**
      * 内存泄露检测工具：release 版本下使用 RefWatcher.DISABLED
      */
-    private void installLeakCanary() {
+    private void installLeakCanary(Application app) {
         // TODO 待引入环境自动检测控制
-//        mRefWatcher = LeakCanary.install(this);
-        mRefWatcher = RefWatcher.DISABLED;
+        if (!AppConfig.DEBUG) {
+            mRefWatcher = RefWatcher.DISABLED;
+        } else {
+            mRefWatcher = LeakCanary.install(app);
+        }
     }
 
     /**

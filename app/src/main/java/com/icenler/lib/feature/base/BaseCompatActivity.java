@@ -1,10 +1,11 @@
-package com.icenler.lib.ui.base;
+package com.icenler.lib.feature.base;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -13,12 +14,13 @@ import com.icenler.lib.receiver.ExitAppReceiver;
 import com.icenler.lib.utils.manager.SystemBarTintManager;
 
 /**
- * Created by iCenler - 2015/7/14.
- * Description：Activity 基类
+ * Created by iCenler - 2015/9/15：
+ * Description：不支持沉浸式状态栏 具体问题待排查
  */
-public class BaseActivity extends Activity {
+public class BaseCompatActivity extends AppCompatActivity {
 
     private ExitAppReceiver mExitAppReceiver = new ExitAppReceiver();
+    private SystemBarTintManager tintManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +36,14 @@ public class BaseActivity extends Activity {
     }
 
     /**
-     * 沉浸式状态栏设置
+     * 沉浸式状态栏设置 （19 版本以下不支持，但不会产生额外影响）
      */
     protected void initSystemBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
 
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.color_status_bar_translucence);
@@ -61,17 +63,27 @@ public class BaseActivity extends Activity {
     }
 
     /**
+     * @return SystemBarTintManager 对象
+     */
+    protected SystemBarTintManager getTintManager() {
+        // 可通过以下方法对状态栏颜色动态调整以及实现渐变效果
+        // tintManager.setTintAlpha();
+        // tintManager.setTintColor();……等
+        return tintManager;
+    }
+
+    /**
      * 注册广播
      */
-    private void registerReceivers() {
-        registerReceiver(mExitAppReceiver, new IntentFilter(ExitAppReceiver.ACTION_EXIT_APP));
+    protected void registerReceivers() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(mExitAppReceiver, new IntentFilter(ExitAppReceiver.ACTION_EXIT_APP));
     }
 
     /**
      * 注销广播
      */
-    private void unregisterReceivers() {
-        unregisterReceiver(mExitAppReceiver);
+    protected void unregisterReceivers() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mExitAppReceiver);
     }
 
 }

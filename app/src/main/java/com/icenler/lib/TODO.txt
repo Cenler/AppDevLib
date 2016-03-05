@@ -19,6 +19,11 @@
 
     - https://github.com/alorma/TimelineView                    // 时间轴
 
+    - http://blog.csdn.net/xu_fu/article/details/44004841       // SVG Drawable
+
+    - http://www.jianshu.com/p/167fd5f47d5c                     // 无权限弹窗
+    - https://github.com/liaohuqiu/android-UCToast
+
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
 

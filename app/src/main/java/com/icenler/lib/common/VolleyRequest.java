@@ -3,7 +3,7 @@ package com.icenler.lib.common;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.icenler.lib.ui.base.BaseApplication;
+import com.icenler.lib.feature.base.BaseApplication;
 
 import java.util.Map;
 

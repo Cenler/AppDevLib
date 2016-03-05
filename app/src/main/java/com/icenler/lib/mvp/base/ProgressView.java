@@ -1,7 +1,8 @@
-package com.icenler.lib.ui.view;
+package com.icenler.lib.mvp.base;
 
 /**
- * Description：MVP 加载与隐藏
+ * Created by iCenler on 2016/3/5.
+ * Description:
  */
 public interface ProgressView {
 
