@@ -64,6 +64,7 @@ public class MainActivity extends BaseCompatActivity {
     private long exitTimeMillis;
 
     /**
+     * Jenkins Android 自动打包服务器
      * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
      * - http://segmentfault.com/a/1190000002873657
