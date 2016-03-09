@@ -576,6 +576,20 @@ View.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
  * >>> compile(name:'camerascan-1.0', ext:'aar') aar包引入
  *
  * */
+/**
+ * >>> TextView 下划线 TextView.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);// 下划线
+ * >>> EditText 输入过滤
+ *     使用：EditText.setKeyListener() EditText.setFilter(new InputFilter[]{new InputFilter.LengthFilter(11)) 长度限定
+ *
+ * //只接受整数输入
+ * KeyListener l = new DigitsKeyListener(fasle,false);
+ * //接受有符号整数输入
+ * KeyListener l = new DigitsKeyListener(true,false);
+ * //接受小数，整数输入
+ * KeyListener l = new DigitsKeyListener(false,true);
+ * //接受有符号整数/小数输入
+ * KeyListener l = new DigitsKeyListener(true,true);
+ * */
 /**************************************************************************************************/
 
 //        "http://i.imgur.com/rFLNqWI.jpg",
