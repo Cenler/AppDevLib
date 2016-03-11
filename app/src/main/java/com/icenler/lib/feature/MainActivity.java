@@ -64,14 +64,18 @@ public class MainActivity extends BaseCompatActivity {
     private long exitTimeMillis;
 
     /**
+     * Fiddler 使用：
+     * http://blog.csdn.net/ohmygirl/article/details/17846199
+     * http://blog.csdn.net/ohmygirl/article/details/17849983
+     * http://blog.csdn.net/ohmygirl/article/details/17855031
+     * <p/>
      * Jenkins Android 自动打包服务器
+     * <p/>
      * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
      * - http://segmentfault.com/a/1190000002873657
-     * <p/>
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0130/3927.html 滚动播放
      * - http://jcodecraeer.com/plus/list.php?tid=31
-     * <p/>
      * 切换主题
      * getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
      * recreate();
