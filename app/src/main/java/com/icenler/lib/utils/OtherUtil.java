@@ -3,6 +3,7 @@ package com.icenler.lib.utils;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.os.Build;
+import android.support.design.widget.TabLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -96,6 +97,28 @@ public class OtherUtil {
                 var8.invoke(activity, new Object[]{null});
             }
         } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 动态修改tab的模式
+     *
+     * @param tabLayout
+     */
+    public static void dynamicSetTablayoutMode(TabLayout tabLayout) {
+        int tabTotalWidth = 0;
+        for (int i = 0; i < tabLayout.getChildCount(); i++) {
+            final View view = tabLayout.getChildAt(i);
+            view.measure(0, 0);
+            tabTotalWidth += view.getMeasuredWidth();
+        }
+        if (tabTotalWidth <= ScreenUtil.getDisplayWidth()) {
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        } else {
+            tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
     }
 

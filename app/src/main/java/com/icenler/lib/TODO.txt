@@ -24,6 +24,10 @@
     - http://www.jianshu.com/p/167fd5f47d5c                     // 无权限弹窗
     - https://github.com/liaohuqiu/android-UCToast
 
+    - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/AndroidTVWidget-use-manual           // TV 开发框架
+    - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/Android-TV-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E9%94%AE%E7%9B%98%E6%8E%A7%E4%BB%B6%28SkbContainer%29
+    - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/AndroidTVWidget-use-manual%28Android-Studio%29
+
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
 
