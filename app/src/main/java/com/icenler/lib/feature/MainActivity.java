@@ -79,6 +79,10 @@ public class MainActivity extends BaseCompatActivity {
      * 切换主题
      * getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
      * recreate();
+     *
+     * - Fragment 高级使用及常见问题
+     * - http://www.jianshu.com/p/d9143a92ad94
+     * - http://blog.csdn.net/harvic880925/article/details/44917955
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
