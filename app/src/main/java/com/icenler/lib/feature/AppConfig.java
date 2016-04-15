@@ -27,6 +27,7 @@ public class AppConfig {
     public static Typeface MIUI_EN;// MIUI 英文
     public static Typeface MIUI_CN;// MIUI 中文
     public static Typeface FA_ICON;// Font-Awesome 图形字体
+    public static Typeface AGENCY;// 小清新
 
     static {
         // 字体库初始化加载

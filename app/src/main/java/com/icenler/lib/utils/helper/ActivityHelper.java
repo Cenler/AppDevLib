@@ -6,13 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.icenler.lib.utils.AppUtil;
 import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.manager.ToastManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Created by iCenler - 2015/9/10.
@@ -30,6 +33,18 @@ public class ActivityHelper {
         intent.setData(Uri.parse("tel:" + phoneNum));
         if (!AppUtil.isActivityContext(context))
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (context.checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                return;
+            }
+        }
         context.startActivity(intent);
     }
 
@@ -94,6 +109,17 @@ public class ActivityHelper {
         Uri packageURI = Uri.parse("package:" + packageName);
         intent.setData(packageURI);
         context.startActivity(intent);
+    }
+
+    /**
+     * 添加 Fragment
+     */
+    public static void addFragmentToActivity(FragmentManager fragmentManager, Fragment fragment, int frameId) {
+        if (fragmentManager == null || fragment == null)
+            throw new NullPointerException();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(frameId, fragment);
+        transaction.commit();
     }
 
 }
