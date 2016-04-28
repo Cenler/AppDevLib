@@ -30,6 +30,8 @@
 
     - https://github.com/DevLight-Mobile-Agency/NavigationTabBar// 自定义TabBar
 
+    - https://github.com/borjabravo10/ReadMoreTextView          // 折叠与展示文本控件
+
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
 

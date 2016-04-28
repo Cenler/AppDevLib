@@ -12,7 +12,7 @@
     <!-- App - 关于 -->
     <string name="about_app">关于</string>
     <string name="app_recommend">「iBox」……致力于打造一个快速开发的工具类库</string>
-    <string name="app_help">源码可自行到 Github 上下载使用，后续将不断添加更多内容，敬请期待！</string>
+    <string name="app_help">源码可自行到 Github 上下载使用，后续将不断添加更多内容，敬请期待！源码可自行到 Github 上下载使用，后续将不断添加更多内容，敬请期待！源码可自行到 Github 上下载使用，后续将不断添加更多内容，敬请期待！源码可自行到 Github 上下载使用，后续将不断添加更多内容，敬请期待！源码可自行到 Github 上下载使用，后续将不断添加更多内容，敬请期待！</string>
     <string name="open_source"> 感谢以下开源库作者提供的支持：\ncom.nineoldandroids:library\ncom.jakewharton:butterknife\ncom.zhy:percent-support-extends\nde.greenrobot:eventbus\ncom.squareup.okhttp:okhttp\ncom.squareup.retrofit:retrofit\ncom.mcxiaoke.volley:library\nio.reactivex:rxandroid\ncom.nostra13.universalimageloader:universal-image-loader\ncom.crashlytics.android:crashlytics\ncom.squareup.leakcanary:leakcanary-android</string>
 
 </resources>
