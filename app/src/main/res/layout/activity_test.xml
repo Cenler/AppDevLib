@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/root_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?android:colorPrimary"
         android:onClick="animate"
-        tools:context=".MainActivity"
         tools:targetApi="lollipop">
 
         <ImageView
@@ -22,7 +21,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:onClick="animate"
-            android:src="@drawable/svg_search_bar" />
+            android:src="@drawable/svg_search_bar"/>
 
         <EditText
             android:id="@+id/text"
@@ -33,7 +32,7 @@
             android:background="@null"
             android:paddingStart="4dp"
             android:textColor="?android:colorAccent"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
     </FrameLayout>
 

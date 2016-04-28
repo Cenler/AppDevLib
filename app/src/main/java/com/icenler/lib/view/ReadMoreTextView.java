@@ -2,6 +2,7 @@ package com.icenler.lib.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -12,6 +13,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.icenler.lib.R;
@@ -30,7 +32,7 @@ public class ReadMoreTextView extends TextView {
     private boolean isShowCollapsedText = true;
     private boolean isUnfold = false;
 
-    private int mTrimLength;
+    private int mTrimLength = -1;
     private int mTrimLines;
     private int mClickableTextColor = DEF_CLICKABLE_TEXT_COLOR;
 
@@ -56,6 +58,8 @@ public class ReadMoreTextView extends TextView {
     }
 
     private void initView(Context context, AttributeSet attrs) {
+        mClickableSpan = new ReadMoreClickableSpan();
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ReadMoreTextView);
 
         final int count = typedArray.getIndexCount();
@@ -90,9 +94,7 @@ public class ReadMoreTextView extends TextView {
 
         typedArray.recycle();
 
-        mClickableSpan = new ReadMoreClickableSpan();
-
-        setTrimText();
+        addLayoutListener();
     }
 
     @Override
@@ -103,8 +105,10 @@ public class ReadMoreTextView extends TextView {
     }
 
     private void setTrimText() {
+        addLayoutListener();
         super.setText(getProcessText(mText), mBufferType);
         super.setMovementMethod(LinkMovementMethod.getInstance());
+        super.setHighlightColor(Color.TRANSPARENT);// 去除按下蓝色背景
     }
 
     private CharSequence getProcessText(CharSequence text) {
@@ -134,7 +138,11 @@ public class ReadMoreTextView extends TextView {
     }
 
     private CharSequence updateCollapsedText() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder(mText, 0, getTrimLenght() + 1)
+        int length = getTrimLength();
+        if (length >= mText.length())
+            return mText;
+
+        SpannableStringBuilder ssb = new SpannableStringBuilder(mText, 0, length + 1)
                 .append(ELLIPSIZE)
                 .append(mExpandedText);
         ssb.setSpan(mClickableSpan
@@ -144,32 +152,42 @@ public class ReadMoreTextView extends TextView {
         return ssb;
     }
 
-    private int getTrimLenght() {
-//        getMeasuredWidth()
-        StaticLayout staticLayout = new StaticLayout(mText
-                , getPaint()
-                , 936 - getCompoundPaddingLeft() - getCompoundPaddingRight()
-                , Layout.Alignment.ALIGN_NORMAL
-                , getLineSpacingMultiplier()
-                , getLineSpacingExtra()
-                , false);
+    private void addLayoutListener() {
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-        int lineCount = staticLayout.getLineCount();
-        int lineCharsCount = staticLayout.getLineEnd(0);
-        float lineMaxWidth = staticLayout.getLineMax(0);
+                StaticLayout staticLayout = new StaticLayout(mText
+                        , getPaint()
+                        , getMeasuredWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight()
+                        , Layout.Alignment.ALIGN_NORMAL
+                        , getLineSpacingMultiplier()
+                        , getLineSpacingExtra()
+                        , false);
 
-        staticLayout.getEllipsizedWidth();
-        staticLayout.getEllipsisCount(0);
-        staticLayout.getLineRight(0);
+                int lineCount = staticLayout.getLineCount();
+                int lineCharsCount = staticLayout.getLineEnd(0);
+                float lineMaxWidth = staticLayout.getLineMax(0);
 
-        if (mTrimLines > 0 && mTrimLines < lineCount) {
-            // 截取一行的一半字符进行收缩
-            float charsWidth = lineMaxWidth / lineCharsCount;
-            int charsCount = Math.round(lineMaxWidth * 0.5f / charsWidth);
-            return lineCharsCount * (mTrimLines - 1) + charsCount;
-        } else {
-            return mTrimLength;
-        }
+                if (mTrimLines > 0 && mTrimLines < lineCount) {
+                    // 截取一行的一半字符宽度进行收缩
+                    float charsWidth = lineMaxWidth / lineCharsCount;
+                    int charsCount = Math.round(lineMaxWidth * 0.5f / charsWidth);
+                    mTrimLength = lineCharsCount * (mTrimLines - 1) + charsCount;
+                }
+
+                setTrimText();
+            }
+        });
+    }
+
+    private int getTrimLength() {
+        return mTrimLength > 0 ? mTrimLength : mText.length() - 1;
+    }
+
+    public String getWholeText() {
+        return mText;
     }
 
     class ReadMoreClickableSpan extends ClickableSpan {

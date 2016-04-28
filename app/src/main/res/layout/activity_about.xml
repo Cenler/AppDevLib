@@ -136,7 +136,7 @@
                     app:rmtv_trimCollapsedText="收起"
                     app:rmtv_trimExpandedText="展开"
                     app:rmtv_trimLength="20"
-                    app:rmtv_trimLines="2"
+                    app:rmtv_trimLines="1"
                     tools:ignore="HardcodedText"/>
 
             </RelativeLayout>
