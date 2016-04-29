@@ -93,8 +93,6 @@ public class ReadMoreTextView extends TextView {
         }
 
         typedArray.recycle();
-
-        addLayoutListener();
     }
 
     @Override
@@ -105,7 +103,6 @@ public class ReadMoreTextView extends TextView {
     }
 
     private void setTrimText() {
-        addLayoutListener();
         super.setText(getProcessText(mText), mBufferType);
         super.setMovementMethod(LinkMovementMethod.getInstance());
         super.setHighlightColor(Color.TRANSPARENT);// 去除按下蓝色背景
@@ -113,6 +110,8 @@ public class ReadMoreTextView extends TextView {
 
     private CharSequence getProcessText(CharSequence text) {
         if (!TextUtils.isEmpty(text) && (mTrimLength > 0 || mTrimLines > 0)) {
+            addLayoutListener();
+
             if (isUnfold) {
                 return updateExpandedText();
             } else {
@@ -157,6 +156,9 @@ public class ReadMoreTextView extends TextView {
             @Override
             public void onGlobalLayout() {
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                if (!isUnfold)
+                    return;
 
                 StaticLayout staticLayout = new StaticLayout(mText
                         , getPaint()

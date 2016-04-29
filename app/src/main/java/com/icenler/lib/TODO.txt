@@ -27,10 +27,18 @@
     - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/AndroidTVWidget-use-manual           // TV 开发框架
     - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/Android-TV-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E9%94%AE%E7%9B%98%E6%8E%A7%E4%BB%B6%28SkbContainer%29
     - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/AndroidTVWidget-use-manual%28Android-Studio%29
+    - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0317/4059.html
 
     - https://github.com/DevLight-Mobile-Agency/NavigationTabBar// 自定义TabBar
+    - https://github.com/sephiroth74/Material-BottomNavigation
 
     - https://github.com/borjabravo10/ReadMoreTextView          // 折叠与展示文本控件
+
+    - https://github.com/kakajika/FragmentAnimations            // Fragment 切换动画
+
+    - https://github.com/waynell/VideoListPlayer                // 视频滑动播放
+
+    - https://github.com/alphamu/AnimatedEditText               // 输入文本动画
 
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
