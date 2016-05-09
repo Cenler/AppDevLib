@@ -1,4 +1,4 @@
-package com.icenler.lib.view.support;
+package com.icenler.lib.view.support.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

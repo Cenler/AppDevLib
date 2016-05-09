@@ -13,9 +13,14 @@ public class Preconditions {
     }
 
     public static <T> T checkNotNull(@NonNull final T object) {
-        if (object == null) {
+        if (object == null)
             throw new NullPointerException();
-        }
+        return object;
+    }
+
+    public static <T> T checkNotNull(@NonNull final T object, String message) {
+        if (object == null)
+            throw new NullPointerException(message);
         return object;
     }
 

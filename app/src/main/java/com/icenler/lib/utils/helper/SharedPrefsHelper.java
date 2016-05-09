@@ -2,9 +2,10 @@ package com.icenler.lib.utils.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.icenler.lib.feature.base.BaseApplication;
+import com.icenler.lib.utils.Preconditions;
 
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,8 @@ public class SharedPrefsHelper {
      */
     private static String DEFAULT_CONFIG = "config";
 
+    private static Context mContext;
+
     private SharedPrefsHelper() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
@@ -29,9 +32,11 @@ public class SharedPrefsHelper {
     /**
      * 初始化默认保存配置文件名称
      *
+     * @param context    Application Context
      * @param configName
      */
-    public static void initPrefsConfig(String configName) {
+    public static void initPrefsConfig(Context context, String configName) {
+        mContext = Preconditions.checkNotNull(context, "context cannot be null");
         if (!TextUtils.isEmpty(configName))
             DEFAULT_CONFIG = configName;
     }
@@ -43,7 +48,7 @@ public class SharedPrefsHelper {
      * @param val
      * @param <T>
      */
-    public static <T> void put(String key, T val) {
+    public static <T> void put(String key, @NonNull T val) {
         put(null, key, val);
     }
 
@@ -55,7 +60,7 @@ public class SharedPrefsHelper {
      * @param val
      * @param <T>
      */
-    public static <T> void put(String configName, String key, T val) {
+    public static <T> void put(String configName, String key, @NonNull T val) {
         SharedPreferences prefs = getSharedPrefs(configName);
         SharedPreferences.Editor edit = prefs.edit();
 
@@ -86,7 +91,7 @@ public class SharedPrefsHelper {
      * @param <T>
      * @return
      */
-    public static <T> T get(String key, T defVal) {
+    public static <T> T get(String key, @NonNull T defVal) {
         return get(null, key, defVal);
     }
 
@@ -99,7 +104,7 @@ public class SharedPrefsHelper {
      * @param <T>
      * @return
      */
-    public static <T> T get(String configName, String key, T defVal) {
+    public static <T> T get(String configName, String key, @NonNull T defVal) {
         SharedPreferences prefs = getSharedPrefs(configName);
 
         if (defVal instanceof String) {
@@ -186,23 +191,20 @@ public class SharedPrefsHelper {
         getSharedPrefs(configName).edit().clear().apply();
     }
 
-    private static SharedPreferences getSharedPrefs() {
+    public static SharedPreferences getSharedPrefs() {
         return getSharedPrefs(null);
     }
 
     /**
-     * （Ps: BaseApplication 继承自 Application 创建时保存应用实例引用，
-     * 并通过 getInstance 方法获取 App 全局上下文.）
-     *
      * @param configName
-     * @return SharedPreferences 实例
+     * @return SharedPreferences
      */
-    private static SharedPreferences getSharedPrefs(String configName) {
+    public static SharedPreferences getSharedPrefs(String configName) {
         SharedPreferences prefs;
         if (!TextUtils.isEmpty(configName))
-            prefs = BaseApplication.getInstance().getSharedPreferences(configName, Context.MODE_PRIVATE);
+            prefs = mContext.getSharedPreferences(configName, Context.MODE_PRIVATE);
         else
-            prefs = BaseApplication.getInstance().getSharedPreferences(DEFAULT_CONFIG, Context.MODE_PRIVATE);
+            prefs = mContext.getSharedPreferences(DEFAULT_CONFIG, Context.MODE_PRIVATE);
 
         return prefs;
     }
