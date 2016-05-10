@@ -1,14 +1,17 @@
 package com.icenler.lib.feature.test;
 
-import android.support.design.widget.Snackbar;
+import android.app.Activity;
+import android.os.Bundle;
 
 /**
  * Created by Fangde on 2016/3/5.
  * Description:
  */
-public class TestClass {
+public class TestClass extends Activity {
 
-    private void test() {
-        Snackbar.make(null, null, Snackbar.LENGTH_LONG).show();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
+
 }

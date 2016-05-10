@@ -151,18 +151,18 @@
  * >>> ColorMatrixColorFilter\LightingColorFilter\PorterDuffColorFilter 之颜色过滤器
  * - ColorMatrixColorFilter：   色彩矩阵颜色过滤器
  * - LightingColorFilter：
- *
- * @色彩倍增: 可用于颜色过滤
- * @色彩添加: 光照染色
+ *          @色彩倍增: 可用于颜色过滤
+ *          @色彩添加: 光照染色
+ *          
  * - PorterDuffColorFilter：
- * @混合色值:
- * @混合模式: 使用：配合 Paint 实现滤镜效果
+ *          @混合色值:
+ *          @混合模式: 使用：配合 Paint 实现滤镜效果
  * <p/>
  * >>> Xfermode AvoidXfermode\PixelXorXfermode\PorterDuffXfermode 之图像混合模式
  * - AvoidXfermode:
- * @颜色通道:
- * @容差值:
- * @混合模式: # AvoidXfermode.Mode.TARGET:颜色通道渲染
+ *          @颜色通道:
+ *          @容差值:
+ *          @混合模式: # AvoidXfermode.Mode.TARGET:颜色通道渲染
  * # AvoidXfermode.Mode.AVOID:非颜色通道渲染
  * - PorterDuffXfermode
  * 用法：
@@ -449,11 +449,11 @@ View.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
  int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
 
  if (modeWidth == MeasureSpec.EXACTLY) {
- resultWidth = sizeWidth;
+     resultWidth = sizeWidth;
  } else {
- resultWidth = mBitmap.getWidth();
- if (modeWidth == MeasureSpec.AT_MOST)
- resultWidth = Math.min(resultWidth, sizeWidth);
+     resultWidth = mBitmap.getWidth();
+     if (modeWidth == MeasureSpec.AT_MOST)
+     resultWidth = Math.min(resultWidth, sizeWidth);
  }
 
  int resultHeight = 0;
@@ -461,66 +461,17 @@ View.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
  int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
 
  if (modeHeight == MeasureSpec.EXACTLY) {
- resultHeight = sizeHeight;
+     resultHeight = sizeHeight;
  } else {
- resultHeight = mBitmap.getHeight();
- if (modeHeight == MeasureSpec.AT_MOST) {
- resultHeight = Math.min(resultHeight, sizeHeight);
+     resultHeight = mBitmap.getHeight();
+     if (modeHeight == MeasureSpec.AT_MOST) {
+     resultHeight = Math.min(resultHeight, sizeHeight);
  }
  }
 
  // 设置测量尺寸
  setMeasuredDimension(resultWidth, resultHeight);
  }
- * */
-
-/**
- * SimpleDraweeView 属性使用：
- com.facebook.drawee.view.SimpleDraweeView
- android:id="@+id/my_image_view"
- android:layout_width="20dp"
- android:layout_height="20dp"
- fresco:fadeDuration="300"
-
- //设置图片的缩放类型
- fresco:actualImageScaleType="focusCrop"
-
- //设置图片加载成功前显示的图片也可以是背景色
- fresco:placeholderImage="@color/wait_color"
- fresco:placeholderImageScaleType="fitCenter"
-
- //图片加载失败的时候显示的图片
- fresco:failureImage="@drawable/error"
- fresco:failureImageScaleType="centerInside"
-
- //可设置加载失败点击重新加载，这是重新加载失败显示的图片
- fresco:retryImage="@drawable/retrying"
- fresco:retryImageScaleType="centerCrop"
-
- //显示进度条
- fresco:progressBarImage="@drawable/progress_bar"
- fresco:progressBarImageScaleType="centerInside"
- fresco:progressBarAutoRotateInterval="1000"
-
- //设置背景图的可以使颜色和图片
- fresco:backgroundImage="@color/blue"
-
- //设置图片加载完成覆盖的图片
- fresco:overlayImage="@drawable/watermark"
- fresco:pressedStateOverlayImage="@color/red"
-
- //将图片设置为圆形
- fresco:roundAsCircle="false"
-
- //设置图片4个角的圆角半径
- fresco:roundedCornerRadius="1dp"
- fresco:roundTopLeft="true"
- fresco:roundTopRight="false"
- fresco:roundBottomLeft="false"
- fresco:roundBottomRight="true"
- fresco:roundWithOverlayColor="@color/corner_color"
- fresco:roundingBorderWidth="2dp"
- fresco:roundingBorderColor="@color/border_color"
  * */
 
 /**

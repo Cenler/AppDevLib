@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinator_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,7 +34,7 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="12dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
                     android:gravity="center"
                     android:text="简单 - 快速 - 高效"
                     android:textColor="@color/color_common_white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/version_tv"
@@ -51,14 +52,14 @@
                     android:layout_marginTop="8dp"
                     android:text="Version 1.0.1"
                     android:textColor="@color/color_common_white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"/>
 
             <!--
             app:layout_collapseParallaxMultiplier="0.7" 设置视差因子
@@ -85,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:text="介绍"
-                android:textColor="#727272" />
+                android:textColor="#727272"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -100,7 +101,7 @@
                     android:text="@string/app_recommend"
                     android:textColor="#727272"
                     android:textIsSelectable="true"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </RelativeLayout>
 
@@ -108,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="12dp"
-                android:background="#B6B6B6" />
+                android:background="#B6B6B6"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +117,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
                 android:text="帮助"
-                android:textColor="#727272" />
+                android:textColor="#727272"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -124,13 +125,19 @@
                 android:background="@drawable/shape_card_area"
                 android:padding="16dp">
 
-                <TextView
+                <com.icenler.lib.view.ReadMoreTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_help"
                     android:textColor="#727272"
                     android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
+                    app:rmtv_clickableTextColor="@color/color_red_assist"
+                    app:rmtv_showCollapsedText="true"
+                    app:rmtv_trimCollapsedText="收起"
+                    app:rmtv_trimExpandedText="展开"
+                    app:rmtv_trimLength="20"
+                    app:rmtv_trimLines="1"
+                    tools:ignore="HardcodedText"/>
 
             </RelativeLayout>
 
@@ -138,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="12dp"
-                android:background="#B6B6B6" />
+                android:background="#B6B6B6"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,7 +153,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
                 android:text="关于我"
-                android:textColor="#727272" />
+                android:textColor="#727272"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -158,7 +165,7 @@
                     android:id="@+id/ig_avatar_tangqi"
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:id="@+id/tv_tangqi"
@@ -168,7 +175,7 @@
                     android:layout_toEndOf="@id/ig_avatar_tangqi"
                     android:layout_toRightOf="@id/ig_avatar_tangqi"
                     android:textColor="#727272"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -177,7 +184,7 @@
                     android:layout_toEndOf="@id/ig_avatar_tangqi"
                     android:layout_toRightOf="@id/ig_avatar_tangqi"
                     android:text="iCenler"
-                    android:textColor="#727272" />
+                    android:textColor="#727272"/>
 
                 <TextView
                     android:id="@+id/tv_avator_blog"
@@ -186,7 +193,7 @@
                     android:layout_alignLeft="@id/ig_avatar_tangqi"
                     android:layout_below="@id/ig_avatar_tangqi"
                     android:text="Blog: "
-                    android:textColor="#727272" />
+                    android:textColor="#727272"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -195,7 +202,7 @@
                     android:layout_toRightOf="@id/tv_avator_blog"
                     android:autoLink="web"
                     android:text="暂无"
-                    android:textColor="#727272" />
+                    android:textColor="#727272"/>
 
                 <TextView
                     android:id="@+id/tv_avator_github"
@@ -204,7 +211,7 @@
                     android:layout_alignLeft="@id/tv_avator_blog"
                     android:layout_below="@id/tv_avator_blog"
                     android:text="GitHub: "
-                    android:textColor="#727272" />
+                    android:textColor="#727272"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -213,7 +220,7 @@
                     android:layout_toRightOf="@id/tv_avator_github"
                     android:autoLink="web"
                     android:text="https://github.com/Cenler"
-                    android:textColor="#727272" />
+                    android:textColor="#727272"/>
 
             </RelativeLayout>
 
@@ -221,7 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="12dp"
-                android:background="#B6B6B6" />
+                android:background="#B6B6B6"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -229,7 +236,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
                 android:text="鸣谢"
-                android:textColor="#727272" />
+                android:textColor="#727272"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -244,7 +251,7 @@
                     android:text="@string/open_source"
                     android:textColor="#727272"
                     android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"/>
 
             </RelativeLayout>
         </LinearLayout>

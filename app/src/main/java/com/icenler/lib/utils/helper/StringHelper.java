@@ -83,6 +83,33 @@ public class StringHelper {
         }
     }
 
+    /**
+     * 不支持含小数点的数字
+     */
+    public static boolean isPureNumber(String str) {
+        Pattern p = Pattern.compile("^[0-9]*$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /**
+     * 检查是否是数字，支持含小数点的数字
+     */
+    public static boolean isValidNumber(String str) {
+        Pattern p = Pattern.compile("^\\d+\\.{0,1}\\d*$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /**
+     * 判断输入是否是6-20位数字和字母组合
+     */
+    public static boolean isNumAndLetter(String str) {
+        Pattern p = Pattern.compile("(?!^[0-9]+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z]{6,20}");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
 
     /**
      * @param bytes
