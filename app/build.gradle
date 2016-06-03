@@ -80,6 +80,10 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 
     compile 'com.facebook.fresco:fresco:0.8.1+'
+
+    // 友盟Gradle打包
+//    compile 'com.umeng.analytics:analytics:latest.integration'
+
     // 自动布局
 //    compile 'com.zhy:autolayout:1.3.4'
 
