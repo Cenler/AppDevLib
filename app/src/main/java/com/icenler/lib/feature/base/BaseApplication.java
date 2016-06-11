@@ -1,5 +1,6 @@
 package com.icenler.lib.feature.base;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
@@ -16,6 +17,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+
+import java.util.List;
 
 /**
  * Created by iCenler - 2015/7/13：
@@ -51,6 +54,20 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 独立进程导致重复初始化问题处理
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        if (runningApps != null) {
+            for (ActivityManager.RunningAppProcessInfo processInfo : runningApps) {
+                if (processInfo.pid == android.os.Process.myPid()) {
+                    if (!getPackageName().equals(processInfo.processName)) {
+                        LogUtil.i(processInfo.processName);
+                        return;
+                    }
+                }
+            }
+        }
+
         this.mInstance = BaseApplication.this;
         LogUtil.i(this.getClass().getSimpleName());
 

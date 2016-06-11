@@ -20,10 +20,17 @@ import com.icenler.lib.feature.AppConfig;
 import com.icenler.lib.feature.base.BaseApplication;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.UUID;
@@ -263,6 +270,46 @@ public class AppUtil {
         }
 
         return null;
+    }
+
+    public static String getNetIp() {
+        String IP = "";
+        try {
+            String address = "http://ip.taobao.com/service/getIpInfo2.php?ip=myip";
+            URL url = new URL(address);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setUseCaches(false);
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream in = connection.getInputStream();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String tmpString = "";
+                StringBuilder retJSON = new StringBuilder();
+                while ((tmpString = reader.readLine()) != null) {
+                    retJSON.append(tmpString + "\n");
+                }
+
+                JSONObject jsonObject = new JSONObject(retJSON.toString());
+                String code = jsonObject.getString("code");
+                if (code.equals("0")) {
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    IP = data.getString("ip");
+                } else {
+                    IP = "";
+                    LogUtil.e("IP接口异常，无法获取IP地址！");
+                }
+            } else {
+                IP = "";
+                LogUtil.e("网络连接异常，无法获取IP地址！");
+            }
+        } catch (Exception exception) {
+            IP = "";
+            LogUtil.e("GetNetIp() : exception = " + exception.toString());
+        }
+
+        return IP;
     }
 
 }
