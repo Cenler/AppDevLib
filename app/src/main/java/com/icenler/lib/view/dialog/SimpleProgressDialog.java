@@ -25,7 +25,6 @@ public class SimpleProgressDialog {
                 mDialog.show(fm, "Simple_Loading_Dialog");
             }
         } catch (Exception e) {
-            e.printStackTrace();
             mDialog = null;
         }
     }
@@ -40,7 +39,6 @@ public class SimpleProgressDialog {
             }
             mDialog = null;
         } catch (Exception e) {
-            e.printStackTrace();
             mDialog = null;
         }
     }

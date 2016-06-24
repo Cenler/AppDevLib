@@ -1,5 +1,7 @@
 package com.icenler.lib.utils.helper;
 
+import android.util.Patterns;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -110,6 +112,13 @@ public class StringHelper {
         return m.matches();
     }
 
+
+    /**
+     * Url 连接匹配 Patterns 参见文档
+     */
+    public static boolean isWebUrl(String url) {
+        return Patterns.WEB_URL.matcher(url).matches();
+    }
 
     /**
      * @param bytes

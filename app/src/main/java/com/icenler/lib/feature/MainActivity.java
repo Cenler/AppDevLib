@@ -35,6 +35,7 @@ import com.icenler.lib.feature.base.BaseCompatActivity;
 import com.icenler.lib.feature.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
+import com.icenler.lib.view.dialog.SimpleProgressDialog;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -102,6 +103,8 @@ public class MainActivity extends BaseCompatActivity {
         }
 
         init();
+
+        SimpleProgressDialog.show(getFragmentManager());
     }
 
     @Override
