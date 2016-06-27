@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
 import com.icenler.lib.R;
+import com.icenler.lib.utils.ScreenUtil;
 
 /**
  * 自定义横向百分比进度条：基于ProgressBar
@@ -40,12 +41,12 @@ public class HorizontalProgressBarWithNumber extends ProgressBar {
     /**
      * 百分比进度字体大小:单位（sp）
      */
-    protected int mTextSize = sp2px(getContext(), DEFAULT_TEXT_SIZE);
+    protected int mTextSize = ScreenUtil.sp2px(DEFAULT_TEXT_SIZE);
 
     /**
      * 百分比数值偏移系数:单位（dp）
      */
-    protected int mTextOffset = dip2px(getContext(), DEFAULT_TEXT_OFFSET);
+    protected int mTextOffset = ScreenUtil.dp2px(DEFAULT_TEXT_OFFSET);
 
     /**
      * 已完成进度条颜色
@@ -60,12 +61,12 @@ public class HorizontalProgressBarWithNumber extends ProgressBar {
     /**
      * 已完成进度条高度:单位（dp）
      */
-    protected int mReachedProgressBarHeight = dip2px(getContext(), DEFAULT_REACHED_PROGRESS_BAR_HEIGHT);
+    protected int mReachedProgressBarHeight = ScreenUtil.dp2px(DEFAULT_REACHED_PROGRESS_BAR_HEIGHT);
 
     /**
      * 未完成进度条高度:单位（dp）
      */
-    protected int mUnReachedProgressBarHeight = dip2px(getContext(), DEFAULT_UNREACHED_PROGRESS_BAR_HEIGHT);
+    protected int mUnReachedProgressBarHeight = ScreenUtil.dp2px(DEFAULT_UNREACHED_PROGRESS_BAR_HEIGHT);
 
     /**
      * 进度条实际宽度
@@ -205,26 +206,6 @@ public class HorizontalProgressBarWithNumber extends ProgressBar {
         }
 
         canvas.restore();
-    }
-
-    /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
-     */
-    public int dip2px(Context context, float dpValue) {
-
-        final float scale = context.getResources().getDisplayMetrics().density;
-
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * 根据手机的分辨率从 ps 的单位 转成为 px(像素)
-     */
-    public int sp2px(Context context, float spValue) {
-
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-
-        return (int) (spValue * fontScale + 0.5f);
     }
 
 }
