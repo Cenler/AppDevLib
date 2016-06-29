@@ -1,5 +1,6 @@
 package com.icenler.lib.utils.helper;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -35,8 +36,8 @@ public class SharedPrefsHelper {
      * @param context    Application Context
      * @param configName
      */
-    public static void initPrefsConfig(Context context, String configName) {
-        mContext = Preconditions.checkNotNull(context, "context cannot be null");
+    public static void initPrefsConfig(@NonNull Application app, String configName) {
+        mContext = app;
         if (!TextUtils.isEmpty(configName))
             DEFAULT_CONFIG = configName;
     }
