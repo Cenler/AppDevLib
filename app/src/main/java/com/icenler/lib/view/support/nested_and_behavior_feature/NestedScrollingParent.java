@@ -1,4 +1,4 @@
-package com.icenler.lib.view.demo;
+package com.icenler.lib.view.support.nested_and_behavior_feature;
 
 import android.view.View;
 
@@ -13,8 +13,8 @@ public interface NestedScrollingParent {
      * 当子视图调用 startNestedScroll(View, int) 后调用该方法。返回 true 表示响应子视图的滚动。
      * 实现这个方法来声明支持嵌套滚动，如果返回 true，那么这个视图将要配合子视图嵌套滚动。当嵌套滚动结束时会调用到 onStopNestedScroll(View)。
      *
-     * @param child            可滚动的子视图
-     * @param target           NestedScrollingParent 的直接可滚动的视图，一般情况就是 child
+     * @param child            NestedScrollingParent 所实现 ViewGroup 直接子视图
+     * @param target           目标滑动视图
      * @param nestedScrollAxes 包含 ViewCompat#SCROLL_AXIS_HORIZONTAL, ViewCompat#SCROLL_AXIS_VERTICAL 或者两个值都有。
      * @return 返回 true 表示响应子视图的滚动。
      */
@@ -32,8 +32,12 @@ public interface NestedScrollingParent {
      * @param target   滚动的子视图
      * @param dx       绝对值为手指在x方向滚动的距离，dx<0 表示手指在屏幕向右滚动
      * @param dy       绝对值为手指在y方向滚动的距离，dy<0 表示手指在屏幕向下滚动
-     * @param consumed 一个数组，值用来表示父布局消耗了多少距离，未消耗前为[0,0], 如果父布局想处理滚动事件，就可以在这个方法的实现中为consumed[0]，consumed[1]赋值。
-     *                 分别表示x和y方向消耗的距离。如父布局想在竖直方向（y）完全拦截子视图，那么让 consumed[1] = dy，就把手指产生的触摸事件给拦截了，子视图便响应不到触摸事件了 。
+     * @param consumed 一个数组，值用来表示父布局消耗了多少距离，未消耗前为[0,0],
+     *                 如果父布局想处理滚动事件，就可以在这个方法的实现中为
+     *                 consumed[0]，consumed[1]赋值。
+     *                 分别表示 x 和 y 方向消耗的距离。如父布局想在竖直方向（y）完全拦截子视图，
+     *                 那么让 consumed[1] = dy，就把手指产生的触摸事件给拦截了，
+     *                 子视图便响应不到触摸事件了 。
      */
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed);
 

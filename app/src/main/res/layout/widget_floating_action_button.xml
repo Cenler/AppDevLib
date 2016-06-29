@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.FloatingActionButton
     android:id="@+id/float_action_btn"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="end|bottom"
-    android:layout_margin="16dp"
-    android:src="@mipmap/icon_refresh"
-    app:borderWidth="0dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    android:layout_gravity="end|bottom|right"
+    android:layout_margin="24dp"
+    android:src="@mipmap/icon_refresh"/>
 
-<!-- app:layout_behavior="@string/appbar_scrolling_view_behavior" -->
-<!-- app:layout_behavior="com.icenler.lib.view.widget.ScrollingFABBehavior" -->
+    <!-- app:borderWidth="0dp"-->
+    <!-- app:layout_behavior="@string/appbar_scrolling_view_behavior" -->
+    <!-- app:layout_behavior="com.icenler.lib.view.widget.ScrollingFABBehavior" -->
 

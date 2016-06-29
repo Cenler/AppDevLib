@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.icenler.lib.view.support;
+package com.icenler.lib.view.support.percentlayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;

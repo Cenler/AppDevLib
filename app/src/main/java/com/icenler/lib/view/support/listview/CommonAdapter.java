@@ -1,4 +1,4 @@
-package com.icenler.lib.utils.common;
+package com.icenler.lib.view.support.listview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,13 +12,13 @@ import java.util.List;
  * Created by iCenler - 2015/9/10.
  * Description：通用 BaseAdapter 适配器
  */
-public abstract class CommonBaseAdapter<T> extends BaseAdapter {
+public abstract class CommonAdapter<T> extends BaseAdapter {
 
     protected Context mContext;
     protected List<T> mData;
     protected LayoutInflater mInflater;
 
-    public CommonBaseAdapter(Context context, List<T> data) {
+    public CommonAdapter(Context context, List<T> data) {
         this.mContext = context;
         this.mData = data;
         this.mInflater = LayoutInflater.from(mContext);
@@ -30,9 +30,7 @@ public abstract class CommonBaseAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public T getItem(int position) {
-        return mData.get(position);
-    }
+    public T getItem(int position) { return mData.get(position); }
 
     @Override
     public long getItemId(int position) {

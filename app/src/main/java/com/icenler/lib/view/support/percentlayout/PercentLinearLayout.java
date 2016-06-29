@@ -1,4 +1,4 @@
-package com.icenler.lib.view.support;
+package com.icenler.lib.view.support.percentlayout;
 
 import android.app.Activity;
 import android.content.Context;

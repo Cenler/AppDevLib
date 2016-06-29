@@ -1,4 +1,4 @@
-package com.icenler.lib.view.support;
+package com.icenler.lib.view.support.edittext;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -61,7 +61,6 @@ public class ClearableEditText extends AppCompatEditText implements View.OnTouch
         addTextChangedListener(this);
     }
 
-
     @Override
     public void onFocusChange(final View view, final boolean hasFocus) {
         if (hasFocus) {
@@ -105,11 +104,10 @@ public class ClearableEditText extends AppCompatEditText implements View.OnTouch
     private void setClearIconVisible(final boolean visible) {
         mClearTextIcon.setVisible(visible, false);
         final Drawable[] compoundDrawables = getCompoundDrawables();
-        setCompoundDrawables(
-                compoundDrawables[0],
-                compoundDrawables[1],
-                visible ? mClearTextIcon : null,
-                compoundDrawables[3]);
+        setCompoundDrawables(compoundDrawables[0]
+                , compoundDrawables[1]
+                , visible ? mClearTextIcon : null
+                , compoundDrawables[3]);
     }
 
 }

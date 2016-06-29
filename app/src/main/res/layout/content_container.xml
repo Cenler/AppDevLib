@@ -8,21 +8,25 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed" />
-        <!--
-        app:layout_scrollFlags="scroll
-        |enterAlways
-        |enterAlwaysCollapsed
-        |exitUntilCollapsed"
-         -->
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap" />
+        <!-- app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed" -->
+        <!-- enterAlways: 一旦向上滚动这个view就可见 -->
+        <!-- enterAlwaysCollapsed: 顾名思义，这个flag定义的是何时进入（已经消失之后何时再次显示）。
+                                   假设你定义了一个最小高度（minHeight）同时enterAlways也定义了，
+                                   那么view将在到达这个最小高度的时候开始显示，并且从这个时候开始慢
+                                   慢展开，当滚动到顶部的时候展开完 -->
+        <!-- exitUntilCollapsed: 同样顾名思义，这个flag时定义何时退出，当你定义了一个minHeight，
+                                 这个view将在滚动到达这个最小高度的时候消失 -->
+        <!-- snap: 展开缩放临界值回弹 -->
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs_layout"
