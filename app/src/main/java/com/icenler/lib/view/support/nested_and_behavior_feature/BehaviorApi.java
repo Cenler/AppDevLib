@@ -1,6 +1,7 @@
 package com.icenler.lib.view.support.nested_and_behavior_feature;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.WindowInsetsCompat;
 import android.util.AttributeSet;
@@ -99,6 +100,26 @@ public class BehaviorApi extends CoordinatorLayout.Behavior<View> {
     @Override
     public WindowInsetsCompat onApplyWindowInsets(CoordinatorLayout coordinatorLayout, View child, WindowInsetsCompat insets) {
         return super.onApplyWindowInsets(coordinatorLayout, child, insets);
+    }
+
+    @Override
+    public int getScrimColor(CoordinatorLayout parent, View child) {
+        return super.getScrimColor(parent, child);
+    }
+
+    @Override
+    public float getScrimOpacity(CoordinatorLayout parent, View child) {
+        return super.getScrimOpacity(parent, child);
+    }
+
+    @Override
+    public void onRestoreInstanceState(CoordinatorLayout parent, View child, Parcelable state) {
+        super.onRestoreInstanceState(parent, child, state);
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState(CoordinatorLayout parent, View child) {
+        return super.onSaveInstanceState(parent, child);
     }
 
 }
