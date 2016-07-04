@@ -11,6 +11,7 @@ import java.util.Date;
 /**
  * Created by iCenler - 2016/2/4.
  * Description：发布时间格式化
+ * DateUtils.getRelativeTimeSpanString(System.currentTimeMillis());
  */
 public class TimeSinceTextView extends TextView {
     private static final int[] TIMESPAN_IDS = {
