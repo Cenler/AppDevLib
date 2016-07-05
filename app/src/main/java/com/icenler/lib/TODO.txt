@@ -76,6 +76,7 @@
     - https://github.com/wuapnjie/PoiPhoto                      // 图片选择器
     - https://github.com/pengjianbo/GalleryFinal
     - https://github.com/crosswall/Android-PickPhotos
+    - https://github.com/sangcomz/FishBun
 
     - https://github.com/zaaach/CityPicker                      // 城市列表定位
 
@@ -86,8 +87,17 @@
     - https://github.com/wenmingvs/NotifyUtil                   // 消息通知
 
     - https://github.com/whilu/AndroidTagView                   // Label 布局
+    - https://github.com/H07000223/FlycoLabelView
 
     - https://github.com/yll2wcf/YLListView                     // 下拉视差动效
+    - https://github.com/EverythingMe/overscroll-decor          // 阻尼回弹效果
+
+    - https://github.com/z56402344/AnimTextView                 // 数字落入动效
+
+    - https://github.com/xujinyang/BiuEditText                  // 输入法动效
+    - https://github.com/alphamu/AnimatedEditText
+    - https://github.com/glomadrian/material-code-input
+
 
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
