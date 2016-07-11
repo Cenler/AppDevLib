@@ -47,6 +47,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * netstat -ano | findstr "5037"
+ */
 public class MainActivity extends BaseCompatActivity {
 
     @Bind(R.id.drawer_layout)
