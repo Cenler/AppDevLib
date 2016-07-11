@@ -105,7 +105,7 @@ public class ReadMoreTextView extends TextView {
     private void setTrimText() {
         super.setText(getProcessText(mText), mBufferType);
         super.setMovementMethod(LinkMovementMethod.getInstance());
-        super.setHighlightColor(Color.TRANSPARENT);// 去除按下蓝色背景
+        super.setHighlightColor(Color.TRANSPARENT);// 去除按下背景
     }
 
     private CharSequence getProcessText(CharSequence text) {

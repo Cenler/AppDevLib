@@ -7,7 +7,7 @@
         <attr name="rmtv_trimLines" format="integer"/>
         <attr name="rmtv_trimExpandedText" format="string"/>
         <attr name="rmtv_trimCollapsedText" format="string"/>
-        <!-- 炸开后是否展示收起 -->
+        <!-- 展开后是否展示收起 -->
         <attr name="rmtv_showCollapsedText" format="boolean"/>
         <attr name="rmtv_clickableTextColor" format="color"/>
     </declare-styleable>

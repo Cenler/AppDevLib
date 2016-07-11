@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+@CoordinatorLayout.DefaultBehavior(BehaviorApi.class)
 public class BehaviorApi extends CoordinatorLayout.Behavior<View> {
 
     public BehaviorApi() {

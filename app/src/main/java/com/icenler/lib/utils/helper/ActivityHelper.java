@@ -7,12 +7,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.icenler.lib.utils.AppUtil;
-import com.icenler.lib.utils.LogUtil;
 import com.icenler.lib.utils.manager.ToastManager;
 
 import java.io.File;
@@ -24,7 +24,7 @@ import java.io.File;
 public class ActivityHelper {
 
     /**
-     * 拨打电话（拨号权限）
+     * 拨打电话（拨号权限 编译版本为23需要动态申请权限）
      *
      * @param phoneNum 电话号码
      */
@@ -51,7 +51,7 @@ public class ActivityHelper {
     /**
      * 应用评分
      */
-    public static void comment(Context context) {
+    public static void goComment(Context context) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             ComponentName cn = new ComponentName("com.qihoo.appstore", "com.qihoo.appstore.activities.SearchDistributionActivity");
@@ -84,17 +84,10 @@ public class ActivityHelper {
      * 安装APK文件
      */
     private static void installApk(Context context, String path) {
-        File apkfile = new File(path);
-        if (!apkfile.exists()) {
-            LogUtil.e(path);
-            throw new RuntimeException("File not found");
-        }
-
         try {
-            // 通过Intent安装APK文件
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(Uri.fromFile(apkfile), "application/vnd.android.package-archive");
+            intent.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive");
             context.startActivity(intent);
         } catch (Exception e) {
             ToastManager.show(context, "安装文件不存在");
@@ -106,8 +99,15 @@ public class ActivityHelper {
      */
     public static void uninstallApk(Context context, String packageName) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
-        Uri packageURI = Uri.parse("package:" + packageName);
-        intent.setData(packageURI);
+        intent.setData(Uri.parse("package:" + packageName));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void go(Context context) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

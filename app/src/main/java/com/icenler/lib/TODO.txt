@@ -35,9 +35,11 @@
 
     - https://github.com/DevLight-Mobile-Agency/NavigationTabBar// 自定义TabBar
     - https://github.com/sephiroth74/Material-BottomNavigation
+    - https://github.com/armcha/LuseenBottomNavigation
+    - https://github.com/saiff35/LivingTabs
 
-    - https://github.com/borjabravo10/ReadMoreTextView          // 折叠与展示文本控件
-    - http://www.jcodecraeer.com/a/opensource/2016/0509/4237.html   // * 布局折叠
+    - https://github.com/borjabravo10/ReadMoreTextView              // 折叠与展示文本控件
+    - http://www.jcodecraeer.com/a/opensource/2016/0509/4237.html   // 折叠布局
 
     - https://github.com/kakajika/FragmentAnimations            // Fragment 切换动画
 
@@ -50,7 +52,51 @@
 
     - http://www.jcodecraeer.com/a/opensource/2016/0510/4250.html   // 仿 ISO 卡片视图
 
+    - https://github.com/prolificinteractive/swipe-action-layout    // 防 ISO 下拉状态操作
+    - https://github.com/ashqal/ChromeLikeSwipeLayout
+
     - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0527/4302.html     // WebP 图片
+
+    - https://github.com/oubowu/MarqueeLayoutLibrary            // 自动混动视图
+
+    - https://github.com/venshine/GoodView                      // 点赞收藏特效
+    - https://github.com/UFreedom/FloatingText
+    - https://github.com/jd-alexander/LikeButton
+
+    - https://github.com/ldoublem/LoadingView                   // 自定义Loading参考
+    - https://github.com/Rogero0o/CatLoadingView
+
+    - https://github.com/sfsheng0322/StickyHeaderListView       // 筛选布局封装
+    - https://github.com/baiiu/DropDownMenu
+    - https://github.com/sungerk/DropDownLayout
+    - https://github.com/dongjunkun/DropDownMenu
+    - https://github.com/hanks-zyh/SmallBang
+    - http://www.jcodecraeer.com/a/opensource/2015/1224/3798.html
+
+    - https://github.com/wuapnjie/PoiPhoto                      // 图片选择器
+    - https://github.com/pengjianbo/GalleryFinal
+    - https://github.com/crosswall/Android-PickPhotos
+    - https://github.com/sangcomz/FishBun
+
+    - https://github.com/zaaach/CityPicker                      // 城市列表定位
+
+    - https://github.com/androiddevelop/AlignTextView           // 文本对齐
+
+    - https://github.com/andyxialm/SmoothCheckBox               // CheckBox 动效
+
+    - https://github.com/wenmingvs/NotifyUtil                   // 消息通知
+
+    - https://github.com/whilu/AndroidTagView                   // Label 布局
+    - https://github.com/H07000223/FlycoLabelView
+
+    - https://github.com/yll2wcf/YLListView                     // 下拉视差动效
+    - https://github.com/EverythingMe/overscroll-decor          // 阻尼回弹效果
+
+    - https://github.com/z56402344/AnimTextView                 // 数字落入动效
+
+    - https://github.com/xujinyang/BiuEditText                  // 输入法动效
+    - https://github.com/alphamu/AnimatedEditText
+    - https://github.com/glomadrian/material-code-input
 
 
 》 Intent 整理：
