@@ -18,13 +18,11 @@ import java.io.File;
  */
 public class LogUtil {
 
-
     private LogUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     static String customTagPrefix = "iCenler";
-
 
     // 日志等级控制是否输出
     static boolean allowD = true;// Debug
@@ -34,11 +32,10 @@ public class LogUtil {
     static boolean allowW = true;// Warn
     static boolean allowWtf = true;// what a terrible failure
 
-    private static boolean CONTROLSWITCH = true;
-    private static final int JSON_INDENT = 4;
+    private static boolean CONTROL_SWITCH = true;
 
     static {
-        if (!CONTROLSWITCH) {
+        if (!CONTROL_SWITCH) {
             allowD = allowE = allowI = allowV = allowW = allowWtf = false;
         }
     }
@@ -105,9 +102,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.d(tag, content);
+            customLogger.d(tag, String.valueOf(content));
         } else {
-            Log.d(tag, content);
+            Log.d(tag, String.valueOf(content));
         }
     }
 
@@ -117,9 +114,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.d(tag, content, tr);
+            customLogger.d(tag, String.valueOf(content), tr);
         } else {
-            Log.d(tag, content, tr);
+            Log.d(tag, String.valueOf(content), tr);
         }
     }
 
@@ -129,9 +126,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.e(tag, content);
+            customLogger.e(tag, String.valueOf(content));
         } else {
-            Log.e(tag, content);
+            Log.e(tag, String.valueOf(content));
         }
     }
 
@@ -141,9 +138,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.e(tag, content, tr);
+            customLogger.e(tag, String.valueOf(content), tr);
         } else {
-            Log.e(tag, content, tr);
+            Log.e(tag, String.valueOf(content), tr);
         }
     }
 
@@ -153,9 +150,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.i(tag, content);
+            customLogger.i(tag, String.valueOf(content));
         } else {
-            Log.i(tag, content);
+            Log.i(tag, String.valueOf(content));
         }
     }
 
@@ -165,9 +162,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.i(tag, content, tr);
+            customLogger.i(tag, String.valueOf(content), tr);
         } else {
-            Log.i(tag, content, tr);
+            Log.i(tag, String.valueOf(content), tr);
         }
     }
 
@@ -177,9 +174,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.v(tag, content);
+            customLogger.v(tag, String.valueOf(content));
         } else {
-            Log.v(tag, content);
+            Log.v(tag, String.valueOf(content));
         }
     }
 
@@ -189,9 +186,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.v(tag, content, tr);
+            customLogger.v(tag, String.valueOf(content), tr);
         } else {
-            Log.v(tag, content, tr);
+            Log.v(tag, String.valueOf(content), tr);
         }
     }
 
@@ -201,9 +198,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.w(tag, content);
+            customLogger.w(tag, String.valueOf(content));
         } else {
-            Log.w(tag, content);
+            Log.w(tag, String.valueOf(content));
         }
     }
 
@@ -213,9 +210,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.w(tag, content, tr);
+            customLogger.w(tag, String.valueOf(content), tr);
         } else {
-            Log.w(tag, content, tr);
+            Log.w(tag, String.valueOf(content), tr);
         }
     }
 
@@ -237,9 +234,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.wtf(tag, content);
+            customLogger.wtf(tag, String.valueOf(content));
         } else {
-            Log.wtf(tag, content);
+            Log.wtf(tag, String.valueOf(content));
         }
     }
 
@@ -249,9 +246,9 @@ public class LogUtil {
         String tag = generateTag(caller);
 
         if (customLogger != null) {
-            customLogger.wtf(tag, content, tr);
+            customLogger.wtf(tag, String.valueOf(content), tr);
         } else {
-            Log.wtf(tag, content, tr);
+            Log.wtf(tag, String.valueOf(content), tr);
         }
     }
 
@@ -273,22 +270,21 @@ public class LogUtil {
      * @param content
      */
     public static void json(String content) {
-        if (TextUtils.isEmpty(content)) {
-            d("Empty or Null json content");
-            return;
-        }
+        if (!allowD) return;
 
         String message = null;
         try {
             if (content.startsWith("{")) {
                 JSONObject jsonObject = new JSONObject(content);
-                message = jsonObject.toString(JSON_INDENT);
+                message = jsonObject.toString(4);
             } else if (content.startsWith("[")) {
                 JSONArray jsonArray = new JSONArray(content);
-                message = jsonArray.toString(JSON_INDENT);
+                message = jsonArray.toString(4);
+            } else {
+                throw new JSONException("Invalid Json data");
             }
         } catch (JSONException e) {
-            e(e.getCause().getMessage() + "\n" + content);
+            e("Invalid Json data", e);
             return;
         }
 
@@ -296,9 +292,8 @@ public class LogUtil {
         Log.d(tag, "╔═══════════════════════════════════════════════════════════════════════════════════════");
         String[] lines = message.split(File.separator);
         StringBuilder jsonContent = new StringBuilder();
-        for (String line : lines) {
+        for (String line : lines)
             jsonContent.append("║ ").append(line).append(File.separator);
-        }
         Log.d(tag, jsonContent.toString());
         Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════");
     }

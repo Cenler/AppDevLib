@@ -6,58 +6,49 @@
  * - SweepGradient:     扇形渐变
  * - ComposeShader:     混合渲染，适用于组合操作
  * 使用： mPaint.setShader(XXXShader)
- * <p/>
  * Example：配合 Matrix 实现扇形动态渐变
- * <p/>
- * Paint paint = new Paint();
- * paint.setAntiAlias(true);
- * paint.setStrokeWidth(8);
- * paint.setStyle(Paint.Style.STROKE);
- * <p/>
- * int[] f = {Color.parseColor("#00A8D7A7"), Color.parseColor("#ffA8D7A7")};
- * float[] p = {.0f, 1.0f};
- * <p/>
- * SweepGradient sweepGradient = new SweepGradient(rectF.centerX(), rectF.centerX(), f, p);
- * Matrix matrix = new Matrix();
- * sweepGradient.getLocalMatrix(matrix);
- * matrix.postRotate(startAngle, rectF.centerX(), rectF.centerY());
- * sweepGradient.setLocalMatrix(matrix);
- * paint.setShader(sweepGradient);
- * <p/>
- * canvas.drawArc(rectF,0, 360, true, paint);
- * <p/>
+ *          int[] f = {Color.parseColor("#00A8D7A7"), Color.parseColor("#ffA8D7A7")};
+ *          float[] p = {.0f, 1.0f};
+ *          Matrix matrix = new Matrix();
+ *          matrix.postRotate(startAngle, rectF.centerX(), rectF.centerY());
+ *
+ *          SweepGradient sweepGradient = new SweepGradient(rectF.centerX(), rectF.centerX(), f, p);
+ *          sweepGradient.getLocalMatrix(matrix);
+ *          sweepGradient.setLocalMatrix(matrix);
+ *
+ *          Paint paint = new Paint();
+ *          paint.setAntiAlias(true);
+ *          paint.setStrokeWidth(8);
+ *          paint.setStyle(Paint.Style.STROKE);
+ *          paint.setShader(sweepGradient);
+ *
+ *          canvas.drawArc(rectF,0, 360, true, paint);
+
  * >>> ViewConfiguration 之控件常用配置
  * - 使用：ViewConfiguration.get(context)
- * <p/>
  * >>> VelocityTracker 之手势速度检测
  * - 使用：VelocityTracker.obtain().addMovement(event)
- * <p/>
  * >>> Scroller 之模拟滑动
  * - 使用：配合 computeScroll() + scrollTo(x, y) 实现控件滑动效果
  * Scroller.startScroll(startX, startY, dx, dy, duration)
- * <p/>
  * >>> Matrix 之矩阵变换
  * - 使用：配合 Canvas 使用
  * Canvas.drawBitmap(bitmap, matrix, null)
- * {MSCALE_X, MSKEW_X,    MTRANS_X,
- * MSKEW_Y,  MSCALE_Y,   MTRANS_Y,
- * MPERSP_0, MPERSP_1,   MPERSP_2}
- * MSCALE： 用于处理缩放变换
- * MSKEW：  用于处理错切变换
- * MTRANS： 用于处理平移变换
- * MPERSP： 用于处理透视变换
- * <p/>
+ *      {MSCALE_X, MSKEW_X,    MTRANS_X,
+ *      MSKEW_Y,  MSCALE_Y,   MTRANS_Y,
+ *      MPERSP_0, MPERSP_1,   MPERSP_2}
+ *      MSCALE： 用于处理缩放变换
+ *      MSKEW：  用于处理错切变换
+ *      MTRANS： 用于处理平移变换
+ *      MPERSP： 用于处理透视变换
  * >>> ColorMatrix 之颜色变换
  * - 使用：配合 Paint 使用实现灰度
  * Example：
- * <p/>
  * ColorMatrix matrix = new ColorMatrix();
  * matrix.setSaturation(0);
  * Paint paint = new Paint();
  * paint.setColorFilter(new ColorMatrixColorFilter(matrix));
  * View.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
- * <p/>
- * <p/>
  * >>> MeasureSpec 之控件测量
  * * MeasureSpec 由大小和模式组成
  * - AT_MOST：      对应 wrap_content
@@ -83,11 +74,9 @@
  * if (modeWidth == MeasureSpec.AT_MOST)
  * resultWidth = Math.min(resultWidth, sizeWidth);
  * }
- * <p/>
  * int resultHeight = 0;
  * int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
  * int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
- * <p/>
  * if (modeHeight == MeasureSpec.EXACTLY) {
  * resultHeight = sizeHeight;
  * } else {
@@ -96,7 +85,6 @@
  * resultHeight = Math.min(resultHeight, sizeHeight);
  * }
  * }
- * <p/>
  * // 设置测量尺寸
  * setMeasuredDimension(resultWidth, resultHeight);
  * }
@@ -153,7 +141,7 @@
  * - LightingColorFilter：
  *          @色彩倍增: 可用于颜色过滤
  *          @色彩添加: 光照染色
- *          
+ *
  * - PorterDuffColorFilter：
  *          @混合色值:
  *          @混合模式: 使用：配合 Paint 实现滤镜效果
