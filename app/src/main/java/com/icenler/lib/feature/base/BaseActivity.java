@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.icenler.lib.R;
-import com.icenler.lib.receiver.ExitAppReceiver;
+import com.icenler.lib.receiver.lifecycle.ExitAppReceiver;
 import com.icenler.lib.utils.manager.SystemBarTintManager;
 
 /**

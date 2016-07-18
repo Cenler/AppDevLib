@@ -1,7 +1,5 @@
 package com.icenler.lib.utils;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -9,15 +7,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
-import android.os.Looper;
+import android.os.Environment;
+import android.os.StatFs;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.text.format.Formatter;
 
-import com.icenler.lib.R;
 import com.icenler.lib.feature.AppConfig;
-import com.icenler.lib.feature.base.BaseApplication;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 
 import org.json.JSONObject;
@@ -25,7 +22,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -46,32 +42,30 @@ public class AppUtil {
     }
 
     /**
-     * @return 应用版本号
+     * @return 版本号
      */
     public static int getAppVersionCode(Context context) {
-        PackageInfo info = null;
-        int versionCode = 1;
+        PackageInfo info;
+        int versionCode = -1;
         try {
             info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
         }
 
         return versionCode;
     }
 
     /**
-     * @return 应用版本名称
+     * @return 版本名称
      */
     public static String getAppVersionName(Context context) {
-        PackageInfo info = null;
-        String versionName = "1.0.0";
+        PackageInfo info;
+        String versionName = "";
         try {
             info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionName = info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
         }
 
         return versionName;
@@ -81,7 +75,7 @@ public class AppUtil {
      * @return 应用名称
      */
     public String getAppName(Context context) {
-        String applicationName;
+        String applicationName = "";
         PackageManager packageManager;
         ApplicationInfo applicationInfo;
         try {
@@ -89,41 +83,9 @@ public class AppUtil {
             applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
             applicationName = (String) packageManager.getApplicationLabel(applicationInfo);
         } catch (Exception e) {
-            applicationName = context.getString(R.string.app_name);
         }
 
         return applicationName;
-    }
-
-    /**
-     * 获取当前SDK版本
-     */
-    public static int getAndroidSDKVersion() {
-        return Build.VERSION.SDK_INT;
-    }
-
-    /**
-     * 获取设备认证码
-     */
-    public static String getIMEI(Context context) {
-        requestPermission(Manifest.permission.READ_PHONE_STATE);
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-
-        return tm == null ? null : tm.getDeviceId();
-    }
-
-    /**
-     * 当前线程是否为主线程
-     */
-    public static boolean isMainLooper() {
-        return Looper.getMainLooper() == Looper.myLooper();
-    }
-
-    /**
-     * context 是否是 Activity 例例
-     */
-    public static boolean isActivityContext(Context context) {
-        return context instanceof Activity;
     }
 
     /**
@@ -142,95 +104,86 @@ public class AppUtil {
     }
 
     /**
-     * 查看特殊权限否否申明
-     */
-    public static void requestPermission(String permission) {
-        Context context = BaseApplication.getInstance();
-        if (PackageManager.PERMISSION_GRANTED != context.getPackageManager().checkPermission(permission, context.getPackageName())) {
-            throw new UnsupportedOperationException("missing permission \"" + "android.permission.READ_PHONE_STATE " + "\" in manifest.xml!");
-        }
-    }
-
-    /**
-     * 获取终端唯一标识
-     */
-    public static String getDeviceID(Context context) {
-        String deviceID = SharedPrefsHelper.get(AppConfig.PREFS_DEVICE_ID, "");
-        if (!TextUtils.isEmpty(deviceID)) {
-            String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-            // Use the Android ID unless it's broken, in which case fallback on deviceId,
-            // unless it's not available, then fallback on a random number which we store
-            // to a prefs file
-            try {
-                if (!"9774d56d682e549c".equals(androidId)) {
-                    deviceID = UUID.nameUUIDFromBytes(androidId.getBytes("utf8")).toString();
-                } else {
-                    deviceID = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                    deviceID = deviceID != null ? UUID.nameUUIDFromBytes(deviceID.getBytes("utf8")).toString() : UUID.randomUUID().toString();
-                }
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(e);
-            }
-
-            SharedPrefsHelper.put(AppConfig.PREFS_DEVICE_ID, deviceID);
-        }
-
-        return deviceID;
-    }
-
-
-    /**
-     * 获取应用唯一标识
+     * 非通话设备无法获取 (权限:READ_PHONE_STATE)
      *
      * @param context
-     * @param appName
-     * @return
+     * @return DeviceID TODO 待验证:Build.SERIAL
      */
-    public static String getDeviceUUID(Context context, String appName) {
-        String pullToken = SharedPrefsHelper.get(AppConfig.PREFS_DEVICE_UUID, "");
-        if (pullToken == null) {
-            UUID uuid;
-            final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-            // Use the Android ID unless it's broken, in which case fallback on deviceId,
-            // unless it's not available, then fallback on a random number which we store
-            // to a prefs file
-            try {
-                if (!"9774d56d682e549c".equals(androidId)) {
-                    uuid = UUID.nameUUIDFromBytes((androidId + appName).getBytes("utf8"));
-                } else {
-                    final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                    uuid = deviceId != null ? UUID.nameUUIDFromBytes((deviceId + appName).getBytes("utf8")) : UUID.randomUUID();
-                }
-            } catch (Exception e) {
-                uuid = UUID.randomUUID();
-            }
-            pullToken = uuid.toString();
-            SharedPrefsHelper.put(AppConfig.PREFS_DEVICE_UUID, pullToken);
-        }
-
-        return pullToken;
+    public static String getDeviceID(Context context) {
+        TelephonyManager telMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return telMgr != null ? telMgr.getDeviceId() : null;
     }
 
     /**
      * @param context
-     * @return 无线网卡 MAC 地址
+     * @return Sim 卡序列号
      */
-    public String getMacAddress(Context context) {
+    public static String getSimSerialNumber(Context context) {
+        TelephonyManager telMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return telMgr != null ? telMgr.getSimSerialNumber() : null;
+    }
+
+    /**
+     * 当设备刷机或恢复出厂设置后该值会被重置
+     *
+     * @param context
+     * @return AndroidID
+     */
+    public static String getAndroidID(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    /**
+     * 没有 Wifi 和蓝牙硬件设备无法获取
+     *
+     * @param context
+     * @return MacAddress
+     */
+    public static String getMacAddress(Context context) {
         String macAddress = SharedPrefsHelper.get(AppConfig.PREFS_MAC_ADDRESS, "");
 
         if (TextUtils.isEmpty(macAddress)) {
             WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-            WifiInfo info = (null == wifiMgr ? null : wifiMgr.getConnectionInfo());
-            macAddress = (info == null ? null : info.getMacAddress());
-
-            SharedPrefsHelper.put(AppConfig.PREFS_MAC_ADDRESS, macAddress);
+            if (null != wifiMgr) {
+                WifiInfo info = wifiMgr.getConnectionInfo();
+                if (null != info) {
+                    macAddress = info.getMacAddress();
+                    SharedPrefsHelper.put(AppConfig.PREFS_MAC_ADDRESS, macAddress);
+                }
+            }
         }
 
         return macAddress;
     }
 
     /**
-     * @return IPV6 地址形式
+     * @param context
+     * @param appName
+     * @return 通用唯一标识
+     */
+    public static String getUniversalID(Context context) {
+        String uuid = SharedPrefsHelper.get(AppConfig.PREFS_UUID, "");
+        if (uuid == null) {
+            final String androidId = Settings.Secure.getString(
+                    context.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            try {
+                if (!"9774d56d682e549c".equals(androidId)) {
+                    uuid = UUID.nameUUIDFromBytes((androidId).getBytes("utf8")).toString();
+                } else {
+                    uuid = UUID.randomUUID().toString();
+                }
+            } catch (Exception e) {
+                uuid = UUID.randomUUID().toString();
+            }
+            SharedPrefsHelper.put(AppConfig.PREFS_UUID, uuid);
+        }
+
+        return uuid;
+    }
+
+    /**
+     * @return IPv6 地址形式
      */
     public static String getLocalIpv6Address() {
         try {
@@ -251,7 +204,7 @@ public class AppUtil {
     }
 
     /**
-     * @return IPV4 地址形式
+     * @return IPv4 地址形式
      */
     public static String getLocalIpAddress() {
         try {
@@ -272,8 +225,8 @@ public class AppUtil {
         return null;
     }
 
-    public static String getNetIp() {
-        String IP = "";
+    public static String getInternetIP() {
+        String ip = null;
         try {
             String address = "http://ip.taobao.com/service/getIpInfo2.php?ip=myip";
             URL url = new URL(address);
@@ -295,21 +248,44 @@ public class AppUtil {
                 String code = jsonObject.getString("code");
                 if (code.equals("0")) {
                     JSONObject data = jsonObject.getJSONObject("data");
-                    IP = data.getString("ip");
+                    ip = data.getString("ip");
                 } else {
-                    IP = "";
+                    ip = "";
                     LogUtil.e("IP接口异常，无法获取IP地址！");
                 }
             } else {
-                IP = "";
+                ip = "";
                 LogUtil.e("网络连接异常，无法获取IP地址！");
             }
         } catch (Exception exception) {
-            IP = "";
             LogUtil.e("GetNetIp() : exception = " + exception.toString());
         }
 
-        return IP;
+        return ip;
+    }
+
+    /**
+     * @return 判断SDCard是否可用
+     */
+    public static boolean isSdcardAvailable() {
+        return Environment.getExternalStorageState()
+                .equals(Environment.MEDIA_MOUNTED);
+    }
+
+    /**
+     * @param path
+     * @return 获取指定路径空间大小
+     */
+    public static long getAvailableBytesForDirectory(String path) {
+        return new StatFs(path).getAvailableBytes();
+    }
+
+    /**
+     * @param number
+     * @return 自动格式化空间大小单位
+     */
+    public static String formatSpaceSize(Context context, long number) {
+        return Formatter.formatFileSize(context, number);
     }
 
 }

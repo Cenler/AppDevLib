@@ -16,7 +16,7 @@ public class AppConfig {
 
     /* SharedPrefrens */
     public static String PREFS_DEVICE_ID = "device_id";
-    public static String PREFS_DEVICE_UUID = "device_uuid";
+    public static String PREFS_UUID = "device_uuid";
     public static String PREFS_MAC_ADDRESS = "mac_address";
 
     /* Config Params */

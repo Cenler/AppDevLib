@@ -7,7 +7,7 @@ import android.os.StrictMode;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.icenler.lib.receiver.ExitAppReceiver;
+import com.icenler.lib.receiver.lifecycle.ExitAppReceiver;
 import com.icenler.lib.feature.AppConfig;
 import com.icenler.lib.utils.LogUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;

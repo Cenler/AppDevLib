@@ -1,4 +1,4 @@
-package com.icenler.lib.receiver;
+package com.icenler.lib.receiver.lifecycle;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

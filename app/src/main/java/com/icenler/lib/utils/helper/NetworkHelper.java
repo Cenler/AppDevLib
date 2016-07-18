@@ -5,17 +5,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
-
 /**
  * Created by iCenler - 2015/9/10.
- * Description：网络相关工具类
+ * Description：网络类型匹配
  */
 public class NetworkHelper {
 
+    public static final int UNKNOWN = -1;// 中国电信
     public static final int CMCC = 0;// 中国移动
     public static final int CUCC = 1;// 中国联通
     public static final int CTCC = 2;// 中国电信
@@ -23,8 +19,7 @@ public class NetworkHelper {
     /**
      * 手机号类型：移动0、联通1、电信2
      */
-    public static int MOBILES_TYPE = -1;
-
+    public static int MOBILES_TYPE = UNKNOWN;
 
     private static final int NETWORK_TYPE_INVALID = -1; // 无网络
     private static final int NETWORK_TYPE_ETHERNET = 0; // 有线
@@ -124,29 +119,6 @@ public class NetworkHelper {
         }
 
         return -1;// 无法识别
-    }
-
-    /**
-     * @return 当前网络 IP
-     */
-    public static String getInetAddress() {
-        String ipv4 = null;
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
-                        //if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet6Address) {
-                        ipv4 = inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return ipv4;
     }
 
 }

@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package com.icenler.lib.utils.netstatus;
+package com.icenler.lib.receiver.network;
 
 
-public class NetChangeObserver {
+public class NetworkChangeObserver {
 
-	/**
-	 * when network connected callback
-	 */
-	public void onNetConnected(NetUtils.NetType type) {
+    /**
+     * when network connected callback
+     */
+    public void onNetworkConnected(NetworkHelper.NetType type) { }
 
-	}
+    /**
+     * when network disconnected callback
+     */
+    public void onNetworkDisconnect() { }
 
-	/**
-	 *  when network disconnected callback
-	 */
-	public void onNetDisConnect() {
-
-	}
 }
