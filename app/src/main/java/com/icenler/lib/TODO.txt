@@ -62,6 +62,8 @@
     - https://github.com/venshine/GoodView                      // 点赞收藏特效
     - https://github.com/UFreedom/FloatingText
     - https://github.com/jd-alexander/LikeButton
+    - https://github.com/hanks-zyh/SmallBang
+    - http://www.jcodecraeer.com/a/opensource/2015/1224/3798.html
 
     - https://github.com/ldoublem/LoadingView                   // 自定义Loading参考
     - https://github.com/Rogero0o/CatLoadingView
@@ -70,8 +72,6 @@
     - https://github.com/baiiu/DropDownMenu
     - https://github.com/sungerk/DropDownLayout
     - https://github.com/dongjunkun/DropDownMenu
-    - https://github.com/hanks-zyh/SmallBang
-    - http://www.jcodecraeer.com/a/opensource/2015/1224/3798.html
 
     - https://github.com/wuapnjie/PoiPhoto                      // 图片选择器
     - https://github.com/pengjianbo/GalleryFinal
@@ -93,10 +93,15 @@
     - https://github.com/EverythingMe/overscroll-decor          // 阻尼回弹效果
 
     - https://github.com/z56402344/AnimTextView                 // 数字落入动效
+    - https://github.com/robinhood/ticker
 
     - https://github.com/xujinyang/BiuEditText                  // 输入法动效
     - https://github.com/alphamu/AnimatedEditText
     - https://github.com/glomadrian/material-code-input
+
+                                                                // 转场动画
+    - https://github.com/hehonghui/android-tech-frontier/tree/master/others/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAAndroid%20%E6%96%B0%E7%89%B9%E6%80%A7-Transition-Part-1
+    - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0711/4490.html
 
 
 》 Intent 整理：
