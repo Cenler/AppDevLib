@@ -1,20 +1,20 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-    </style>
-
-    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- 全局主题配置 -->
         <item name="android:screenOrientation">portrait</item><!-- 横竖屏锁定 -->
         <item name="colorPrimaryDark">@color/color_ink</item><!-- Statebar Color 5.0支持 -->
         <item name="colorPrimary">@color/color_ink</item><!-- Toolbar Color -->
         <item name="colorAccent">@color/color_blue_assist</item><!-- Metral Design -->
         <item name="android:textColorPrimary">#FFCFCFCF</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="SwipeBackTheme" parent="BaseAppTheme">
+    <style name="AppTheme.Splash">
+        <item name="android:background">@mipmap/img_welcome_splash</item><!-- 冷启动优化 -->
+    </style>
+
+    <style name="AppTheme.SwipeBack">
         <item name="android:windowIsTranslucent">true</item><!-- SwipeBack 黑屏处理 -->
     </style>
 

@@ -1,4 +1,4 @@
-package com.icenler.lib.mvp;
+package com.icenler.lib.feature.mvp.demo1;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

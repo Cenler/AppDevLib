@@ -80,6 +80,7 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
+    compile 'com.anupcowkur:reservoir:3.0.0'
 
     // 网络
     compile 'com.squareup.okhttp:okhttp:2.4.0'

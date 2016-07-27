@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.icenler.lib.feature.base.App;
+import com.icenler.lib.feature.App;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

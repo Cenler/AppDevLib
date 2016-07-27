@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.icenler.lib.R;
-import com.icenler.lib.feature.base.App;
+import com.icenler.lib.feature.App;
 
 import java.lang.reflect.Field;
 

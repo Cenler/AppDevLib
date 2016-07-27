@@ -56,7 +56,7 @@ public class TestActivity extends BaseActivity {
     private boolean expanded = false;
 
     @Override
-    protected int doGetContentViewResId() {
+    protected int doGetLayoutResId() {
         return R.layout.activity_test;
     }
 

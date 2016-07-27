@@ -26,7 +26,7 @@ import com.icenler.lib.R;
 public abstract class BaseDialogFragment extends DialogFragment {
 
     @LayoutRes
-    protected abstract int doGetContentViewId();
+    protected abstract int doGetLayoutResId();
 
     protected abstract void doInit(View root);
 
@@ -43,7 +43,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new Dialog(getActivity(), getDialogTheme());
 
-        View root = LayoutInflater.from(getActivity()).inflate(doGetContentViewId(), null);
+        View root = LayoutInflater.from(getActivity()).inflate(doGetLayoutResId(), null);
 
         dialog.setCancelable(isCancelable());
         dialog.setCanceledOnTouchOutside(isCanceledOnTouchOutside());

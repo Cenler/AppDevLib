@@ -1,9 +1,12 @@
 package com.icenler.lib.feature.base;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,17 +26,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder mUnbinder;
 
     @LayoutRes
-    protected abstract int doGetContentViewResId();
+    protected abstract int doGetLayoutResId();
 
     protected abstract void doInit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initSystemBar();
-        super.setContentView(doGetContentViewResId());
-
+        super.setContentView(doGetLayoutResId());
         mUnbinder = ButterKnife.bind(this);
+
+        initSystemBar();
+
+        doInit();
     }
 
     @Override
@@ -72,10 +77,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
     }
 
+    /* extend api */
+    protected void startActivityAfterFinish(Intent intent) {
+        startActivityAfterFinish(intent, null);
+    }
+
+    protected void startActivityAfterFinish(Intent intent, @NonNull Bundle bundle) {
+        startActivity(intent, bundle);
+        finish();
+    }
+
     /**
-     * 沉浸式状态栏设置
+     * @return 默认状态栏颜色
      */
-    protected void initSystemBar() {
+    @ColorRes
+    protected int getDefaultStatusBarTintColor(){
+        return R.color.color_status_bar_translucence;
+    }
+
+    /* 沉浸式状态栏设置 */
+    private void initSystemBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
@@ -83,11 +104,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.color_status_bar_translucence);
+        tintManager.setStatusBarTintResource(getDefaultStatusBarTintColor());
     }
 
     @TargetApi(19)
-    protected void setTranslucentStatus(boolean on) {
+    private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
         final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;

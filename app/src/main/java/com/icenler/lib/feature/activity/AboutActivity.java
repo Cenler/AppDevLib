@@ -2,7 +2,6 @@ package com.icenler.lib.feature.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.icenler.lib.R;
 import com.icenler.lib.utils.AppUtil;
 import com.icenler.lib.utils.helper.ActivityHelper;
-import com.icenler.lib.utils.manager.SystemBarTintManager;
 import com.icenler.lib.view.swiplayout.SwipeBackCompatActivity;
 
 import butterknife.BindView;
@@ -35,7 +33,7 @@ public class AboutActivity extends SwipeBackCompatActivity {
     }
 
     @Override
-    protected int doGetContentViewResId() {
+    protected int doGetLayoutResId() {
         return R.layout.activity_about;
     }
 
@@ -48,15 +46,8 @@ public class AboutActivity extends SwipeBackCompatActivity {
     }
 
     @Override
-    protected void initSystemBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
-
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setNavigationBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(android.R.color.transparent);
+    protected int getDefaultStatusBarTintColor() {
+        return android.R.color.transparent;
     }
 
     @Override

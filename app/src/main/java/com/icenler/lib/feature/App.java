@@ -1,4 +1,4 @@
-package com.icenler.lib.feature.base;
+package com.icenler.lib.feature;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -7,8 +7,8 @@ import android.os.StrictMode;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.icenler.lib.receiver.lifecycle.ApplicationLifecycleListener;
 import com.icenler.lib.receiver.lifecycle.ExitAppReceiver;
-import com.icenler.lib.feature.Constants;
 import com.icenler.lib.utils.LogUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,6 +29,8 @@ public class App extends Application {
     private static App mInstance;
     private static RefWatcher mRefWatcher;
     private static RequestQueue mHttpQueues;
+
+    private ApplicationLifecycleListener mLiftListener;
 
     /**
      * @return App 全局上下文
@@ -51,6 +53,22 @@ public class App extends Application {
         return mHttpQueues;
     }
 
+    /**
+     * @return 前后台切换状态
+     */
+    public boolean isBackground() {
+        return mLiftListener.isBackground();
+    }
+
+    /**
+     * 退出应用
+     */
+    public void exitApp() {
+        ExitAppReceiver.exitApp(this);
+        Runtime.getRuntime().exit(0);
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -68,23 +86,34 @@ public class App extends Application {
             }
         }
 
-        this.mInstance = App.this;
-        LogUtil.i(this.getClass().getSimpleName());
+        mInstance = App.this;
+        mInstance.registerActivityLifecycleCallbacks(mLiftListener = new ApplicationLifecycleListener());
 
-        initAll();
+        initAllSdk();
     }
 
-    private void initAll() {
-        installLeakCanary(this);
+    private void initAllSdk() {
         initStrictMode();
-        initImageLoaderConfig(getApplicationContext());
+
+        installLeakCanary(this);
+
         initRequestQueues(getApplicationContext());
+
+        initImageLoaderConfig(getApplicationContext());
     }
 
     private void initStrictMode() {
         if (Constants.DEBUG) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());// 磁盘读写及网络
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());// 内存相关检测
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy
+                    .Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());// 磁盘读写及网络
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy
+                    .Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());// 内存相关检测
         }
     }
 
@@ -134,21 +163,11 @@ public class App extends Application {
      * 内存泄露检测工具：release 版本下使用 RefWatcher.DISABLED
      */
     private void installLeakCanary(Application app) {
-        // TODO 待引入环境自动检测控制
         if (!Constants.DEBUG) {
             mRefWatcher = RefWatcher.DISABLED;
         } else {
             mRefWatcher = LeakCanary.install(app);
         }
-    }
-
-    /**
-     * 退出应用
-     */
-    public void exitApp() {
-        ExitAppReceiver.exitApp(this);
-        Runtime.getRuntime().exit(0);
-        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
 }

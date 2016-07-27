@@ -3,7 +3,6 @@ package com.icenler.lib.feature;
 import android.graphics.Typeface;
 
 import com.icenler.lib.BuildConfig;
-import com.icenler.lib.feature.base.App;
 import com.icenler.lib.utils.AppUtil;
 
 /**

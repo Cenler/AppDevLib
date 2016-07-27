@@ -1,4 +1,4 @@
-package com.icenler.lib.feature;
+package com.icenler.lib.feature.activity;
 
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
@@ -25,9 +25,8 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 
 import com.icenler.lib.R;
-import com.icenler.lib.feature.activity.AboutActivity;
+import com.icenler.lib.feature.App;
 import com.icenler.lib.feature.base.BaseActivity;
-import com.icenler.lib.feature.base.App;
 import com.icenler.lib.feature.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
@@ -49,28 +48,32 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+
     @BindView(R.id.nav_view)
     NavigationView mNavView;
+
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout mContainer;
+
     @BindView(R.id.tabs_layout)
     TabLayout mTabs;
+
     @BindView(R.id.pager_view)
     ViewPager mPager;
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     private long exitTimeMillis;
-
 
     /**
      * Fiddler 使用：
      * http://blog.csdn.net/ohmygirl/article/details/17846199
      * http://blog.csdn.net/ohmygirl/article/details/17849983
      * http://blog.csdn.net/ohmygirl/article/details/17855031
-     * <p/>
+     * <p>
      * Jenkins Android 自动打包服务器
-     * <p/>
+     * <p>
      * - http://jcodecraeer.com/plus/list.php?tid=31&codecategory=22000
      * - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0822/3342.html
      * - http://segmentfault.com/a/1190000002873657
@@ -79,14 +82,14 @@ public class MainActivity extends BaseActivity {
      * 切换主题
      * getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
      * recreate();
-     * <p/>
+     * <p>
      * - Fragment 高级使用及常见问题
      * - http://www.jianshu.com/p/d9143a92ad94
      * - http://blog.csdn.net/harvic880925/article/details/44917955
      */
 
     @Override
-    protected int doGetContentViewResId() {
+    protected int doGetLayoutResId() {
         return R.layout.activity_main;
     }
 
@@ -94,7 +97,24 @@ public class MainActivity extends BaseActivity {
     protected void doInit() {
         setOverFlowShowingAlways();
 
-        init();
+        setSupportActionBar(mToolbar);
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setDisplayUseLogoEnabled(true);
+        mActionBar.setDisplayShowTitleEnabled(true);
+
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this
+                , mDrawerLayout
+                , R.string.action_open_menu
+                , R.string.action_close_menu);
+        mDrawerToggle.syncState();
+        mDrawerToggle.setToolbarNavigationClickListener(null);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        TabPagerAdapter mAdapter = new TabPagerAdapter(getSupportFragmentManager());
+        mPager.setOffscreenPageLimit(3);
+        mPager.setAdapter(mAdapter);
+        mTabs.setupWithViewPager(mPager);
 
         SimpleProgressDialog.show(getFragmentManager());
     }
@@ -175,25 +195,6 @@ public class MainActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void init() {
-        setSupportActionBar(mToolbar);
-        ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setDisplayUseLogoEnabled(true);
-        mActionBar.setDisplayShowTitleEnabled(true);
-
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.action_open_menu, R.string.action_close_menu);
-        mDrawerToggle.syncState();
-        mDrawerToggle.setToolbarNavigationClickListener(null);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        TabPagerAdapter mAdapter = new TabPagerAdapter(getSupportFragmentManager());
-        mPager.setOffscreenPageLimit(3);
-        mPager.setAdapter(mAdapter);
-        mTabs.setupWithViewPager(mPager);
-    }
-
 
     @Override
     public void onBackPressed() {
