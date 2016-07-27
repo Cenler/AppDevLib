@@ -3,14 +3,14 @@ package com.icenler.lib.feature;
 import android.graphics.Typeface;
 
 import com.icenler.lib.BuildConfig;
-import com.icenler.lib.feature.base.BaseApplication;
+import com.icenler.lib.feature.base.App;
 import com.icenler.lib.utils.AppUtil;
 
 /**
  * Created by iCenler - 2015/7/17.
  * Description：App 全局配置
  */
-public class AppConfig {
+public class Constants {
 
     public static boolean DEBUG = BuildConfig.DEBUG;
 
@@ -20,7 +20,7 @@ public class AppConfig {
     public static String PREFS_MAC_ADDRESS = "mac_address";
 
     /* Config Params */
-    public static String APP_NAME = AppUtil.getAppVersionName(BaseApplication.getInstance());
+    public static String APP_NAME = AppUtil.getAppVersionName(App.getInstance());
 
     /* Font Typeface */
     public static Typeface FZHHJT;// 方正行黑简体

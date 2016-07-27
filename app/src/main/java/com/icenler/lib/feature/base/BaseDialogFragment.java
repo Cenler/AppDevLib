@@ -3,6 +3,7 @@ package com.icenler.lib.feature.base;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.icenler.lib.R;
  */
 public abstract class BaseDialogFragment extends DialogFragment {
 
+    @LayoutRes
     protected abstract int doGetContentViewId();
 
     protected abstract void doInit(View root);
@@ -34,6 +36,8 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public void setOnDismissListener(DialogInterface.OnDismissListener onDialogDismissListener) {
         this.mDismissListener = onDialogDismissListener;
     }
+
+    private DialogInterface.OnDismissListener mDismissListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -108,8 +112,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
     protected int getDefaultHeight() {
         return WindowManager.LayoutParams.WRAP_CONTENT;
     }
-
-    private DialogInterface.OnDismissListener mDismissListener;
 
     @Override
     public void onDismiss(DialogInterface dialog) {

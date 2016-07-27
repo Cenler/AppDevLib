@@ -8,7 +8,7 @@ import android.os.StrictMode;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.icenler.lib.receiver.lifecycle.ExitAppReceiver;
-import com.icenler.lib.feature.AppConfig;
+import com.icenler.lib.feature.Constants;
 import com.icenler.lib.utils.LogUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,16 +24,16 @@ import java.util.List;
  * Created by iCenler - 2015/7/13：
  * Description：应用启动初始化
  */
-public class BaseApplication extends Application {
+public class App extends Application {
 
-    private static BaseApplication mInstance;
+    private static App mInstance;
     private static RefWatcher mRefWatcher;
     private static RequestQueue mHttpQueues;
 
     /**
      * @return App 全局上下文
      */
-    public static BaseApplication getInstance() {
+    public static App getInstance() {
         return mInstance;
     }
 
@@ -68,7 +68,7 @@ public class BaseApplication extends Application {
             }
         }
 
-        this.mInstance = BaseApplication.this;
+        this.mInstance = App.this;
         LogUtil.i(this.getClass().getSimpleName());
 
         initAll();
@@ -82,7 +82,7 @@ public class BaseApplication extends Application {
     }
 
     private void initStrictMode() {
-        if (AppConfig.DEBUG) {
+        if (Constants.DEBUG) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());// 磁盘读写及网络
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());// 内存相关检测
         }
@@ -135,7 +135,7 @@ public class BaseApplication extends Application {
      */
     private void installLeakCanary(Application app) {
         // TODO 待引入环境自动检测控制
-        if (!AppConfig.DEBUG) {
+        if (!Constants.DEBUG) {
             mRefWatcher = RefWatcher.DISABLED;
         } else {
             mRefWatcher = LeakCanary.install(app);

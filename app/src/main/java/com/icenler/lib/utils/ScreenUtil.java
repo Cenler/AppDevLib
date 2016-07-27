@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.icenler.lib.R;
-import com.icenler.lib.feature.base.BaseApplication;
+import com.icenler.lib.feature.base.App;
 
 import java.lang.reflect.Field;
 
@@ -31,7 +31,7 @@ public class ScreenUtil {
     private static final DisplayMetrics metrics;    // 屏幕密度
 
     static {
-        metrics = BaseApplication.getInstance().getResources().getDisplayMetrics();
+        metrics = App.getInstance().getResources().getDisplayMetrics();
         mWidthPixels = metrics.widthPixels;
         mHeightPixels = metrics.heightPixels;
     }

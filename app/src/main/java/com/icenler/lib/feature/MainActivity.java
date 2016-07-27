@@ -26,8 +26,8 @@ import android.view.Window;
 
 import com.icenler.lib.R;
 import com.icenler.lib.feature.activity.AboutActivity;
-import com.icenler.lib.feature.base.BaseApplication;
-import com.icenler.lib.feature.base.BaseCompatActivity;
+import com.icenler.lib.feature.base.BaseActivity;
+import com.icenler.lib.feature.base.App;
 import com.icenler.lib.feature.fragment.TestFragment;
 import com.icenler.lib.utils.manager.SnackbarManager;
 import com.icenler.lib.utils.manager.ToastManager;
@@ -39,29 +39,29 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * netstat -ano | findstr "5037"
  */
-public class MainActivity extends BaseCompatActivity {
+public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView mNavView;
-    @Bind(R.id.coordinatorLayout)
+    @BindView(R.id.coordinatorLayout)
     CoordinatorLayout mContainer;
-    @Bind(R.id.tabs_layout)
+    @BindView(R.id.tabs_layout)
     TabLayout mTabs;
-    @Bind(R.id.pager_view)
+    @BindView(R.id.pager_view)
     ViewPager mPager;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     private long exitTimeMillis;
+
 
     /**
      * Fiddler 使用：
@@ -79,17 +79,20 @@ public class MainActivity extends BaseCompatActivity {
      * 切换主题
      * getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
      * recreate();
-     *
+     * <p/>
      * - Fragment 高级使用及常见问题
      * - http://www.jianshu.com/p/d9143a92ad94
      * - http://blog.csdn.net/harvic880925/article/details/44917955
      */
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_main);
+    protected int doGetContentViewResId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void doInit() {
         setOverFlowShowingAlways();
-        ButterKnife.bind(this);
 
         init();
 
@@ -191,11 +194,6 @@ public class MainActivity extends BaseCompatActivity {
         mTabs.setupWithViewPager(mPager);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
 
     @Override
     public void onBackPressed() {
@@ -203,7 +201,7 @@ public class MainActivity extends BaseCompatActivity {
             exitTimeMillis = System.currentTimeMillis();
             ToastManager.show(this, getString(R.string.prompt_exit_app));
         } else {
-            BaseApplication.getInstance().exitApp();
+            App.getInstance().exitApp();
             super.onBackPressed();
         }
     }

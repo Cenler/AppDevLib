@@ -1,36 +1,75 @@
 package com.icenler.lib.feature.base;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.icenler.lib.R;
-import com.icenler.lib.receiver.lifecycle.ExitAppReceiver;
 import com.icenler.lib.utils.manager.SystemBarTintManager;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by iCenler - 2015/7/14.
  * Description：Activity 基类
  */
-public class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
 
-    private ExitAppReceiver mExitAppReceiver = new ExitAppReceiver();
+    private Unbinder mUnbinder;
+
+    @LayoutRes
+    protected abstract int doGetContentViewResId();
+
+    protected abstract void doInit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registerReceivers();
         initSystemBar();
+        super.setContentView(doGetContentViewResId());
+
+        mUnbinder = ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceivers();
+        mUnbinder.unbind();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     /**
@@ -58,20 +97,6 @@ public class BaseActivity extends Activity {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
-    }
-
-    /**
-     * 注册广播
-     */
-    private void registerReceivers() {
-        registerReceiver(mExitAppReceiver, new IntentFilter(ExitAppReceiver.ACTION_EXIT_APP));
-    }
-
-    /**
-     * 注销广播
-     */
-    private void unregisterReceivers() {
-        unregisterReceiver(mExitAppReceiver);
     }
 
 }

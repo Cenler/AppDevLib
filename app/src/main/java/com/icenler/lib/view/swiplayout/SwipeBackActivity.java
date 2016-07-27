@@ -4,10 +4,10 @@ package com.icenler.lib.view.swiplayout;
 import android.os.Bundle;
 import android.view.View;
 
-import com.icenler.lib.feature.base.BaseFragmentActivity;
+import com.icenler.lib.feature.base.BaseActivity;
 import com.icenler.lib.utils.OtherUtil;
 
-public class SwipeBackActivity extends BaseFragmentActivity implements SwipeBackActivityBase {
+public abstract class SwipeBackActivity extends BaseActivity implements SwipeBackActivityBase {
 
     private SwipeBackActivityHelper mHelper;
 

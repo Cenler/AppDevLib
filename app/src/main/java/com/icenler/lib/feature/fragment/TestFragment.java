@@ -17,16 +17,16 @@ import com.icenler.lib.R;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TestFragment extends Fragment {
 
     public static final String TITLE = "title";
 
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-    @Bind(R.id.swipe_refresh_layout)
+    @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private LinearLayoutManager mLayoutManager;
@@ -108,7 +108,7 @@ public class TestFragment extends Fragment {
     }
 
     class CardViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_ll)
+        @BindView(R.id.item_ll)
         ViewGroup mCardLayout;
 
         public CardViewHolder(View itemView) {

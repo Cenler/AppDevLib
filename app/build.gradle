@@ -1,5 +1,6 @@
 // Android 程序申明
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 // Android 相关配置
 android {
@@ -73,7 +74,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.alibaba:fastjson:1.2.9'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.zhy:percent-support-extends:1.0.6'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'io.reactivex:rxandroid:1.0.1'

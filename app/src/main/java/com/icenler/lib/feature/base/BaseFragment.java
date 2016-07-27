@@ -24,7 +24,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        BaseApplication.getRefWatcher().watch(this);
+        App.getRefWatcher().watch(this);
     }
 
 }

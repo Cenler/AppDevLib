@@ -3,7 +3,6 @@ package com.icenler.lib.feature.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
@@ -17,18 +16,17 @@ import com.icenler.lib.utils.helper.ActivityHelper;
 import com.icenler.lib.utils.manager.SystemBarTintManager;
 import com.icenler.lib.view.swiplayout.SwipeBackCompatActivity;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import butterknife.BindView;
 
 public class AboutActivity extends SwipeBackCompatActivity {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.collapsing_toolbar)
+    @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout mToolbarLayout;
-    @Bind(R.id.version_tv)
+    @BindView(R.id.version_tv)
     TextView appVersion;
-    @Bind(R.id.coordinator_layout)
+    @BindView(R.id.coordinator_layout)
     CoordinatorLayout mCoordinatorLayout;
 
     public static void startMe(Context context) {
@@ -37,11 +35,12 @@ public class AboutActivity extends SwipeBackCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_about);
-        ButterKnife.bind(this);
+    protected int doGetContentViewResId() {
+        return R.layout.activity_about;
+    }
 
+    @Override
+    protected void doInit() {
         mToolbarLayout.setTitle(getString(R.string.about_app));
         appVersion.setText(String.format("Version: %s", AppUtil.getAppVersionName(this)));
         setSupportActionBar(mToolbar);
