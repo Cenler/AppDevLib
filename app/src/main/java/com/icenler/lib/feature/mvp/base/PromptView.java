@@ -4,8 +4,8 @@ import android.view.View;
 
 public interface PromptView {
 
-    void toast(String msg);
+    void showToast(String msg);
 
-    void snackbar(View parent, String msg);
+    void showSnackbar(View parent, String msg);
 
 }
