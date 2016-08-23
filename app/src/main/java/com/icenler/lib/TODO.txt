@@ -37,9 +37,11 @@
     - https://github.com/sephiroth74/Material-BottomNavigation
     - https://github.com/armcha/LuseenBottomNavigation
     - https://github.com/saiff35/LivingTabs
+    - https://github.com/aurelhubert/ahbottomnavigation
 
     - https://github.com/borjabravo10/ReadMoreTextView              // 折叠与展示文本控件
     - http://www.jcodecraeer.com/a/opensource/2016/0509/4237.html   // 折叠布局
+    - https://github.com/zaihuishou/ExpandableRecyclerview
 
     - https://github.com/kakajika/FragmentAnimations            // Fragment 切换动画
 
@@ -102,6 +104,11 @@
                                                                 // 转场动画
     - https://github.com/hehonghui/android-tech-frontier/tree/master/others/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAAndroid%20%E6%96%B0%E7%89%B9%E6%80%A7-Transition-Part-1
     - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0711/4490.html
+
+    - https://github.com/Y-bao/PullRefreshView                  // 刷新加载
+    - https://github.com/dinuscxj/RecyclerRefreshLayout
+
+    - https://github.com/eoinfogarty/Onboarding                 // 引导页
 
 
 》 Intent 整理：
