@@ -33,14 +33,16 @@
         <activity
             android:name=".feature.activity.SplashActivity"
             android:theme="@style/AppTheme.Splash">
+
+        </activity>
+
+        <activity android:name=".feature.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".feature.activity.MainActivity"/>
 
         <activity
             android:name=".feature.activity.AboutActivity"

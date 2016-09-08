@@ -98,6 +98,7 @@ dependencies {
 
     // 自动布局
 //    compile 'com.zhy:autolayout:1.3.4'
+//    compile 'com.android.support:percent:22.2.0'
 
     // 基于RxJava 事件绑定及相关卓展
     compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'

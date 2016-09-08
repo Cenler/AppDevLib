@@ -38,8 +38,10 @@
     - https://github.com/armcha/LuseenBottomNavigation
     - https://github.com/saiff35/LivingTabs
     - https://github.com/aurelhubert/ahbottomnavigation
+    - https://github.com/armcha/Space-Navigation-View
 
     - https://github.com/borjabravo10/ReadMoreTextView              // 折叠与展示文本控件
+    - https://github.com/freecats/TextViewExpandableAnimation       // 文本折叠展开
     - http://www.jcodecraeer.com/a/opensource/2016/0509/4237.html   // 折叠布局
     - https://github.com/zaihuishou/ExpandableRecyclerview
 
@@ -58,6 +60,8 @@
     - https://github.com/ashqal/ChromeLikeSwipeLayout
 
     - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0527/4302.html     // WebP 图片
+
+    - https://github.com/Curzibn/Luban                          // 图片压缩
 
     - https://github.com/oubowu/MarqueeLayoutLibrary            // 自动混动视图
 
@@ -110,6 +114,23 @@
 
     - https://github.com/eoinfogarty/Onboarding                 // 引导页
 
+    - https://github.com/zuiwuyuan/WeChatPswKeyboard            // 数字密码输入
+
+    - https://github.com/mychoices/Jgraph                       // 图表引擎
+
+    - https://github.com/qifengdeqingchen/SeatTable             // 电影-选座购票
+    - https://github.com/ldoublem/FlightSeat                    // 飞机
+
+    - https://github.com/timehop/sticky-headers-recyclerview    // 悬浮指示器
+    - https://github.com/oubowu/PinnedSectionItemDecoration/tree/master
+    - https://github.com/hackware1993/MagicIndicator
+
+    - https://github.com/huazhiyuan2008/RecyclerViewCardGallery // 画廊替换方案
+    - https://github.com/rubensousa/RecyclerViewSnap            // V7 SnapHelper
+
+    - https://github.com/jinatonic/confetti                     // 粒子动画
+
+    - https://github.com/yipianfengye/android-adDialog          // 广告弹窗
 
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679

@@ -1,4 +1,4 @@
-package com.icenler.lib.view.support.recyclerview;
+package com.icenler.lib.view.support.recyclerview.manager;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
