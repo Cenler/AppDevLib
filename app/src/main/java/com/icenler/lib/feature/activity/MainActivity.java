@@ -90,8 +90,34 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int doGetLayoutResId() {
+//        TODO 全屏展示
+//        getWindow().getDecorView().setSystemUiVisibility();
+//        顶部状态栏
+//        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//        底部导航栏
+//        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN
+//        getWindow().setNavigationBarColor(Color.TRANSPARENT);
+//        getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        沉浸式模式实现参照 onWindowFocusChanged 模板代码
+
         return R.layout.activity_main;
     }
+
+//    沉浸式模式
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        if (hasFocus && Build.VERSION.SDK_INT >= 19) {
+//            View decorView = getWindow().getDecorView();
+//            decorView.setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+//        }
+//    }
 
     @Override
     protected void doInit() {
@@ -130,7 +156,9 @@ public class MainActivity extends BaseActivity {
                 if (!isGrey) {
                     isGrey = !isGrey;
                     ColorMatrix matrix = new ColorMatrix();
-                    matrix.setSaturation(0);
+                    matrix.setSaturation(0);// 饱和度
+                    // matrix.setScale(); // 亮度
+                    // matrix.setRotate();// 色调
                     Paint paint = new Paint();
                     paint.setColorFilter(new ColorMatrixColorFilter(matrix));
 

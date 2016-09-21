@@ -92,15 +92,14 @@ public class AppUtil {
      * 检测服务是否运行
      */
     public static boolean isServiceRunning(Context context, String className) {
-        boolean isRunning = false;
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> servicesList = activityManager.getRunningServices(Integer.MAX_VALUE);
         for (ActivityManager.RunningServiceInfo si : servicesList) {
             if (className.equals(si.service.getClassName())) {
-                isRunning = true;
+                return true;
             }
         }
-        return isRunning;
+        return false;
     }
 
     /**

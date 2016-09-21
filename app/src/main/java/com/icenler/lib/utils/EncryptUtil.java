@@ -9,9 +9,9 @@ import java.security.NoSuchAlgorithmException;
  * Created by iCenler - 2015/7/28：
  * Description：常用数据加密形式
  */
-public class EnctryptUtil {
+public class EncryptUtil {
 
-    private EnctryptUtil() {
+    private EncryptUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -23,7 +23,7 @@ public class EnctryptUtil {
      * @return SHA1 算法加密
      */
     public static String makeSha1Sum(byte[] bytes) {
-        return makeEnctryp(TYPE_SHA1, bytes);
+        return makeEncrypt(TYPE_SHA1, bytes);
     }
 
     /**
@@ -31,7 +31,7 @@ public class EnctryptUtil {
      * @return MD5 算法加密
      */
     public static String makeMd5Sum(byte[] bytes) {
-        return makeEnctryp(TYPE_MD5, bytes);
+        return makeEncrypt(TYPE_MD5, bytes);
     }
 
     /**
@@ -39,7 +39,7 @@ public class EnctryptUtil {
      * @param bytes
      * @return 根据机密类型加密
      */
-    private static String makeEnctryp(String type, byte[] bytes) {
+    private static String makeEncrypt(String type, byte[] bytes) {
         String target = null;
         MessageDigest digest = null;
         if (bytes != null) {

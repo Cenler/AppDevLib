@@ -132,6 +132,8 @@
 
     - https://github.com/yipianfengye/android-adDialog          // 广告弹窗
 
+    - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0830/6578.html // 开源项目进阶
+
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
 
