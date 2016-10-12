@@ -15,9 +15,13 @@
 
     - https://github.com/sungerk/CircularMenu                   // 圆形菜单
 
+    - https://github.com/hdodenhof/CircleImageView              // 圆形图片
+
     - http://www.imooc.com/view/223                             // 推送服务
 
     - https://github.com/alorma/TimelineView                    // 时间轴
+
+    - https://github.com/code-mc/material-icon-lib              // 文本图片
 
     - http://blog.csdn.net/xu_fu/article/details/44004841       // SVG Drawable
 
@@ -42,12 +46,16 @@
 
     - https://github.com/borjabravo10/ReadMoreTextView              // 折叠与展示文本控件
     - https://github.com/freecats/TextViewExpandableAnimation       // 文本折叠展开
-    - http://www.jcodecraeer.com/a/opensource/2016/0509/4237.html   // 折叠布局
+
+    - https://github.com/cachapa/ExpandableLayout                   // 折叠布局
+    - https://github.com/traex/ExpandableLayout
     - https://github.com/zaihuishou/ExpandableRecyclerview
 
     - https://github.com/kakajika/FragmentAnimations            // Fragment 切换动画
 
     - https://github.com/waynell/VideoListPlayer                // 视频滑动播放
+
+    - https://github.com/supercwn/SuperPlayer                   // 视频播放器
 
     - https://github.com/alphamu/AnimatedEditText               // 输入文本动画
 
@@ -55,9 +63,12 @@
     - http://www.jcodecraeer.com/a/opensource/2016/0509/4232.html   // 自适应提示框
 
     - http://www.jcodecraeer.com/a/opensource/2016/0510/4250.html   // 仿 ISO 卡片视图
+    - https://github.com/Diolor/Swipecards
 
     - https://github.com/prolificinteractive/swipe-action-layout    // 防 ISO 下拉状态操作
     - https://github.com/ashqal/ChromeLikeSwipeLayout
+
+    - https://github.com/klinker41/android-slidingactivity          // 下拉返回
 
     - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0527/4302.html     // WebP 图片
 
@@ -83,6 +94,7 @@
     - https://github.com/pengjianbo/GalleryFinal
     - https://github.com/crosswall/Android-PickPhotos
     - https://github.com/sangcomz/FishBun
+    - https://github.com/TangXiaoLv/TelegramGallery
 
     - https://github.com/zaaach/CityPicker                      // 城市列表定位
 
@@ -98,12 +110,18 @@
     - https://github.com/yll2wcf/YLListView                     // 下拉视差动效
     - https://github.com/EverythingMe/overscroll-decor          // 阻尼回弹效果
 
+    - https://github.com/Narfss/ParallaxEverywhere              // 滑动视差展示
+    - https://github.com/Frank-Zhu/PullZoomView
+    - https://github.com/kanytu/android-parallax-recyclerview
+
     - https://github.com/z56402344/AnimTextView                 // 数字落入动效
     - https://github.com/robinhood/ticker
 
     - https://github.com/xujinyang/BiuEditText                  // 输入法动效
     - https://github.com/alphamu/AnimatedEditText
     - https://github.com/glomadrian/material-code-input
+
+    - https://github.com/florent37/MaterialTextField            // 输入框交互
 
                                                                 // 转场动画
     - https://github.com/hehonghui/android-tech-frontier/tree/master/others/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAAndroid%20%E6%96%B0%E7%89%B9%E6%80%A7-Transition-Part-1
@@ -132,7 +150,31 @@
 
     - https://github.com/yipianfengye/android-adDialog          // 广告弹窗
 
+    - https://github.com/pedant/sweet-alert-dialog              // 提示弹窗
+
+    - https://github.com/laobie/NineGridImageView               // 朋友圈图片分享
+
     - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0830/6578.html // 开源项目进阶
+    - https://github.com/ryanhoo/StylishMusicPlayer             // 音乐播放器
+
+    - https://github.com/Chacojack/HiveLayoutManager            // RecyclerViewManager 蜂窝布局
+    - https://github.com/kHRYSTAL/CircleRecyclerView            // 弧形布局
+
+    - https://github.com/RomainPiel/Shimmer-android             // 闪烁控件
+    - https://github.com/facebook/shimmer-android
+
+    - https://github.com/daimajia/AndroidImageSlider            // ViewPager 切换动画
+    - https://github.com/ToxicBakery/ViewPagerTransforms
+    - https://github.com/xgc1986/ParallaxPagerTransformer
+
+    - https://github.com/ozodrukh/CircularReveal                // 点击波纹
+    - https://github.com/traex/RippleEffect
+
+    - https://github.com/HomHomLin/SlidingLayout                // WebView 版权下拉展示
+
+    - https://github.com/xmuSistone/android-page-transition     // 卡片画廊
+
+    - https://github.com/dongjunkun/CouponView                  // 优惠券组件
 
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
