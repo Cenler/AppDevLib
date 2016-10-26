@@ -2,6 +2,8 @@ package com.icenler.lib.utils.helper;
 
 import android.util.Patterns;
 
+import com.icenler.lib.receiver.network.NetworkHelper;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
