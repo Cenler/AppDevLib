@@ -14,7 +14,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 
-import com.icenler.lib.feature.AppConfig;
+import com.icenler.lib.feature.Constants;
 import com.icenler.lib.utils.helper.SharedPrefsHelper;
 
 import org.json.JSONObject;
@@ -92,15 +92,14 @@ public class AppUtil {
      * 检测服务是否运行
      */
     public static boolean isServiceRunning(Context context, String className) {
-        boolean isRunning = false;
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> servicesList = activityManager.getRunningServices(Integer.MAX_VALUE);
         for (ActivityManager.RunningServiceInfo si : servicesList) {
             if (className.equals(si.service.getClassName())) {
-                isRunning = true;
+                return true;
             }
         }
-        return isRunning;
+        return false;
     }
 
     /**
@@ -140,7 +139,7 @@ public class AppUtil {
      * @return MacAddress
      */
     public static String getMacAddress(Context context) {
-        String macAddress = SharedPrefsHelper.get(AppConfig.PREFS_MAC_ADDRESS, "");
+        String macAddress = SharedPrefsHelper.get(Constants.PREFS_MAC_ADDRESS, "");
 
         if (TextUtils.isEmpty(macAddress)) {
             WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -148,7 +147,7 @@ public class AppUtil {
                 WifiInfo info = wifiMgr.getConnectionInfo();
                 if (null != info) {
                     macAddress = info.getMacAddress();
-                    SharedPrefsHelper.put(AppConfig.PREFS_MAC_ADDRESS, macAddress);
+                    SharedPrefsHelper.put(Constants.PREFS_MAC_ADDRESS, macAddress);
                 }
             }
         }
@@ -162,7 +161,7 @@ public class AppUtil {
      * @return 通用唯一标识
      */
     public static String getUniversalID(Context context) {
-        String uuid = SharedPrefsHelper.get(AppConfig.PREFS_UUID, "");
+        String uuid = SharedPrefsHelper.get(Constants.PREFS_UUID, "");
         if (uuid == null) {
             final String androidId = Settings.Secure.getString(
                     context.getContentResolver(),
@@ -176,7 +175,7 @@ public class AppUtil {
             } catch (Exception e) {
                 uuid = UUID.randomUUID().toString();
             }
-            SharedPrefsHelper.put(AppConfig.PREFS_UUID, uuid);
+            SharedPrefsHelper.put(Constants.PREFS_UUID, uuid);
         }
 
         return uuid;

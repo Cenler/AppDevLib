@@ -11,7 +11,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -37,7 +36,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -58,11 +56,12 @@ public class TestActivity extends BaseActivity {
     private boolean expanded = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_test);
-        ButterKnife.bind(this);
+    protected int doGetLayoutResId() {
+        return R.layout.activity_test;
+    }
 
+    @Override
+    protected void doInit() {
         iv = (ImageView) findViewById(R.id.search);
         text = (TextView) findViewById(R.id.text);
         searchToBar = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.svg_anim_search_to_bar);
@@ -73,7 +72,6 @@ public class TestActivity extends BaseActivity {
         // whole view left by half the difference to keep it centered
         offset = -71f * (int) getResources().getDisplayMetrics().scaledDensity;
         iv.setTranslationX(offset);
-
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.icenler.lib.feature.base.BaseApplication;
+import com.icenler.lib.feature.App;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -338,14 +338,14 @@ public class FileHelper {
 
     private static String getAppStorageDirectory(String dirName) {
         if (isSDCardEnable()) {
-            File file = BaseApplication.getInstance().getExternalFilesDir(dirName);
+            File file = App.getInstance().getExternalFilesDir(dirName);
             if (null == file) {
                 // 特殊情况下为 null 处理
                 String cacheDir = TextUtils.concat(
                         Environment.getExternalStorageDirectory().getPath(), File.separator
                         , "Android", File.separator
                         , "data", File.separator
-                        , BaseApplication.getInstance().getPackageName(), File.separator
+                        , App.getInstance().getPackageName(), File.separator
                         , dirName, File.separator).toString();
                 file = new File(cacheDir);
                 file.mkdirs();
@@ -354,8 +354,8 @@ public class FileHelper {
             return file.getAbsolutePath();
         } else {
             return dirName == null ?
-                    BaseApplication.getInstance().getFileStreamPath(dirName).getAbsolutePath() :
-                    BaseApplication.getInstance().getFilesDir().getAbsolutePath();
+                    App.getInstance().getFileStreamPath(dirName).getAbsolutePath() :
+                    App.getInstance().getFilesDir().getAbsolutePath();
         }
     }
 

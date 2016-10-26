@@ -6,7 +6,7 @@ import android.widget.GridView;
 
 /**
  * Created by iCenler - 2015/5/14.
- * Description：解决 ScrollView 与 GridView 嵌套冲突
+ * Description：解决多个滑动组件嵌套
  */
 public class NoSlipGridView extends GridView {
 

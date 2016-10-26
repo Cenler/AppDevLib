@@ -8,7 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 
-import com.icenler.lib.feature.base.BaseApplication;
+import com.icenler.lib.feature.App;
 
 import java.io.IOException;
 
@@ -38,7 +38,7 @@ public class PlayerManager {
     }
 
     private PlayerManager() {
-        this.context = BaseApplication.getInstance();
+        this.context = App.getInstance();
         mediaPlayer = new MediaPlayer();
         audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     }

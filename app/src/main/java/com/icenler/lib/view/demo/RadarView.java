@@ -14,6 +14,7 @@ import com.icenler.lib.utils.ScreenUtil;
 /**
  * Created by Fangde on 2016/1/22.
  * Description: 蜘蛛网分布图 示例——待完善扩充
+ * https://github.com/jiangzehui/polygonsview
  */
 public class RadarView extends View {
 

@@ -1,5 +1,6 @@
 // Android 程序申明
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 // Android 相关配置
 android {
@@ -73,15 +74,17 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.alibaba:fastjson:1.2.9'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.zhy:percent-support-extends:1.0.6'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
+    compile 'com.anupcowkur:reservoir:3.0.0'
 
     // 网络
     compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.mcxiaoke.volley:library:1.0.19'
 
     // 图片
@@ -95,6 +98,7 @@ dependencies {
 
     // 自动布局
 //    compile 'com.zhy:autolayout:1.3.4'
+//    compile 'com.android.support:percent:22.2.0'
 
     // 基于RxJava 事件绑定及相关卓展
     compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
