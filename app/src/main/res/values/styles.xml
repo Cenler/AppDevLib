@@ -11,7 +11,7 @@
     </style>
 
     <style name="AppTheme.Splash">
-        <item name="android:background">@mipmap/img_welcome_splash</item><!-- 冷启动优化 -->
+        <item name="android:windowBackground">@mipmap/img_welcome_splash</item><!-- 冷启动优化 -->
     </style>
 
     <style name="AppTheme.SwipeBack">

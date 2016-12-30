@@ -95,6 +95,7 @@
     - https://github.com/crosswall/Android-PickPhotos
     - https://github.com/sangcomz/FishBun
     - https://github.com/TangXiaoLv/TelegramGallery
+    - https://github.com/BmobSnail/PhotoUploadView
 
     - https://github.com/zaaach/CityPicker                      // 城市列表定位
 
@@ -152,13 +153,14 @@
 
     - https://github.com/pedant/sweet-alert-dialog              // 提示弹窗
 
-    - https://github.com/laobie/NineGridImageView               // 朋友圈图片分享
-
     - http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0830/6578.html // 开源项目进阶
     - https://github.com/ryanhoo/StylishMusicPlayer             // 音乐播放器
 
     - https://github.com/Chacojack/HiveLayoutManager            // RecyclerViewManager 蜂窝布局
+
     - https://github.com/kHRYSTAL/CircleRecyclerView            // 弧形布局
+
+    - https://github.com/mcxtzhang/ZLayoutManager               // 卡片层叠视图
 
     - https://github.com/RomainPiel/Shimmer-android             // 闪烁控件
     - https://github.com/facebook/shimmer-android
@@ -166,6 +168,8 @@
     - https://github.com/daimajia/AndroidImageSlider            // ViewPager 切换动画
     - https://github.com/ToxicBakery/ViewPagerTransforms
     - https://github.com/xgc1986/ParallaxPagerTransformer
+    - https://github.com/fccaikai/AutoScrollViewPager           // 轮播图
+
 
     - https://github.com/ozodrukh/CircularReveal                // 点击波纹
     - https://github.com/traex/RippleEffect
@@ -175,6 +179,19 @@
     - https://github.com/xmuSistone/android-page-transition     // 卡片画廊
 
     - https://github.com/dongjunkun/CouponView                  // 优惠券组件
+
+    - https://github.com/sfsheng0322/MarqueeView                // 公告栏组件
+
+    - https://github.com/Bilibili/DanmakuFlameMaster/issues     // 弹幕框架
+
+    - https://github.com/laobie/NineGridImageView               // 九宫格图片适配
+    - https://github.com/panyiho/NineGridView
+    - https://github.com/w4lle/NineGridView
+    - https://github.com/KevinMbg/NineImageViews
+    - https://github.com/jeasonlzy/NineGridView
+
+    - https://github.com/chrisbanes/PhotoView
+    - https://github.com/githubwing/DragPhotoView               // 照片预览滑动退出
 
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
