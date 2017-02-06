@@ -31,6 +31,7 @@
     - https://github.com/Aspsine/MultiThreadDownload            // 多线程下载
     - https://github.com/AigeStudio/MultiThreadDownloader
     - http://blog.csdn.net/zhaokaiqiang1992/article/details/43939279
+    - https://github.com/ssseasonnn/RxDownload
 
     - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/AndroidTVWidget-use-manual           // TV 开发框架
     - https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/Android-TV-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E9%94%AE%E7%9B%98%E6%8E%A7%E4%BB%B6%28SkbContainer%29
@@ -84,6 +85,10 @@
 
     - https://github.com/ldoublem/LoadingView                   // 自定义Loading参考
     - https://github.com/Rogero0o/CatLoadingView
+    - https://github.com/Ajian-studio/GAHonorClock
+    - https://github.com/Ajian-studio/GALeafLoading
+    - https://github.com/Ajian-studio/GABottleLoading
+    - https://github.com/Ajian-studio/GADownloading
 
     - https://github.com/sfsheng0322/StickyHeaderListView       // 筛选布局封装
     - https://github.com/baiiu/DropDownMenu
@@ -96,6 +101,7 @@
     - https://github.com/sangcomz/FishBun
     - https://github.com/TangXiaoLv/TelegramGallery
     - https://github.com/BmobSnail/PhotoUploadView
+    - https://github.com/LuckSiege/PictureSelector
 
     - https://github.com/zaaach/CityPicker                      // 城市列表定位
 
@@ -193,6 +199,12 @@
     - https://github.com/chrisbanes/PhotoView
     - https://github.com/githubwing/DragPhotoView               // 照片预览滑动退出
 
+    - https://github.com/zhengken/LyricViewDemo                 // 歌词同步
+
+    - https://github.com/codbking/CalendarExaple                // 日历组件
+
+    - https://github.com/YoKeyword/Fragmentation                // Fragments 框架
+
 》 Intent 整理：
     - http://blog.csdn.net/playboyanta123/article/details/7913679
 
@@ -212,6 +224,7 @@
     - 热补丁框架
     - https://github.com/alibaba/dexposed
     - https://github.com/alibaba/AndFix
+    - https://github.com/Tencent/tinker
     - http://bugly.qq.com/blog/?p=781
 
 

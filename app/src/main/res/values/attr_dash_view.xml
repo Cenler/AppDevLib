@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DashView">
+        <attr name="dv_dashWidth" format="dimension"/>
+        <attr name="dv_lineWidth" format="dimension"/>
+        <attr name="dv_lineHeight" format="dimension"/>
+        <attr name="dv_lineColor" format="color"/>
+        <attr name="dv_orientation">
+            <enum name="horizontal" value="0" />
+            <!-- Defines a vertical widget. -->
+            <enum name="vertical" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

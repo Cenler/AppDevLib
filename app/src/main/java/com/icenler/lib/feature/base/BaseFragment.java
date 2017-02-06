@@ -22,6 +22,8 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends Fragment {
 
+    private static final String STATE_SAVE_IS_HIDDEN = "isHidden";
+
     protected View mRootView;
 
     @LayoutRes
@@ -39,6 +41,24 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Fragment 重叠问题处理, v24 已修复
+        if (savedInstanceState != null) {
+            boolean isHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
+            if (isHidden) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().hide(this).commit();
+            } else {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction().show(this).commit();
+            }
+        }
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
     }
 
     @Nullable

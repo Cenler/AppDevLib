@@ -106,6 +106,10 @@ dependencies {
 //    compile 'com.jakewharton.rxbinding:rxbinding-design:0.2.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.2.0'
 
+//    compile 'com.trello:rxlifecycle:1.0'
+// If you want to bind to Android-specific lifecycles
+//    compile 'com.trello:rxlifecycle-android:1.0'
+
     // Glide 图片加载框架
 //    compile 'com.github.bumptech.glide:glide:3.7.0'
 //    compile 'jp.wasabeef:glide-transformations:1.4.0'
